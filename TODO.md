@@ -210,6 +210,8 @@ docs/release-checklist.md
 
 ### 9. 再决定是否创建 GitHub remote
 
+Status: Completed.
+
 在发布前先确认：
 
 ```bash
@@ -231,8 +233,8 @@ gh repo create ai-workspace-standard --public --source . --remote origin --push
 
 ## 当前推荐顺序
 
-1. 跑 `docs/release-checklist.md`
-2. 决定是否创建 GitHub remote
+1. 可选：创建 GitHub Release 页面说明 `v0.1.0`
+2. 开始规划 v0.2 validator / template hardening
 
 ## 每次继续开发前的检查命令
 
