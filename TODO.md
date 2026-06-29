@@ -189,6 +189,8 @@ docs/validator-design.md
 
 ### 8. 准备 v0.1.0 release checklist
 
+Status: Completed.
+
 建议路径：
 
 ```text
@@ -211,7 +213,7 @@ docs/release-checklist.md
 在发布前先确认：
 
 ```bash
-cd /Users/sunpcm/code/ai-workspace-standard
+cd <repo-root>
 git status --short --branch
 git log --oneline --decorate -5
 ```
@@ -229,12 +231,13 @@ gh repo create ai-workspace-standard --public --source . --remote origin --push
 
 ## 当前推荐顺序
 
-1. `docs/release-checklist.md`
+1. 跑 `docs/release-checklist.md`
+2. 决定是否创建 GitHub remote
 
 ## 每次继续开发前的检查命令
 
 ```bash
-cd /Users/sunpcm/code/ai-workspace-standard
+cd <repo-root>
 git status --short --branch
 find . -maxdepth 6 -path ./.git -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md

@@ -2,13 +2,13 @@
 
 ## Current Goal
 
-Continue AEWS v0.1 after completing P0, P1, and validator design.
+Continue AEWS v0.1 after completing P0, P1, validator design, and release checklist.
 
 ## Current State
 
-- Repository path: `/Users/sunpcm/code/ai-workspace-standard`
-- Last completed step: added `docs/validator-design.md` to define future lightweight validation checks without implementing scripts.
-- Next step: write `docs/release-checklist.md` for v0.1.0 readiness, then decide whether to create a GitHub remote.
+- Repository path: repo root
+- Last completed step: added `docs/release-checklist.md` for v0.1.0 readiness, including git state, license, README, decisions, handoff, examples, validation, secret review, and public remote gate.
+- Next step: decide whether to create a GitHub remote after running the release checklist.
 - Blockers: none.
 
 ## Evidence
@@ -23,13 +23,14 @@ wc -l docs/adoption-guide.md
 wc -l docs/versioning.md
 wc -l templates/README.md
 wc -l docs/validator-design.md
+wc -l docs/release-checklist.md
 ```
 
 ## Open Questions
 
-- Whether `docs/release-checklist.md` should require a clean secret scan before public remote creation.
-- Whether release readiness should include a short manual validation result for the migration example.
+- Whether to create a public GitHub remote now or wait until one more full release-checklist pass.
+- Whether to tag `v0.1.0` before or after remote creation.
 
 ## Expiration
 
-Replace this handoff after the release checklist or GitHub remote decision is complete.
+Replace this handoff after the GitHub remote decision or v0.1.0 tag decision is complete.
