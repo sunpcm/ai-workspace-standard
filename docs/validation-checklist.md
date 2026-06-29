@@ -81,7 +81,7 @@ Suggested commands:
 
 ```bash
 git status --short --branch
-find . -maxdepth 4 -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md docs standard templates adapters examples
 ```

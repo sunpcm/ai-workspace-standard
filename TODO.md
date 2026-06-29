@@ -4,7 +4,11 @@ AEWS 当前处于 v0.1 architecture-first 阶段。接下来优先补齐可维�
 
 ## P0: 继续开发前先做
 
+Status: Completed on 2026-06-29.
+
 ### 1. 补 `CONTRIBUTING.md`
+
+Status: Completed.
 
 目标：让后续贡献不破坏 AEWS 的核心边界。
 
@@ -27,6 +31,8 @@ AEWS 当前处于 v0.1 architecture-first 阶段。接下来优先补齐可维�
 - 能被新贡献者在 5 分钟内读完。
 
 ### 2. 增加 oversized `AGENTS.md` 迁移示例
+
+Status: Completed.
 
 目标：证明 AEWS 的价值不是“新增更多文件”，而是把大上下文拆成 canonical docs + thin adapter。
 
@@ -54,6 +60,8 @@ README.md
 - `README.md` 解释每段内容迁移到哪里，以及为什么。
 
 ### 3. 用 validation checklist 自检 minimal example
+
+Status: Completed.
 
 目标：让 `docs/validation-checklist.md` 不只是文档，而是能真实约束示例质量。
 
@@ -213,21 +221,18 @@ gh repo create ai-workspace-standard --public --source . --remote origin --push
 
 ## 当前推荐顺序
 
-1. `CONTRIBUTING.md`
-2. `examples/migrations/oversized-agents/`
-3. `examples/minimal-repo/VALIDATION.md`
-4. `docs/adoption-guide.md`
-5. `docs/versioning.md`
-6. `templates/README.md`
-7. `docs/validator-design.md`
-8. `docs/release-checklist.md`
+1. `docs/adoption-guide.md`
+2. `docs/versioning.md`
+3. `templates/README.md`
+4. `docs/validator-design.md`
+5. `docs/release-checklist.md`
 
 ## 每次继续开发前的检查命令
 
 ```bash
 cd /Users/sunpcm/code/ai-workspace-standard
 git status --short --branch
-find . -maxdepth 4 -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 ```
 

@@ -25,7 +25,7 @@ The canonical standard is the source of truth. Adapters should reference canonic
 
 ```bash
 # Inspect files
-find . -maxdepth 4 -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -type f -print
 
 # Check for large markdown files
 wc -l README.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/*.md
