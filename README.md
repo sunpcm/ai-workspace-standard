@@ -48,6 +48,8 @@ AGENTS.md             Thin Codex entrypoint for this repo
 - Minimal templates: repo, handoff, decision, and experiment documents.
 - Adapter matrix: how canonical documents map to Codex, Claude Code, Cursor, and Gemini CLI.
 - Validation checklist: manual checks that prevent context duplication and adapter bloat.
+- Adoption guide: how to migrate existing repositories with minimal change.
+- Versioning policy: how to evaluate standard, template, example, and adapter changes.
 - Roadmap: what belongs in v0.1, v0.2, and v1.0.
 
 ## Status

@@ -85,6 +85,8 @@ Status: Completed.
 
 ### 4. 补 adoption guide
 
+Status: Completed.
+
 目标：让用户知道如何把现有 repo 迁移到 AEWS。
 
 建议路径：
@@ -110,6 +112,8 @@ docs/adoption-guide.md
 
 ### 5. 补 versioning policy
 
+Status: Completed.
+
 目标：避免标准文件变动后没有兼容性说明。
 
 建议路径：
@@ -132,6 +136,8 @@ docs/versioning.md
 - 明确 v0.1 仍允许调整结构，但要记录决策。
 
 ### 6. 增加 template review checklist
+
+Status: Completed.
 
 目标：防止 templates 变成完整框架 scaffold。
 
@@ -221,11 +227,8 @@ gh repo create ai-workspace-standard --public --source . --remote origin --push
 
 ## 当前推荐顺序
 
-1. `docs/adoption-guide.md`
-2. `docs/versioning.md`
-3. `templates/README.md`
-4. `docs/validator-design.md`
-5. `docs/release-checklist.md`
+1. `docs/validator-design.md`
+2. `docs/release-checklist.md`
 
 ## 每次继续开发前的检查命令
 
