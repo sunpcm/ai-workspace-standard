@@ -163,6 +163,8 @@ templates/README.md
 
 ### 7. 设计轻量 validator，而不是马上实现
 
+Status: Completed.
+
 目标：先定义自动检查范围，再决定是否写脚本。
 
 建议先写：
@@ -227,8 +229,7 @@ gh repo create ai-workspace-standard --public --source . --remote origin --push
 
 ## 当前推荐顺序
 
-1. `docs/validator-design.md`
-2. `docs/release-checklist.md`
+1. `docs/release-checklist.md`
 
 ## 每次继续开发前的检查命令
 
