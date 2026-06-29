@@ -43,6 +43,7 @@ Before considering v0.1 changes complete:
 - templates are minimal,
 - adapters do not duplicate durable architecture content,
 - examples can be understood without scripts.
+- `docs/validation-checklist.md` passes for the changed files.
 
 ## Known Risks
 

@@ -47,8 +47,13 @@ AGENTS.md             Thin Codex entrypoint for this repo
 - Document lifecycle: how information moves from working state to durable knowledge.
 - Minimal templates: repo, handoff, decision, and experiment documents.
 - Adapter matrix: how canonical documents map to Codex, Claude Code, Cursor, and Gemini CLI.
+- Validation checklist: manual checks that prevent context duplication and adapter bloat.
 - Roadmap: what belongs in v0.1, v0.2, and v1.0.
 
 ## Status
 
 This repository is in architecture-first v0.1. Do not add automation until the canonical model and minimal templates are stable.
+
+## License
+
+MIT

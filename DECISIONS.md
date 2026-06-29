@@ -45,3 +45,31 @@ Decision: Adapter files should contain read order and tool-specific behavior onl
 Consequences: Durable project facts belong in canonical documents, not adapter files.
 
 Evidence: `standard/adapters.md`, `docs/adapter-matrix.md`
+
+### 2026-06-29: Use MIT license for the initial open-source standard
+
+Status: Accepted
+
+Scope: Repo
+
+Context: AEWS is intended to be cloned, adapted, and used as a template across different teams and tools.
+
+Decision: The repository will use the MIT License.
+
+Consequences: Adoption friction stays low, but warranty and liability are disclaimed.
+
+Evidence: `LICENSE`
+
+### 2026-06-29: Add a manual validation checklist before automation
+
+Status: Accepted
+
+Scope: Repo
+
+Context: v0.1 should prove the standard manually before adding scripts or generated behavior.
+
+Decision: AEWS will use `docs/validation-checklist.md` as the acceptance gate for document, template, example, and adapter changes.
+
+Consequences: Automation is deferred until the checklist stabilizes through real use.
+
+Evidence: `docs/validation-checklist.md`, `docs/roadmap.md`

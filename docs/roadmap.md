@@ -13,13 +13,15 @@ Deliverables:
 - thin adapter rules,
 - minimal repo template,
 - one minimal example,
-- adapter matrix for Codex, Claude Code, Cursor, and Gemini CLI.
+- adapter matrix for Codex, Claude Code, Cursor, and Gemini CLI,
+- manual validation checklist.
 
 Exit criteria:
 
 - A user can decide where a new piece of context belongs.
 - A repo can expose the same canonical knowledge to at least two agents without copying content.
 - No generator script is required to understand the standard.
+- A change can be reviewed against `docs/validation-checklist.md`.
 
 ## v0.2: Validation and Template Hardening
 
