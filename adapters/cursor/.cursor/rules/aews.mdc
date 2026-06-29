@@ -1,0 +1,14 @@
+---
+description: AEWS thin adapter routing
+alwaysApply: true
+---
+
+# AEWS Cursor Adapter
+
+Read canonical AEWS documents before relying on editor-local rules:
+
+1. `PROJECT.md`
+2. `DECISIONS.md`
+3. `HANDOFF.md` if present
+
+Do not copy durable project facts into Cursor rules. Use this file only for editor-specific routing and behavior.
