@@ -32,18 +32,27 @@ wc -l README.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/
 
 # Search for adapter references
 rg -n "AGENTS.md|CLAUDE.md|GEMINI.md|PROJECT.md|HANDOFF.md|DECISIONS.md"
+
+# Run the read-only validator
+python3 scripts/aews_validate.py . --mode template
+
+# Run validator regression tests
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 ## Verification
 
-Before considering v0.1 changes complete:
+Before considering changes complete:
 
 - root `AGENTS.md` remains thin,
 - canonical concepts live under `docs/` or `standard/`,
 - templates are minimal,
 - adapters do not duplicate durable architecture content,
-- examples can be understood without scripts.
-- `docs/validation-checklist.md` passes for the changed files.
+- examples can be understood without scripts,
+- `docs/validation-checklist.md` passes for the changed files,
+- `python3 scripts/aews_validate.py . --mode template` reports no failures or
+  warnings,
+- validator regression tests pass.
 
 ## Known Risks
 

@@ -6,3 +6,7 @@
 
 # Local reference checkout used for AEWS comparison and validation.
 ECC/
+
+# Local validator caches.
+__pycache__/
+*.pyc

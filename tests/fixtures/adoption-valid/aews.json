@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "mode": "adoption",
+  "roles": {
+    "project": {
+      "primary": "README.md",
+      "supplements": ["docs/architecture.md"]
+    },
+    "decisions": {"primary": "docs/decisions.md"},
+    "handoff": {"status": "inactive"},
+    "experiment": {"status": "inactive"}
+  },
+  "adapters": [
+    {"tool": "codex", "path": "AGENTS.md"}
+  ]
+}

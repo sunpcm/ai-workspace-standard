@@ -124,3 +124,27 @@ generate or rewrite it.
 
 Evidence: `docs/validator-design.md`, `standard/documents.md`,
 `examples/reference-evaluations/full-stack-application.md`
+
+### 2026-07-26: Keep the first validator dependency-free and read-only
+
+Status: Accepted
+
+Scope: Repo
+
+Context: The ECC and ordinary application evaluations stabilized a small set of
+mechanical checks. Adding a package, Markdown parser, semantic model, or rewrite
+behavior would increase adoption and trust costs before those capabilities have
+evidence.
+
+Decision: The first validator is a Python 3.10+ standard-library script. It
+reads a target repository and optional JSON mapping, produces text findings and
+stable exit codes, and never modifies the target. Tests use `unittest` and
+checked-in fixtures without third-party dependencies.
+
+Consequences: The implementation remains inspectable and portable but local
+document parsing is intentionally conservative. Install-generated paths and
+semantic lifecycle questions remain manual-review warnings rather than hidden
+heuristics.
+
+Evidence: `scripts/aews_validate.py`, `tests/test_validator.py`,
+`docs/validator.md`

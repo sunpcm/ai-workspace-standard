@@ -72,6 +72,8 @@ git status --short --branch
 find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md docs standard templates adapters examples
+python3 scripts/aews_validate.py . --mode template
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 Then confirm:
@@ -80,4 +82,6 @@ Then confirm:
 - lifecycle placement is clear,
 - adapters remain thin,
 - templates stay minimal,
-- no runtime features are introduced without an accepted decision.
+- no runtime features are introduced without an accepted decision,
+- the validator reports no unexplained failures or warnings,
+- validator tests pass when validator code, mapping rules, or fixtures change.

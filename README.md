@@ -52,12 +52,17 @@ AGENTS.md             Thin Codex entrypoint for this repo
 - Versioning policy: how to evaluate standard, template, example, and adapter changes.
 - Roadmap: what belongs in v0.1, v0.2, and v1.0.
 
+## v0.2 Validation
+
+The first dependency-free, read-only validator is available at
+`scripts/aews_validate.py`. See `docs/validator.md` for template/adoption usage,
+the optional `aews.json` mapping, implemented checks, and manual-review limits.
+
 ## Status
 
 AEWS v0.1.0 is published. v0.2 validation and template hardening are in
-progress. Keep the work architecture-first: validate the canonical model on
-real repositories before adding automation, and keep harness runtime features
-outside the core standard.
+progress. The first validator slice is implemented after two reference
+evaluations. Keep harness runtime features outside the core standard.
 
 ## License
 

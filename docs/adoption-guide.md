@@ -55,6 +55,18 @@ document, narrower supplements, inactive lifecycle roles, and declared
 adapters. Keep all project knowledge in the mapped documents; the manifest is
 routing metadata only.
 
+Run adoption validation from an AEWS checkout:
+
+```bash
+python3 <aews-repo>/scripts/aews_validate.py <target-repo> \
+  --mode adoption \
+  --config <mapping-file>.json
+```
+
+An external mapping keeps the first evaluation read-only. See
+`docs/validator.md` for the mapping contract, exit codes, and supported local
+document references.
+
 ## Migrating From One Large `AGENTS.md`
 
 Use `examples/migrations/oversized-agents/` as the reference pattern.

@@ -125,6 +125,8 @@ git diff --check
 find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md CONTRIBUTING.md docs standard templates adapters examples
+python3 scripts/aews_validate.py . --mode template
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 Pass criteria:
@@ -132,7 +134,9 @@ Pass criteria:
 - no whitespace errors,
 - expected files are present,
 - adapters remain within soft line limits or have a documented reason,
-- keyword hits are reviewed and are either boundary explanations or intentional checklist terms.
+- keyword hits are reviewed and are either boundary explanations or intentional checklist terms,
+- the validator reports no unexplained failures or warnings,
+- validator regression tests pass.
 
 ## 9. Secret And Private Context Review
 

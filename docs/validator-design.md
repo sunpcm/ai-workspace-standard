@@ -1,6 +1,8 @@
 # Validator Design
 
-This document defines the intended scope for a future lightweight AEWS validator. It does not implement the validator.
+This document defines the scope and contract of the lightweight AEWS validator.
+The first implementation lives in `scripts/aews_validate.py`; usage belongs in
+`docs/validator.md`.
 
 The validator should automate only mechanical checks that support `docs/validation-checklist.md`. It must not replace human review of scope, lifecycle, or architectural intent.
 
@@ -11,6 +13,27 @@ The validator should automate only mechanical checks that support `docs/validati
 - Detect likely duplicated durable context.
 - Flag forbidden runtime features introduced before they are accepted.
 - Produce review hints that point back to `docs/validation-checklist.md`.
+
+## Implementation Status
+
+Implemented in the first read-only slice:
+
+- template and adoption modes;
+- routing-only `aews.json` validation;
+- canonical primary and supplement path checks;
+- mapped local document reference warnings;
+- adapter routing and line-count warnings;
+- obvious exact duplicate sentence warnings;
+- text output and exit codes;
+- dependency-free fixtures and tests.
+
+Still manual or deferred:
+
+- lifecycle freshness and semantic decision quality;
+- forbidden runtime feature classification;
+- template stack/vendor minimality hints;
+- configurable thresholds;
+- package publication and automatic rewrites.
 
 ## Non-Goals
 
@@ -26,7 +49,7 @@ The validator should not include:
 
 ## Inputs
 
-The first version should inspect a repository directory in one of two modes.
+The validator inspects a repository directory in one of two modes.
 
 ### Template Mode
 
@@ -67,8 +90,8 @@ when an explicit equivalent role is mapped.
 ### Adoption Mapping Contract
 
 The ordinary application evaluation showed that a mature Project role may need
-one primary router plus narrower supplemental documents. Adoption mode should
-therefore accept a small JSON mapping:
+one primary router plus narrower supplemental documents. Adoption mode
+therefore accepts a small JSON mapping:
 
 ```json
 {
@@ -182,10 +205,13 @@ Suggested checks:
 - repository-local Markdown paths in mapped documents resolve,
 - mapped supplements are referenced by their primary document,
 - missing paths include the referring file and line number,
-- URLs, anchors, generated paths, and example placeholders are excluded from
-  the first version.
+- fenced code, URLs, anchors, globs, angle-bracket placeholders, common example
+  paths, and a standalone generic `SKILL.md` are excluded.
 
 Result type: warning.
+
+Install-generated or tool-generated paths may still warn because determining
+their runtime existence would require tool-specific semantic behavior.
 
 Rationale: the ordinary application evaluation found intended canonical files
 under a documentation directory while primary documents still referenced old
@@ -284,7 +310,7 @@ Manual review still required:
 
 ## Exit Codes
 
-The first implementation should use:
+The first implementation uses:
 
 - `0`: no failures,
 - `1`: one or more failures,
@@ -293,7 +319,7 @@ The first implementation should use:
 Warnings alone should not fail validation unless a release checklist explicitly
 decides otherwise.
 
-## Implementation Constraints
+## First Implementation
 
 The implementation evidence gate is satisfied: the manual checklist has been
 used on ECC and one ordinary full-stack application repository.
@@ -307,13 +333,12 @@ Together they demonstrate why adoption mode must be role-aware, why Project may
 have a primary router plus supplements, and why adapter length remains a
 warning.
 
-For the first implementation:
+The implementation:
 
-- keep the first version as a local script or documented command,
-- avoid dependency-heavy parsing,
-- avoid package publishing,
-- avoid modifying files,
-- prefer transparent text checks over hidden heuristics.
+- is a local documented Python standard-library script,
+- does not publish a package,
+- does not modify target files,
+- uses transparent text checks instead of hidden heuristics.
 
 ## Open Questions
 

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "mode": "adoption",
+  "roles": {
+    "project": {"status": "inactive", "description": "not routing metadata"},
+    "decisions": {"status": "inactive"},
+    "handoff": {"status": "inactive"},
+    "experiment": {"status": "inactive"}
+  },
+  "adapters": [
+    {"tool": "codex", "path": "../outside.md"}
+  ],
+  "notes": "project knowledge is not allowed here"
+}

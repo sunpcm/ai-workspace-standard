@@ -1,0 +1,125 @@
+from __future__ import annotations
+
+import hashlib
+import importlib.util
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "tests" / "fixtures"
+SCRIPT = ROOT / "scripts" / "aews_validate.py"
+
+SPEC = importlib.util.spec_from_file_location("aews_validate", SCRIPT)
+assert SPEC and SPEC.loader
+VALIDATOR = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = VALIDATOR
+SPEC.loader.exec_module(VALIDATOR)
+
+
+def fixture(name: str) -> Path:
+    return FIXTURES / name
+
+
+def tree_hashes(root: Path) -> dict[str, str]:
+    return {
+        path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(root.rglob("*"))
+        if path.is_file()
+    }
+
+
+class ValidatorTests(unittest.TestCase):
+    def test_template_fixture_passes(self) -> None:
+        result = VALIDATOR.validate_repository(fixture("template-valid"), mode="template")
+        self.assertEqual([], result.failures)
+        self.assertEqual([], result.warnings)
+
+    def test_aews_repository_passes_its_validator(self) -> None:
+        result = VALIDATOR.validate_repository(ROOT, mode="template")
+        self.assertEqual([], result.failures)
+        self.assertEqual([], result.warnings)
+
+    def test_adoption_fixture_passes(self) -> None:
+        result = VALIDATOR.validate_repository(fixture("adoption-valid"))
+        self.assertEqual("adoption", result.mode)
+        self.assertEqual([], result.failures)
+        self.assertEqual([], result.warnings)
+
+    def test_adoption_warnings_do_not_fail(self) -> None:
+        result = VALIDATOR.validate_repository(fixture("adoption-warnings"))
+        self.assertEqual([], result.failures)
+        output = "\n".join(result.warnings)
+        self.assertIn("Decisions role is missing", output)
+        self.assertIn("does not route to supplement", output)
+        self.assertIn("Broken local document reference", output)
+        self.assertIn("does not route to Project primary", output)
+        self.assertNotIn("your-skill", output)
+        self.assertNotIn("SKILL.md", output)
+
+    def test_invalid_adoption_mapping_fails(self) -> None:
+        result = VALIDATOR.validate_repository(fixture("adoption-invalid"))
+        output = "\n".join(result.failures)
+        self.assertIn("role project cannot be inactive", output)
+        self.assertIn("role decisions cannot be inactive", output)
+        self.assertIn("path must stay repository-relative", output)
+        self.assertIn("unsupported top-level property: notes", output)
+        self.assertIn("role project contains unsupported property: description", output)
+
+    def test_adapter_line_limit_is_warning(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "repo"
+            shutil.copytree(fixture("adoption-valid"), target)
+            adapter = target / "AGENTS.md"
+            content = adapter.read_text(encoding="utf-8") + ("\n<!-- padding -->" * 40)
+            adapter.write_text(content, encoding="utf-8")
+            result = VALIDATOR.validate_repository(target)
+        self.assertEqual([], result.failures)
+        self.assertTrue(any("soft limit" in warning for warning in result.warnings))
+
+    def test_validation_is_read_only(self) -> None:
+        root = fixture("adoption-valid")
+        before = tree_hashes(root)
+        VALIDATOR.validate_repository(root)
+        self.assertEqual(before, tree_hashes(root))
+
+    def test_cli_exit_codes(self) -> None:
+        valid = subprocess.run(
+            [sys.executable, str(SCRIPT), str(fixture("template-valid")), "--mode", "template"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        invalid = subprocess.run(
+            [sys.executable, str(SCRIPT), str(fixture("adoption-invalid"))],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        usage = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                str(fixture("template-valid")),
+                "--mode",
+                "adoption",
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(0, valid.returncode)
+        self.assertIn("Failures:\n- None", valid.stdout)
+        self.assertEqual(1, invalid.returncode)
+        self.assertIn("role project cannot be inactive", invalid.stdout)
+        self.assertEqual(2, usage.returncode)
+        self.assertIn("Usage error:", usage.stderr)
+
+
+if __name__ == "__main__":
+    unittest.main()

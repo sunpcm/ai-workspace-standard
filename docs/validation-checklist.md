@@ -3,7 +3,9 @@
 Use this checklist before accepting changes to AEWS documents, templates, examples, or adapters.
 
 The checklist remains intentionally manual while v0.2 validates it against
-real repositories. Automation should only cover checks that prove stable.
+real repositories. `scripts/aews_validate.py` now automates the stable
+mechanical subset; scope, lifecycle freshness, decision quality, and ownership
+still require manual review.
 
 ## Applying The Checklist
 
@@ -106,4 +108,6 @@ git status --short --branch
 find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md docs standard templates adapters examples
+python3 scripts/aews_validate.py . --mode template
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
