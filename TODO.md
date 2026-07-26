@@ -309,7 +309,7 @@ Status: Completed on 2026-07-26.
 
 ### 13. 实现第一版只读 validator
 
-Status: Pending. Evidence gate satisfied by items 10 and 12.
+Status: Completed on 2026-07-26.
 
 第一版只实现已经通过两类真实仓库验证的机械检查：
 
@@ -330,6 +330,26 @@ Status: Pending. Evidence gate satisfied by items 10 and 12.
 - hooks、MCP 或常驻服务；
 - npm / Python package 发布。
 
+交付结果：
+
+- `scripts/aews_validate.py`
+- `docs/validator.md`
+- `tests/test_validator.py`
+- template-valid、adoption-valid、adoption-warnings、adoption-invalid fixtures
+- Python 3.10+ 标准库实现，无第三方依赖；
+- template/adoption mode、外置 mapping、稳定 text output 与 exit code；
+- mapped path、supplement routing、本地 Markdown 引用、adapter routing、
+  line count 和明显重复句检查；
+- validator 不生成、不重写目标文件。
+
+验证结果：
+
+- 8 个 `unittest` 全部通过；
+- AEWS template mode：0 failures / 0 warnings；
+- ECC adoption 回归：0 failures，保留预期 warning；
+- 普通全栈应用 adoption 回归：0 failures，自动复现人工评估 warning；
+- 两个真实参考仓库均未被修改。
+
 ### 14. 增加 evidence-backed adapter compatibility matrix
 
 Status: Pending.
@@ -341,9 +361,9 @@ Status: Pending.
 
 ## 当前推荐顺序
 
-1. 实现第一版只读 validator 和 template/adoption fixtures
-2. 用 ECC 与普通应用 reference findings 回归 validator
-3. 增加 evidence-backed adapter compatibility matrix
+1. 增加 evidence-backed adapter compatibility matrix
+2. 再选择一个 adoption candidate 使用 validator，观察 warning 稳定性
+3. 决定是否增加可复用 adoption mapping template
 4. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令
@@ -353,6 +373,8 @@ cd <repo-root>
 git status --short --branch
 find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
+python3 scripts/aews_validate.py . --mode template
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 ## 当前不要做

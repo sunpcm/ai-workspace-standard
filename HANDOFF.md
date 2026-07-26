@@ -2,17 +2,17 @@
 
 ## Current Goal
 
-Implement the first read-only AEWS v0.2 validator from the stabilized manual
-evidence.
+Add an evidence-backed adapter compatibility matrix after completing the first
+read-only AEWS v0.2 validator.
 
 ## Current State
 
 - Repository path: repo root
-- Last completed step: evaluated one ordinary full-stack application repository
-  without modifying it, recorded sanitized evidence, and selected a routing-only
-  `aews.json` contract for adoption mapping.
-- Next step: implement the first read-only validator with template/adoption
-  fixtures and stable text output.
+- Last completed step: implemented and documented the dependency-free validator,
+  added template/adoption fixtures, passed eight regression tests, and replayed
+  both real reference evaluations with zero failures.
+- Next step: define evidence fields and current verification state for Codex,
+  Claude Code, Cursor, and Gemini document adapters.
 - Blockers: none.
 
 ## Evidence
@@ -27,9 +27,12 @@ wc -l docs/adoption-guide.md
 wc -l docs/versioning.md
 wc -l templates/README.md
 wc -l docs/validator-design.md
+wc -l docs/validator.md
 wc -l docs/release-checklist.md
 sed -n '1,260p' examples/reference-evaluations/ecc-v2.0.0.md
 sed -n '1,260p' examples/reference-evaluations/full-stack-application.md
+python3 scripts/aews_validate.py . --mode template
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 git remote -v
 git tag --list
 git log --oneline --decorate -5
@@ -38,12 +41,12 @@ git log --oneline --decorate -5
 ## Open Questions
 
 - Whether to create a GitHub Release page for `v0.1.0`.
-- Which dependency-free repository-local Markdown link forms the first
-  validator should recognize.
+- Which evidence fields make adapter compatibility claims useful without
+  copying ECC runtime parity semantics.
 - Whether missing Decisions should become a failure only after a repository
   explicitly declares full AEWS compliance.
 
 ## Expiration
 
-Replace this handoff after the first validator implementation and fixture suite
-are complete.
+Replace this handoff after the evidence-backed adapter compatibility matrix is
+complete.

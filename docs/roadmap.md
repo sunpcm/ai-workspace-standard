@@ -27,9 +27,9 @@ Exit criteria:
 
 Goal: make the standard testable.
 
-Status: In progress. ECC and ordinary full-stack application reference
-evaluations are complete. The validator design now distinguishes template mode
-from role-aware adoption mode and defines the optional `aews.json` mapping.
+Status: In progress. Two reference evaluations are complete, and the first
+dependency-free read-only validator implements template/adoption modes plus the
+optional `aews.json` mapping.
 
 Possible deliverables:
 
@@ -41,10 +41,10 @@ Possible deliverables:
 
 Current sequence:
 
-1. implement stable read-only mechanical checks;
-2. add template/adoption fixtures and regression tests;
-3. validate the first implementation against both reference evaluations;
-4. add an evidence-backed adapter compatibility matrix.
+1. add an evidence-backed adapter compatibility matrix;
+2. use the validator on another adoption candidate before tightening warnings;
+3. decide whether to add a reusable adoption mapping template;
+4. keep semantic and runtime-aware checks outside the first validator.
 
 Exit criteria:
 

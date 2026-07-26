@@ -24,6 +24,7 @@ This file is intentionally small. The durable project knowledge lives in the AEW
 
 ## Current Phase
 
-AEWS v0.1.0 is published. v0.2 is validating the standard against real
-repositories before implementing a lightweight validator. Prefer improving the
-standard and evidence before adding scripts, hooks, or generator tools.
+AEWS v0.1.0 is published. v0.2 has a first read-only validator backed by two
+reference evaluations and dependency-free fixtures. Prefer strengthening
+evidence and compatibility reporting before adding broader automation, hooks,
+or generator tools.
