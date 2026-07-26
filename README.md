@@ -86,7 +86,9 @@ AEWS v0.1.0 is published. v0.2 validation and template hardening are in
 progress. The first validator slice is implemented after two reference
 evaluations. The evidence-backed compatibility matrix and optional cross-agent
 continuity protocol are documented; controlled runtime adapter smoke tests are
-the next evidence gap. Keep harness runtime features outside the core standard.
+partially complete: Codex passed, while Claude Code awaits explicit approval
+for the external fixture transfer. Keep harness runtime features outside the
+core standard.
 
 ## License
 

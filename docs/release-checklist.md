@@ -127,6 +127,7 @@ find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md CONTRIBUTING.md docs standard templates adapters examples
 python3 scripts/aews_validate.py . --mode template
+python3 scripts/aews_validate.py tests/fixtures/runtime-loading --mode template
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
@@ -138,6 +139,8 @@ Pass criteria:
 - keyword hits are reviewed and are either boundary explanations or intentional checklist terms,
 - the validator reports no unexplained failures or warnings,
 - validator regression tests pass.
+- the runtime-loading fixture passes the same structural checks before any
+  model-backed probe is considered.
 
 ## 9. Adapter Compatibility Evidence
 

@@ -33,14 +33,17 @@ maintainer capacity, and reproducible evidence.
 
 | Tool | Priority | Discovery Surface | AEWS Projection | Continuity Behavior | Current Evidence | Known Limitation |
 | --- | --- | --- | --- | --- | --- | --- |
-| Codex | Primary | Root `AGENTS.md` | `adapters/codex/AGENTS.md` | Reads shared handoff and task state; verifies it with Git | Static projection and AEWS validator pass; local `codex-cli 0.145.0` present on 2026-07-26 | Controlled runtime-loading fixture not yet run |
-| Claude Code | Primary | Root `CLAUDE.md` | `adapters/claude-code/CLAUDE.md` | Uses the same checkpoint protocol as Codex | Static projection and AEWS validator pass; local Claude Code `2.1.218` help confirms `CLAUDE.md` auto-discovery outside bare/safe modes | Projection is stored as an installable example, not a root file in this standard repo; runtime fixture not yet run |
+| Codex | Primary | Root `AGENTS.md` | `adapters/codex/AGENTS.md` | Reads shared handoff and task state; verifies it with Git | Controlled read-only pass on `codex-cli 0.145.0`; see `docs/runtime-loading-evidence.md` | One local version and fixture do not prove universal compatibility |
+| Claude Code | Primary | Root `CLAUDE.md` | `adapters/claude-code/CLAUDE.md` | Uses the same checkpoint protocol as Codex | Static projection and validator pass; local Claude Code `2.1.218` help confirms auto-discovery outside bare/safe modes | Runtime probe was not run because explicit external-transfer approval is still required |
 | Cursor | Extension reference | `.cursor/rules/*.mdc` | `adapters/cursor/.cursor/rules/aews.mdc` | Demonstrates how an editor adapter could route to shared state | Static projection and AEWS validator pass on 2026-07-26 | No current implementation or runtime-validation commitment |
 | Gemini CLI | Extension reference | Root `GEMINI.md` | `adapters/gemini/GEMINI.md` | Demonstrates how a CLI adapter could route to shared state | Static projection and AEWS validator pass on 2026-07-26 | No current implementation or runtime-validation commitment |
 
 Evidence status must remain explicit. A checked-in adapter plus validator pass
 proves structural compatibility; only a controlled tool run can prove runtime
 discovery for a specific tool version.
+
+The latest primary-target runtime result is recorded in
+`docs/runtime-loading-evidence.md`.
 
 ## Verification Commands
 

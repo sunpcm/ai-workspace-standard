@@ -378,7 +378,7 @@ Status: Completed on 2026-07-26.
 
 ### 15. 为 Codex 和 Claude Code 增加受控 runtime-loading evidence
 
-Status: Pending.
+Status: In progress on 2026-07-26.
 
 目标：在明确授权模型调用后，用只读临时 fixture 验证两个工具是否真实
 加载相同 canonical roles 和当前 next step。
@@ -391,11 +391,23 @@ Status: Pending.
 - 不把单一版本的成功夸大成所有版本兼容；
 - 不保存凭证或原始私有 transcript。
 
+当前结果：
+
+- 新增 `tests/fixtures/runtime-loading/`，静态 validator 为 0 failures / 0
+  warnings；
+- Codex CLI `0.145.0` 在 read-only、ephemeral、ignore-user-config 条件下
+  成功返回仅存在于自动加载 `AGENTS.md` 的 marker，并读取相同 Handoff；
+- Codex 探针前后临时 Git commit、状态和四个关键文件 SHA-256 未变化；
+- Claude Code 探针在进程启动前被 host approval reviewer 拒绝，未向外部
+  服务发送 fixture；需要项目 owner 明确授权把该公开合成 fixture 发送给
+  Claude 后才能补证据；
+- 证据记录：`docs/runtime-loading-evidence.md`。
+
 ## 当前推荐顺序
 
-1. 在明确授权后运行 Codex / Claude Code 受控 runtime-loading fixture
-2. 再选择一个 adoption candidate 使用 validator，观察 warning 稳定性
-3. 决定是否增加可复用 adoption mapping template
+1. 再选择一个 adoption candidate 使用 validator，观察 warning 稳定性
+2. 决定是否增加可复用 adoption mapping template
+3. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
 4. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令

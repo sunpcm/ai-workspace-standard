@@ -46,10 +46,10 @@ Possible deliverables:
 
 Current sequence:
 
-1. run explicitly authorized, read-only Codex and Claude Code runtime-loading
-   fixtures;
-2. use the validator on another adoption candidate before tightening warnings;
-3. decide whether to add a reusable adoption mapping template;
+1. use the validator on another adoption candidate before tightening warnings;
+2. decide whether to add a reusable adoption mapping template;
+3. complete the Claude Code runtime probe after explicit external-transfer
+   approval; the Codex probe is complete;
 4. keep semantic and runtime-aware checks outside the first validator.
 
 Exit criteria:

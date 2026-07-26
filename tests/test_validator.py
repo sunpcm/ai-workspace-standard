@@ -39,6 +39,13 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual([], result.failures)
         self.assertEqual([], result.warnings)
 
+    def test_runtime_loading_fixture_passes(self) -> None:
+        result = VALIDATOR.validate_repository(
+            fixture("runtime-loading"), mode="template"
+        )
+        self.assertEqual([], result.failures)
+        self.assertEqual([], result.warnings)
+
     def test_aews_repository_passes_its_validator(self) -> None:
         result = VALIDATOR.validate_repository(ROOT, mode="template")
         self.assertEqual([], result.failures)
