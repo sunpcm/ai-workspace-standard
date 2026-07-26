@@ -55,6 +55,11 @@ document, narrower supplements, inactive lifecycle roles, and declared
 adapters. Keep all project knowledge in the mapped documents; the manifest is
 routing metadata only.
 
+Start from `templates/adoption/aews.example.json` rather than inventing new
+fields. Its companion `templates/adoption/README.md` explains checked-in and
+external read-only use, `missing` versus `inactive`, and when to remove adapter
+entries.
+
 Run adoption validation from an AEWS checkout:
 
 ```bash

@@ -38,7 +38,9 @@ python3 <aews-repo>/scripts/aews_validate.py <target-repo> \
 
 The mapping contract is defined in `docs/validator-design.md`. `aews.json` is
 routing metadata only and must not contain project facts, decisions, commands,
-or task state.
+or task state. A tested copy-and-edit example is available at
+`templates/adoption/aews.example.json`; read its adjacent `README.md` before
+changing paths or lifecycle states.
 
 ## Implemented Checks
 
@@ -90,8 +92,9 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 The fixtures cover valid template mode, valid adoption mode, warning-only
-adoption, invalid mapping, line-count warnings, CLI exit codes, and read-only
-behavior. The AEWS repository itself is also validated by the test suite.
+adoption, invalid mapping, line-count warnings, CLI exit codes, read-only
+behavior, and the published mapping template contract. The AEWS repository
+itself is also validated by the test suite.
 
 ## Manual Review Still Required
 

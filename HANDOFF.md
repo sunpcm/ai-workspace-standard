@@ -2,8 +2,8 @@
 
 ## Current Goal
 
-Publish the reusable adoption mapping template after the third real-repository
-evaluation stabilized document-reference warnings.
+Prepare the v0.2/v1.0 release-readiness record after publishing the reusable
+adoption mapping template.
 
 ## Current State
 
@@ -13,8 +13,8 @@ evaluation stabilized document-reference warnings.
   matrix and minimal example to cover Codex and Claude Code projections; set
   runtime fixture, passed the Codex CLI read-only probe, and completed a third
   read-only adoption evaluation that removed generated-artifact warning noise.
-- Next step: publish the routing-only `aews.json` template already supported by
-  all three reference mappings.
+- Next step: audit the stable standard, migration path, changelog, compatibility
+  evidence, and release checklist without tagging or publishing a release.
 - Blockers: Claude Code runtime evidence requires explicit approval to send the
   public synthetic fixture to the external Claude service. This does not block
   the remaining local release-readiness work.
@@ -57,5 +57,4 @@ git log --oneline --decorate -5
 
 ## Expiration
 
-Replace this handoff after the reusable mapping template and release-readiness
-documents are complete.
+Replace this handoff after the release-readiness audit is complete.

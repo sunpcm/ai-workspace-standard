@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
 import shutil
 import subprocess
 import sys
@@ -13,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures"
 SCRIPT = ROOT / "scripts" / "aews_validate.py"
+ADOPTION_TEMPLATE = ROOT / "templates" / "adoption" / "aews.example.json"
 
 SPEC = importlib.util.spec_from_file_location("aews_validate", SCRIPT)
 assert SPEC and SPEC.loader
@@ -54,6 +56,47 @@ class ValidatorTests(unittest.TestCase):
     def test_adoption_fixture_passes(self) -> None:
         result = VALIDATOR.validate_repository(fixture("adoption-valid"))
         self.assertEqual("adoption", result.mode)
+        self.assertEqual([], result.failures)
+        self.assertEqual([], result.warnings)
+
+    def test_adoption_mapping_template_passes_contract(self) -> None:
+        config = json.loads(ADOPTION_TEMPLATE.read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "repo"
+            target.mkdir()
+            shutil.copyfile(ADOPTION_TEMPLATE, target / "aews.json")
+
+            mapped_primaries: list[str] = []
+            for name, role in config["roles"].items():
+                primary = role.get("primary")
+                if primary is None:
+                    continue
+                mapped_primaries.append(primary)
+                supplements = role.get("supplements", [])
+                primary_document = target / primary
+                primary_document.parent.mkdir(parents=True, exist_ok=True)
+                primary_content = [f"# {name.title()}"]
+                primary_content.extend(
+                    f"See [{path}]({path})." for path in supplements
+                )
+                primary_document.write_text(
+                    "\n".join(primary_content) + "\n", encoding="utf-8"
+                )
+                for supplement in supplements:
+                    document = target / supplement
+                    document.parent.mkdir(parents=True, exist_ok=True)
+                    document.write_text(
+                        f"# {name.title()} Supplement\n", encoding="utf-8"
+                    )
+
+            routes = "\n".join(mapped_primaries) + "\n"
+            for adapter in config["adapters"]:
+                path = target / adapter["path"]
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(routes, encoding="utf-8")
+
+            result = VALIDATOR.validate_repository(target)
+
         self.assertEqual([], result.failures)
         self.assertEqual([], result.warnings)
 

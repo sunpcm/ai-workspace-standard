@@ -12,6 +12,7 @@ Use only the templates that match real repository needs.
 | `decision/DECISIONS.md` | Accepted decisions with context, consequences, and evidence | Future work should be constrained by prior choices |
 | `handoff/HANDOFF.md` | Active continuation state | Work is in progress and another person or agent needs exact next context |
 | `experiment/EXPERIMENT.md` | Temporary hypothesis, method, artifacts, result, and conclusion | A trial or investigation needs evidence before becoming durable knowledge |
+| `adoption/aews.example.json` | Routing-only mapping from AEWS roles to existing repository files | An existing repository uses equivalent canonical documents or needs a read-only evaluation |
 
 ## When Not To Use A Template
 
@@ -27,6 +28,10 @@ Avoid a template when:
 - the need is a runtime feature outside AEWS v0.1.
 
 For example, a repository with no active work does not need `HANDOFF.md` until there is continuation state to preserve.
+
+The adoption mapping is not a document template. Copy and edit it only after
+identifying the target repository's real canonical owners; see
+`adoption/README.md`.
 
 The Handoff template includes optional actor and commit metadata for
 cross-agent continuity. These fields do not make the document a runtime log or

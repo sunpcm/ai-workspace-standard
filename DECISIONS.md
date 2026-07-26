@@ -123,6 +123,7 @@ project facts, decisions, commands, or working state. The validator must not
 generate or rewrite it.
 
 Evidence: `docs/validator-design.md`, `standard/documents.md`,
+`templates/adoption/aews.example.json`,
 `examples/reference-evaluations/full-stack-application.md`
 
 ### 2026-07-26: Keep the first validator dependency-free and read-only

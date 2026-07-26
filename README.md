@@ -73,7 +73,8 @@ staleness, concurrency, and optional harness-integration rules.
 
 The first dependency-free, read-only validator is available at
 `scripts/aews_validate.py`. See `docs/validator.md` for template/adoption usage,
-the optional `aews.json` mapping, implemented checks, and manual-review limits.
+the tested `templates/adoption/aews.example.json` mapping, implemented checks,
+and manual-review limits.
 
 v0.2 also defines evidence-backed adapter compatibility and optional
 cross-agent continuity without copying task history or treating runtime memory
@@ -89,7 +90,8 @@ continuity protocol are documented; controlled runtime adapter smoke tests are
 partially complete: Codex passed, while Claude Code awaits explicit approval
 for the external fixture transfer. A third real-repository evaluation also
 stabilized generated-artifact reference handling. Keep harness runtime features
-outside the core standard.
+outside the core standard. The reusable adoption mapping is now published; the
+remaining local work is the v0.2/v1.0 release-readiness audit.
 
 ## License
 

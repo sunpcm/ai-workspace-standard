@@ -422,17 +422,25 @@ Status: Completed on 2026-07-26.
 
 ### 17. 发布可复用 adoption mapping template
 
-Status: Pending.
+Status: Completed on 2026-07-26.
 
 目标：基于三类真实仓库已经稳定的共同字段，提供 routing-only 示例，
 不新增未经证据支持的 schema 字段或生成器。
 
+交付结果：
+
+- 新增 `templates/adoption/aews.example.json` 和使用边界说明；
+- 同时覆盖 Project primary/supplements、Decisions primary、Handoff 和
+  Experiment inactive、Codex/Claude adapter 声明；
+- 明确 `missing` 与 `inactive`、checked-in 与外置只读 mapping 的区别；
+- 增加测试，从发布模板构造临时目标并通过真实 validator contract；
+- 不新增 schema 字段、生成器、运行时状态或工具私有知识。
+
 ## 当前推荐顺序
 
-1. 发布可复用 adoption mapping template
-2. 收口 v0.2 / v1.0 release-ready 文档和最终审计
-3. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
-4. 可选：补 GitHub Release 页面说明 `v0.1.0`
+1. 收口 v0.2 / v1.0 release-ready 文档和最终审计
+2. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
+3. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令
 

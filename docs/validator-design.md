@@ -122,6 +122,11 @@ The default checked-in filename is `aews.json`. A caller may provide another
 path explicitly so a repository can be evaluated without modification. The
 validator must never generate or rewrite this file.
 
+The reusable copy-and-edit example lives at
+`templates/adoption/aews.example.json`. Its filename intentionally avoids
+automatic discovery inside the AEWS template repository; adopters rename it to
+`aews.json` only after replacing the example paths and lifecycle states.
+
 Mapping rules:
 
 - every mapped role has exactly one primary path;
