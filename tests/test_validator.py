@@ -57,6 +57,25 @@ class ValidatorTests(unittest.TestCase):
             actual = hashlib.sha256((root / name).read_bytes()).hexdigest()
             self.assertEqual(expected, actual, name)
 
+    def test_readme_quick_start_passes_without_active_handoff(self) -> None:
+        sources = {
+            "PROJECT.md": ROOT / "templates" / "repo" / "PROJECT.md",
+            "DECISIONS.md": ROOT / "templates" / "decision" / "DECISIONS.md",
+            "AGENTS.md": ROOT / "adapters" / "codex" / "AGENTS.md",
+            "CLAUDE.md": ROOT / "adapters" / "claude-code" / "CLAUDE.md",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "repo"
+            target.mkdir()
+            (target / "README.md").write_text("# Project\n", encoding="utf-8")
+            for name, source in sources.items():
+                shutil.copyfile(source, target / name)
+
+            result = VALIDATOR.validate_repository(target, mode="template")
+
+        self.assertEqual([], result.failures)
+        self.assertEqual([], result.warnings)
+
     def test_aews_repository_passes_its_validator(self) -> None:
         result = VALIDATOR.validate_repository(ROOT, mode="template")
         self.assertEqual([], result.failures)

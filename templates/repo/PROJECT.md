@@ -30,7 +30,7 @@ List the major modules and boundaries. Keep this factual and current.
 
 1. `PROJECT.md`
 2. `DECISIONS.md`
-3. `HANDOFF.md` when active work exists
+3. The active Handoff document when continuation state exists
 
 ## Verification
 
@@ -38,4 +38,4 @@ Describe the minimum checks required before considering work complete.
 
 ## Known Risks
 
-List durable risks only. Put temporary issues in `HANDOFF.md`.
+List durable risks only. Put temporary issues in the active Handoff document.

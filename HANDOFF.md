@@ -2,8 +2,8 @@
 
 ## Current Goal
 
-Owner review and optional publication of the completed local v1.0.0 release
-candidate.
+Owner manually publishes the prepared v1.0.0 release and records the resulting
+external state.
 
 ## Current State
 
@@ -16,11 +16,14 @@ candidate.
   published the tested adoption mapping and completed the local v0.2.0
   release-readiness record; passed the owner-approved Claude Code read-only
   probe with unchanged Git state and fixture hashes; completed the v1.0
-  requirement audit, compatibility policy, and local readiness record.
-- Next step: owner reviews `docs/releases/v1.0.0-readiness.md` and decides
-  whether to push, tag `v1.0.0`, and publish release notes.
-- Blockers: none. Push, tag, and publication remain owner-controlled external
-  actions and were intentionally not performed.
+  requirement audit, compatibility policy, and local readiness record; added
+  tested README Quick Start paths, neutralized the Decisions template, dated
+  the changelog, and prepared GitHub Release notes and manual commands.
+- Next step: owner reviews and pushes the local preparation commit, creates and
+  pushes annotated tag `v1.0.0`, publishes the GitHub Release, then updates
+  post-release state.
+- Blockers: none in repository content. The owner's local `gh` authentication
+  must be valid before the manual GitHub Release command.
 
 ## Evidence
 
@@ -56,7 +59,6 @@ git log --oneline --decorate -5
 ## Open Questions
 
 - Whether to create a GitHub Release page for `v0.1.0`.
-- Whether the owner wants to publish the resulting local release candidate.
 - Whether missing Decisions should become a failure only after a repository
   explicitly declares full AEWS compliance.
 

@@ -48,6 +48,92 @@ HANDOFF.md            Current working state
 AGENTS.md             Thin Codex entrypoint for this repo
 ```
 
+## Quick Start
+
+Choose one path. Do not create duplicate canonical documents merely to match
+AEWS filenames.
+
+After the release tag is published, fetch the stable standard with:
+
+```bash
+git clone --branch v1.0.0 --depth 1 \
+  https://github.com/sunpcm/ai-workspace-standard.git <aews-repo>
+```
+
+### New Or Minimal Repository
+
+From the target repository, copy the minimal canonical documents and only the
+adapters you actually use:
+
+```bash
+cp <aews-repo>/templates/repo/PROJECT.md ./PROJECT.md
+cp <aews-repo>/templates/decision/DECISIONS.md ./DECISIONS.md
+cp <aews-repo>/adapters/codex/AGENTS.md ./AGENTS.md
+cp <aews-repo>/adapters/claude-code/CLAUDE.md ./CLAUDE.md
+```
+
+Keep the repository's existing `README.md`, or create one before validation.
+
+Then:
+
+1. Replace every prompt in `PROJECT.md` with real repository facts and
+   verification commands.
+2. Add accepted decisions to `DECISIONS.md`; do not invent historical entries.
+3. Copy `templates/handoff/HANDOFF.md` only while active work needs a shared
+   continuation checkpoint.
+4. Use the repository's existing issue tracker or `TODO.md` as the shared task
+   queue.
+5. Remove `AGENTS.md` or `CLAUDE.md` if that tool is not used.
+
+Validate from the AEWS checkout:
+
+```bash
+python3 <aews-repo>/scripts/aews_validate.py <target-repo> --mode template
+```
+
+### Existing Repository
+
+Keep existing architecture, decision, and working-context documents. Copy and
+edit the routing manifest instead of renaming or duplicating them:
+
+```bash
+cp <aews-repo>/templates/adoption/aews.example.json ./aews.json
+$EDITOR ./aews.json
+python3 <aews-repo>/scripts/aews_validate.py .
+```
+
+Use an external mapping for a first read-only evaluation:
+
+```bash
+cp <aews-repo>/templates/adoption/aews.example.json /tmp/aews-target.json
+$EDITOR /tmp/aews-target.json
+python3 <aews-repo>/scripts/aews_validate.py <target-repo> \
+  --mode adoption \
+  --config /tmp/aews-target.json
+```
+
+See `docs/adoption-guide.md` for migration decisions and
+`templates/adoption/README.md` for every mapping field.
+
+## Daily Codex And Claude Workflow
+
+At the start of work, both adapters should route the agent to the same:
+
+1. Project facts and verification commands;
+2. accepted Decisions;
+3. active Handoff, when one exists;
+4. task queue;
+5. Git and test evidence.
+
+At a meaningful verified checkpoint, update the shared task state and replace
+the Handoff with the completed step, exact evidence, next step, blockers, and
+expiration condition. Record durable rationale in Decisions and stable facts
+in Project. Do not copy transcripts or separate per-agent progress histories
+into `AGENTS.md` and `CLAUDE.md`.
+
+For concurrent work, use separate branches or worktrees. AEWS does not provide
+live presence or file locking.
+
 ## Cross-Agent Continuity
 
 AEWS can let Codex, Claude Code, and other agents understand the same project
@@ -83,7 +169,7 @@ generic adapter contract remains open.
 
 ## v1.0 Stable Surface
 
-The local v1.0.0 candidate stabilizes the scope model, canonical roles, thin
+AEWS v1.0.0 stabilizes the scope model, canonical roles, thin
 adapter contract, adoption mapping version 1, read-only validator, and optional
 checkpoint continuity protocol. `docs/adoption-guide.md` and
 `templates/adoption/aews.example.json` are the shortest adoption route.
@@ -94,12 +180,12 @@ harness.
 
 ## Status
 
-AEWS v0.1.0 is published. The completed, unpublished v0.2 validation phase has
-been promoted to a local v1.0.0 release candidate with three reference
+AEWS v1.0.0 release content is finalized locally. It includes three reference
 evaluations, the first read-only validator, a tested adoption mapping, an
 evidence-backed compatibility matrix, and optional cross-agent continuity.
-The candidate has not been tagged, pushed, or published; see
-`docs/releases/v1.0.0-readiness.md`.
+Tag and GitHub Release publication are pending owner action; see
+`docs/releases/v1.0.0-readiness.md` for the evidence and limitations and
+`docs/releases/v1.0.0.md` for the prepared release notes.
 
 Controlled, version-scoped runtime-loading probes have passed for both Codex
 and Claude Code against the same public synthetic checkpoint. These results do

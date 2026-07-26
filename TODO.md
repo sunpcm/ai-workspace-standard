@@ -1,9 +1,9 @@
 # TODO
 
-AEWS v0.1.0 已发布，v0.2 validation and template hardening 阶段已完成，
-当前已形成未发布的本地 v1.0.0 release candidate。所有本地 roadmap 任务
-已完成；下一步由 owner 审核并决定是否 push、tag 和发布。hooks、MCP、
-memory runtime 或复杂 CLI 继续保持在 core scope 之外。
+AEWS v0.2 validation and template hardening 阶段已完成，v1.0.0 本地发布
+材料已经收尾，外部发布交由 owner 手动执行。所有产品与本地 roadmap 任务
+已完成；hooks、MCP、memory runtime 或复杂 CLI 继续保持在 core scope
+之外。
 
 ## P0: 继续开发前先做
 
@@ -477,11 +477,27 @@ Status: Completed on 2026-07-27.
   evidence，下一本地 candidate 直接提升为 v1.0.0；
 - 不执行 push、tag、changelog dating 或 release publication。
 
+### 20. 准备 v1.0.0 正式发布
+
+Status: Local preparation completed on 2026-07-27; external publication handed
+to owner.
+
+交付目标：
+
+- README 提供新 repo、已有 repo 和 Codex/Claude 日常接力使用指南；
+- README 最小 Quick Start 已转为回归测试，在 Handoff inactive 时保持
+  0 failures / 0 warnings；
+- `CHANGELOG.md` 固化带日期的 `1.0.0` 条目；
+- `docs/releases/v1.0.0.md` 提供可直接用于 GitHub Release 的发布说明；
+- release commit 通过完整 validator、测试、hash 和隐私检查；
+- 提供 annotated `v1.0.0` tag、push 和 GitHub Release 的手动命令；
+- agent 不执行任何外部发布动作；owner 发布后再更新实际远端状态。
+
 ## 当前推荐顺序
 
-1. owner 审核本地 v1.0.0 release candidate
-2. owner 决定是否 push、tag `v1.0.0` 并发布 release notes
-3. 可选：补 GitHub Release 页面说明 `v0.1.0`
+1. owner 检查并 push 本地 release-preparation commit
+2. owner 创建和推送 `v1.0.0` annotated tag
+3. owner 发布 GitHub Release 并更新发布后状态
 
 ## 每次继续开发前的检查命令
 

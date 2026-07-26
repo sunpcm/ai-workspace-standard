@@ -5,6 +5,8 @@ rules in `docs/versioning.md`.
 
 ## Unreleased
 
+## 1.0.0 - 2026-07-27
+
 ### Added
 
 - A dependency-free, read-only validator with template and adoption modes.
@@ -16,6 +18,8 @@ rules in `docs/versioning.md`.
 - A synthetic runtime-loading fixture and controlled Codex CLI evidence.
 - Controlled Claude Code runtime-loading evidence after explicit approval for
   the public synthetic fixture transfer.
+- README Quick Start paths for new repositories, existing repositories, and
+  daily Codex/Claude checkpoint work.
 
 ### Changed
 
@@ -35,10 +39,8 @@ rules in `docs/versioning.md`.
 - No hooks, MCP catalog, memory runtime, orchestration service, generator, or
   package distribution is part of AEWS core.
 
-The current Unreleased content is the local `v1.0.0` release candidate. The
-v0.2 validation phase was completed but never tagged; its local readiness
-record is retained as evidence. Neither candidate has been pushed, tagged, or
-published by these readiness passes.
+The v0.2 validation phase was completed but never tagged; its local readiness
+record is retained as evidence and its changes are included in v1.0.0.
 
 ## 0.1.0 - 2026-06-29
 
