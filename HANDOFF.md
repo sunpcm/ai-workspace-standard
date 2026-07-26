@@ -2,9 +2,8 @@
 
 ## Current Goal
 
-Complete remaining adoption and release-readiness evidence after the Codex
-runtime-loading probe passed and the Claude probe paused before external
-transfer.
+Publish the reusable adoption mapping template after the third real-repository
+evaluation stabilized document-reference warnings.
 
 ## Current State
 
@@ -12,9 +11,10 @@ transfer.
 - Last completed step: defined shared progress, checkpoint, evidence, staleness,
   concurrency, and optional runtime boundaries; upgraded the compatibility
   matrix and minimal example to cover Codex and Claude Code projections; set
-  those two tools as the primary compatibility targets; added a validated
-  runtime fixture and passed the Codex CLI read-only probe without file changes.
-- Next step: evaluate a third adoption candidate and stabilize warning behavior.
+  runtime fixture, passed the Codex CLI read-only probe, and completed a third
+  read-only adoption evaluation that removed generated-artifact warning noise.
+- Next step: publish the routing-only `aews.json` template already supported by
+  all three reference mappings.
 - Blockers: Claude Code runtime evidence requires explicit approval to send the
   public synthetic fixture to the external Claude service. This does not block
   the remaining local release-readiness work.
@@ -38,6 +38,7 @@ sed -n '1,340p' docs/adapter-matrix.md
 wc -l docs/release-checklist.md
 sed -n '1,260p' examples/reference-evaluations/ecc-v2.0.0.md
 sed -n '1,260p' examples/reference-evaluations/full-stack-application.md
+sed -n '1,280p' examples/reference-evaluations/ai-experiment-service.md
 python3 scripts/aews_validate.py . --mode template
 python3 scripts/aews_validate.py tests/fixtures/runtime-loading --mode template
 python3 -m unittest discover -s tests -p 'test_*.py' -v
@@ -56,5 +57,5 @@ git log --oneline --decorate -5
 
 ## Expiration
 
-Replace this handoff after the third adoption evaluation and mapping-template
-decision are complete.
+Replace this handoff after the reusable mapping template and release-readiness
+documents are complete.

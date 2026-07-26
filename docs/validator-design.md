@@ -27,6 +27,12 @@ Implemented in the first read-only slice:
 - text output and exit codes;
 - dependency-free fixtures and tests.
 
+Bare Markdown filenames in inline code are ambiguous because application docs
+often use names such as `summary.md` for generated artifacts. The validator
+therefore checks normal Markdown links, directory-qualified or explicitly
+relative inline paths, and known canonical root filenames. It does not infer a
+repository link from every bare inline-code `.md` basename.
+
 Still manual or deferred:
 
 - lifecycle freshness and semantic decision quality;

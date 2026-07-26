@@ -64,6 +64,8 @@ class ValidatorTests(unittest.TestCase):
         self.assertIn("Decisions role is missing", output)
         self.assertIn("does not route to supplement", output)
         self.assertIn("Broken local document reference", output)
+        self.assertNotIn("summary.md", output)
+        self.assertNotIn("batch_summary.md", output)
         self.assertIn("does not route to Project primary", output)
         self.assertNotIn("your-skill", output)
         self.assertNotIn("SKILL.md", output)

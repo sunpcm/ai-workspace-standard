@@ -403,10 +403,34 @@ Status: In progress on 2026-07-26.
   Claude 后才能补证据；
 - 证据记录：`docs/runtime-loading-evidence.md`。
 
+### 16. 用第三个真实仓库稳定 adoption warning
+
+Status: Completed on 2026-07-26.
+
+目标：验证 experiment-heavy、同时包含 Codex/Claude adapter 且工作区已有
+改动的应用仓库，避免 validator 只适配干净或文档结构简单的目标。
+
+交付结果：
+
+- 全程使用外置 mapping，只读评估目标仓库；
+- 评估前后 `git status --porcelain=v1 -uall` digest 一致；
+- 首次运行发现 25 个 generated Markdown artifact basename 误报；
+- 收紧 inline-code reference 规则并增加 regression coverage；
+- 最终结果为 0 failures / 8 个可解释 warning；
+- 结论记录在
+  `examples/reference-evaluations/ai-experiment-service.md`。
+
+### 17. 发布可复用 adoption mapping template
+
+Status: Pending.
+
+目标：基于三类真实仓库已经稳定的共同字段，提供 routing-only 示例，
+不新增未经证据支持的 schema 字段或生成器。
+
 ## 当前推荐顺序
 
-1. 再选择一个 adoption candidate 使用 validator，观察 warning 稳定性
-2. 决定是否增加可复用 adoption mapping template
+1. 发布可复用 adoption mapping template
+2. 收口 v0.2 / v1.0 release-ready 文档和最终审计
 3. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
 4. 可选：补 GitHub Release 页面说明 `v0.1.0`
 

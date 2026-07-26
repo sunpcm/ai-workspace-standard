@@ -87,8 +87,9 @@ progress. The first validator slice is implemented after two reference
 evaluations. The evidence-backed compatibility matrix and optional cross-agent
 continuity protocol are documented; controlled runtime adapter smoke tests are
 partially complete: Codex passed, while Claude Code awaits explicit approval
-for the external fixture transfer. Keep harness runtime features outside the
-core standard.
+for the external fixture transfer. A third real-repository evaluation also
+stabilized generated-artifact reference handling. Keep harness runtime features
+outside the core standard.
 
 ## License
 

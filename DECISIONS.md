@@ -202,3 +202,26 @@ than equivalent support commitments. The canonical standard must not acquire
 Codex- or Claude-specific knowledge.
 
 Evidence: `PROJECT.md`, `docs/adapter-matrix.md`, `docs/roadmap.md`
+
+### 2026-07-26: Do not infer document links from arbitrary bare Markdown basenames
+
+Status: Accepted
+
+Scope: Repo
+
+Context: The third adoption evaluation found twenty-five false warnings because
+an application repository documents generated artifacts such as `summary.md`
+and `batch_summary.md` in inline code. Their `.md` suffix does not make them
+checked-in repository documents.
+
+Decision: The dependency-free validator will continue checking normal Markdown
+links, directory-qualified inline paths, explicit relative paths, and known
+canonical root filenames. It will not treat every other bare inline-code `.md`
+basename as a repository link.
+
+Consequences: Generated report catalogs no longer dominate adoption output.
+An author who intends to reference another checked-in document with a bare
+custom filename should use a normal Markdown link or an explicit relative path.
+
+Evidence: `scripts/aews_validate.py`, `tests/fixtures/adoption-warnings/README.md`,
+`examples/reference-evaluations/ai-experiment-service.md`

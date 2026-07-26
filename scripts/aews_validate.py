@@ -16,6 +16,15 @@ ROLE_ORDER = ("project", "decisions", "handoff", "experiment")
 INACTIVE_ROLES = {"handoff", "experiment"}
 MARKDOWN_SUFFIXES = {".md", ".mdc"}
 KNOWN_ROOT_ADAPTERS = ("AGENTS.md", "CLAUDE.md", "GEMINI.md")
+KNOWN_INLINE_ROOT_DOCUMENTS = {
+    "README.md",
+    "PROJECT.md",
+    "DECISIONS.md",
+    "HANDOFF.md",
+    "TODO.md",
+    "EXPERIMENT.md",
+    *KNOWN_ROOT_ADAPTERS,
+}
 BOILERPLATE_DUPLICATE_FRAGMENTS = (
     "do not copy durable knowledge",
     "do not duplicate canonical knowledge",
@@ -322,7 +331,7 @@ def _strip_fragment_and_title(value: str) -> str:
     return value.split("#", 1)[0]
 
 
-def _looks_like_local_document(value: str) -> bool:
+def _looks_like_local_document(value: str, *, markdown_link: bool) -> bool:
     if not value or value.startswith(("http://", "https://", "mailto:", "#")):
         return False
     if any(token in value for token in ("*", "{", "}", "<", ">", "|")):
@@ -330,7 +339,12 @@ def _looks_like_local_document(value: str) -> bool:
     path = PurePosixPath(value)
     if any(part.startswith(("your-", "example-")) for part in path.parts):
         return False
-    if len(path.parts) == 1 and path.name == "SKILL.md":
+    if (
+        len(path.parts) == 1
+        and not markdown_link
+        and not value.startswith(("./", "../"))
+        and path.name not in KNOWN_INLINE_ROOT_DOCUMENTS
+    ):
         return False
     return path.suffix.lower() in MARKDOWN_SUFFIXES
 
@@ -346,11 +360,11 @@ def _document_references(path: Path) -> Iterable[tuple[int, str, bool]]:
 
         for match in re.finditer(r"(?<!!)\[[^\]]+\]\(([^)]+)\)", line):
             value = _strip_fragment_and_title(match.group(1))
-            if _looks_like_local_document(value):
+            if _looks_like_local_document(value, markdown_link=True):
                 yield number, value, True
         for match in re.finditer(r"`([^`\n]+)`", line):
             value = _strip_fragment_and_title(match.group(1))
-            if _looks_like_local_document(value):
+            if _looks_like_local_document(value, markdown_link=False):
                 yield number, value, False
 
 

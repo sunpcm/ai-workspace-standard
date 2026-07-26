@@ -46,11 +46,11 @@ Possible deliverables:
 
 Current sequence:
 
-1. use the validator on another adoption candidate before tightening warnings;
-2. decide whether to add a reusable adoption mapping template;
-3. complete the Claude Code runtime probe after explicit external-transfer
+1. publish the reusable adoption mapping template justified by three reference
+   evaluations;
+2. complete the Claude Code runtime probe after explicit external-transfer
    approval; the Codex probe is complete;
-4. keep semantic and runtime-aware checks outside the first validator.
+3. keep semantic and runtime-aware checks outside the first validator.
 
 Exit criteria:
 

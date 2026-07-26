@@ -68,7 +68,11 @@ The dependency-free reference check recognizes:
 - repository-relative paths in mapped documents.
 
 It ignores fenced code blocks, URLs, anchors, globs, angle-bracket placeholders,
-common `your-*` / `example-*` paths, and a standalone generic `SKILL.md` name.
+common `your-*` / `example-*` paths, and bare inline-code Markdown basenames
+that are not known canonical root documents. This avoids treating generated
+artifacts such as `summary.md` or `batch_summary.md` as checked-in document
+links. Normal Markdown links, explicit `./` or `../` paths, directory-qualified
+paths, and known root documents remain checked.
 
 Install-generated or tool-generated document paths cannot always be identified
 mechanically. They may produce warnings and require manual review.
