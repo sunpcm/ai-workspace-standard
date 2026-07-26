@@ -27,9 +27,10 @@ Exit criteria:
 
 Goal: make the standard testable.
 
-Status: In progress. Three reference evaluations, the first dependency-free
-read-only validator, a tested adoption mapping template, an evidence-backed
-adapter matrix, and the optional cross-agent continuity protocol are complete.
+Status: Local release candidate complete. Three reference evaluations, the
+first dependency-free read-only validator, a tested adoption mapping template,
+an evidence-backed adapter matrix, and the optional cross-agent continuity
+protocol are complete. Tag, push, and publication remain owner-controlled.
 
 Primary compatibility targets: Codex and Claude Code. Other tools remain
 possible through the open adapter contract but are not active implementation
@@ -46,7 +47,7 @@ Possible deliverables:
 
 Current sequence:
 
-1. complete the local v0.2/v1.0 release-readiness audit;
+1. review and optionally publish the local v0.2.0 candidate;
 2. complete the Claude Code runtime probe after explicit external-transfer
    approval; the Codex probe is complete;
 3. keep semantic and runtime-aware checks outside the first validator.
@@ -79,6 +80,10 @@ Exit criteria:
 - Agent adapters remain projections, not independent knowledge stores.
 - Codex and Claude Code have repeatable compatibility evidence; adding another
   primary tool does not require changing canonical roles.
+
+Status: All local-only criteria are complete, but v1.0 is blocked by the Claude
+Code runtime-loading evidence criterion. Do not claim v1.0 compatibility until
+that controlled probe is authorized, passed, and recorded.
 
 ## Deferred
 

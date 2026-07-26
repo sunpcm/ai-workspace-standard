@@ -2,8 +2,8 @@
 
 ## Current Goal
 
-Prepare the v0.2/v1.0 release-readiness record after publishing the reusable
-adoption mapping template.
+Complete the one remaining Claude Code runtime-loading probe after explicit
+external-transfer approval, then reassess v1.0 readiness.
 
 ## Current State
 
@@ -12,12 +12,14 @@ adoption mapping template.
   concurrency, and optional runtime boundaries; upgraded the compatibility
   matrix and minimal example to cover Codex and Claude Code projections; set
   runtime fixture, passed the Codex CLI read-only probe, and completed a third
-  read-only adoption evaluation that removed generated-artifact warning noise.
-- Next step: audit the stable standard, migration path, changelog, compatibility
-  evidence, and release checklist without tagging or publishing a release.
+  read-only adoption evaluation that removed generated-artifact warning noise;
+  published the tested adoption mapping and completed the local v0.2.0
+  release-readiness record.
+- Next step: after owner approval, run exactly one read-only Claude Code probe
+  against the public synthetic fixture and record version-scoped evidence.
 - Blockers: Claude Code runtime evidence requires explicit approval to send the
-  public synthetic fixture to the external Claude service. This does not block
-  the remaining local release-readiness work.
+  public synthetic fixture to the external Claude service. This blocks the
+  v1.0 compatibility exit criterion, not the local v0.2.0 candidate.
 
 ## Evidence
 
@@ -39,6 +41,8 @@ wc -l docs/release-checklist.md
 sed -n '1,260p' examples/reference-evaluations/ecc-v2.0.0.md
 sed -n '1,260p' examples/reference-evaluations/full-stack-application.md
 sed -n '1,280p' examples/reference-evaluations/ai-experiment-service.md
+sed -n '1,260p' CHANGELOG.md
+sed -n '1,320p' docs/releases/v0.2.0-readiness.md
 python3 scripts/aews_validate.py . --mode template
 python3 scripts/aews_validate.py tests/fixtures/runtime-loading --mode template
 python3 -m unittest discover -s tests -p 'test_*.py' -v
@@ -57,4 +61,5 @@ git log --oneline --decorate -5
 
 ## Expiration
 
-Replace this handoff after the release-readiness audit is complete.
+Replace this handoff after the Claude probe or any owner-controlled release
+action changes the current evidence.

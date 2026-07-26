@@ -11,7 +11,7 @@ evidence-backed continuity between agents.
 ## Scope
 
 - Scope: Workspace standard
-- Current version: v0.2 validation and template hardening; v0.1.0 published
+- Current version: local v0.2.0 release candidate; v0.1.0 published
 - Primary audience: engineers who use multiple AI coding agents across repositories
 - Primary compatibility targets: Codex and Claude Code
 - Extension policy: keep the adapter contract vendor-neutral and open to other

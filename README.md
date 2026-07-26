@@ -83,15 +83,17 @@ while the generic adapter contract remains open.
 
 ## Status
 
-AEWS v0.1.0 is published. v0.2 validation and template hardening are in
-progress. The first validator slice is implemented after two reference
-evaluations. The evidence-backed compatibility matrix and optional cross-agent
-continuity protocol are documented; controlled runtime adapter smoke tests are
-partially complete: Codex passed, while Claude Code awaits explicit approval
-for the external fixture transfer. A third real-repository evaluation also
-stabilized generated-artifact reference handling. Keep harness runtime features
-outside the core standard. The reusable adoption mapping is now published; the
-remaining local work is the v0.2/v1.0 release-readiness audit.
+AEWS v0.1.0 is published. The local v0.2.0 release candidate now includes three
+reference evaluations, the first read-only validator, a tested adoption
+mapping, an evidence-backed compatibility matrix, and the optional cross-agent
+continuity protocol. The candidate has not been tagged, pushed, or published;
+see `docs/releases/v0.2.0-readiness.md`.
+
+Controlled runtime evidence is partially complete: Codex passed, while Claude
+Code awaits explicit approval for the external synthetic-fixture transfer.
+That limitation does not invalidate the version-scoped v0.2 claims, but it
+blocks the v1.0 primary-tool compatibility exit criterion. Keep harness runtime
+features outside the core standard.
 
 ## License
 

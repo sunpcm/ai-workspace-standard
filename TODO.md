@@ -436,10 +436,23 @@ Status: Completed on 2026-07-26.
 - 增加测试，从发布模板构造临时目标并通过真实 validator contract；
 - 不新增 schema 字段、生成器、运行时状态或工具私有知识。
 
+### 18. 收口 v0.2.0 release readiness
+
+Status: Completed on 2026-07-26.
+
+交付结果：
+
+- 新增 `CHANGELOG.md`，区分已发布 `v0.1.0` 与未发布的 v0.2 candidate；
+- 新增 `docs/releases/v0.2.0-readiness.md`，记录本地检查、已知限制和发布
+  边界；
+- v0.2.0 本地 release candidate 可以交由 owner 审核、push、tag 和发布；
+- v1.0 仍由 Claude Code runtime-loading evidence 阻塞，不夸大兼容性；
+- 本轮不执行 push、tag、GitHub Release 或任何外部发布操作。
+
 ## 当前推荐顺序
 
-1. 收口 v0.2 / v1.0 release-ready 文档和最终审计
-2. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
+1. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
+2. owner 审核后，可选发布 v0.2.0 local candidate
 3. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令

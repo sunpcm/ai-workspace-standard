@@ -87,7 +87,7 @@ When examples reveal a problem in the standard, update the standard or checklist
 
 ## Release Notes
 
-Before tagging a version, summarize:
+Before tagging a version, update `CHANGELOG.md` and summarize:
 
 - changed canonical roles or scope rules,
 - changed template requirements,
@@ -95,7 +95,9 @@ Before tagging a version, summarize:
 - added or updated examples,
 - known migration actions for adopters.
 
-For v0.1.0, keep release notes short and link to `docs/release-checklist.md` once it exists.
+Keep the checklist reusable and store the concrete audit under
+`docs/releases/<version>-readiness.md`. A local readiness record must state
+explicitly when tag, push, and release publication have not occurred.
 
 ## Decision Rule
 

@@ -2,7 +2,12 @@
 
 Use this checklist before tagging or publishing AEWS.
 
-The checklist is manual in v0.1. It should confirm that the repository is ready to share, not add release automation.
+The checklist is intentionally manual. It should confirm that the repository
+is ready to share, not add release automation.
+
+Keep this file reusable. Record a concrete release audit under `docs/releases/`
+so results, known limitations, and the owner-controlled publication boundary do
+not overwrite the checklist itself.
 
 ## Target Version
 
@@ -166,9 +171,9 @@ Pass criteria:
 Required checks:
 
 ```bash
-rg -n -i "(token|secret|password|apikey|api_key)[[:space:]]*[:=]|sk-[A-Za-z0-9_-]{20,}|BEGIN .*PRIVATE|PRIVATE KEY|ssh-rsa|ssh-ed25519" . --glob '!docs/release-checklist.md'
-rg -n "/Users/" README.md docs standard templates adapters examples PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md --glob '!docs/release-checklist.md'
-rg -n -i "confidential|customer|client" README.md docs standard templates adapters examples PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md --glob '!docs/release-checklist.md'
+rg -n -i "(token|secret|password|apikey|api_key)[[:space:]]*[:=]|sk-[A-Za-z0-9_-]{20,}|BEGIN .*PRIVATE|PRIVATE KEY|ssh-rsa|ssh-ed25519" . --glob '!docs/release-checklist.md' --glob '!ECC/**'
+rg -n "/Users/" README.md CHANGELOG.md docs standard templates adapters examples PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md --glob '!docs/release-checklist.md'
+rg -n -i "confidential|customer|client" README.md CHANGELOG.md docs standard templates adapters examples PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md --glob '!docs/release-checklist.md'
 ```
 
 Pass criteria:
@@ -196,7 +201,8 @@ Risk:
 
 ## Release Result
 
-Record the release result here before tagging or publishing:
+Record each release result in `docs/releases/<version>-readiness.md` before
+tagging or publishing. Include:
 
 - Status: Not started | Passed | Blocked
 - Version:
