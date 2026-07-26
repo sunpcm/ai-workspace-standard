@@ -89,11 +89,10 @@ mapping, an evidence-backed compatibility matrix, and the optional cross-agent
 continuity protocol. The candidate has not been tagged, pushed, or published;
 see `docs/releases/v0.2.0-readiness.md`.
 
-Controlled runtime evidence is partially complete: Codex passed, while Claude
-Code awaits explicit approval for the external synthetic-fixture transfer.
-That limitation does not invalidate the version-scoped v0.2 claims, but it
-blocks the v1.0 primary-tool compatibility exit criterion. Keep harness runtime
-features outside the core standard.
+Controlled, version-scoped runtime-loading probes have passed for both Codex
+and Claude Code against the same public synthetic checkpoint. These results do
+not imply universal version compatibility or harness-runtime parity. Keep
+harness runtime features outside the core standard.
 
 ## License
 

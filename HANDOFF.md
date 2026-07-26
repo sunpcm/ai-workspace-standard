@@ -2,8 +2,8 @@
 
 ## Current Goal
 
-Complete the one remaining Claude Code runtime-loading probe after explicit
-external-transfer approval, then reassess v1.0 readiness.
+Complete the v1.0 release-readiness audit after both primary runtime-loading
+probes passed.
 
 ## Current State
 
@@ -14,13 +14,12 @@ external-transfer approval, then reassess v1.0 readiness.
   runtime fixture, passed the Codex CLI read-only probe, and completed a third
   read-only adoption evaluation that removed generated-artifact warning noise;
   published the tested adoption mapping and completed the local v0.2.0
-  release-readiness record.
-- Next step: after owner approval, run exactly one read-only Claude Code probe
-  against the public synthetic fixture using the prepared command in
-  `docs/runtime-loading-evidence.md`, then record version-scoped evidence.
-- Blockers: Claude Code runtime evidence requires explicit approval to send the
-  public synthetic fixture to the external Claude service. This blocks the
-  v1.0 compatibility exit criterion, not the local v0.2.0 candidate.
+  release-readiness record; passed the owner-approved Claude Code read-only
+  probe with unchanged Git state and fixture hashes.
+- Next step: run the full v1.0 requirement and release-readiness audit, update
+  version documents, and stop before push, tag, or release publication.
+- Blockers: none for local release readiness. Push, tag, and publication remain
+  owner-controlled external actions.
 
 ## Evidence
 
@@ -55,8 +54,7 @@ git log --oneline --decorate -5
 ## Open Questions
 
 - Whether to create a GitHub Release page for `v0.1.0`.
-- When the owner will explicitly approve sending the public runtime fixture to
-  Claude for the one remaining controlled probe.
+- Whether the owner wants to publish the resulting local release candidate.
 - Whether missing Decisions should become a failure only after a repository
   explicitly declares full AEWS compliance.
 

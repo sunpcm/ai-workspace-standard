@@ -14,6 +14,8 @@ rules in `docs/versioning.md`.
 - A compatibility matrix that separates structural projection from runtime
   loading evidence.
 - A synthetic runtime-loading fixture and controlled Codex CLI evidence.
+- Controlled Claude Code runtime-loading evidence after explicit approval for
+  the public synthetic fixture transfer.
 
 ### Changed
 
@@ -26,9 +28,8 @@ rules in `docs/versioning.md`.
 
 ### Known Limitations
 
-- Claude Code runtime-loading evidence is not yet recorded because the public
-  synthetic fixture has not been explicitly approved for transfer to the
-  external Claude service.
+- Runtime evidence is version-scoped to the tested Codex and Claude Code
+  configurations and does not prove universal compatibility.
 - The validator intentionally leaves lifecycle freshness, decision quality,
   supplement ownership, and other semantic checks to manual review.
 - No hooks, MCP catalog, memory runtime, orchestration service, generator, or

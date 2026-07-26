@@ -5,17 +5,18 @@ discovery for the primary Codex and Claude Code targets.
 
 ## Probe Contract
 
-- Date: 2026-07-26
+- Dates: 2026-07-26 to 2026-07-27
 - Fixture: `tests/fixtures/runtime-loading/`
-- Isolated temporary Git commit: `5559b72d670b79829ff05998d5e3a2b03da9453b`
+- Codex isolated Git commit: `5559b72d670b79829ff05998d5e3a2b03da9453b`
+- Claude isolated Git commit: `71f7a92de7ca877afd140051d3676da109724f95`
 - Target documents: `PROJECT.md`, `DECISIONS.md`, `HANDOFF.md`, `TODO.md`
 - Prohibited reads: `AGENTS.md`, `CLAUDE.md`
 - Prohibited actions: every file modification
 - Expected proof: tool-specific startup marker plus the shared current goal,
   completed step, and next step
 
-The temporary repository was clean before and after the Codex probe. The
-following SHA-256 values were unchanged:
+Each isolated temporary repository was clean before and after its probe. The
+following six SHA-256 values were unchanged:
 
 | File | SHA-256 |
 | --- | --- |
@@ -64,26 +65,40 @@ prove compatibility for every Codex version or configuration.
 
 ## Claude Code Result
 
-Status: Not run; explicit external-transfer approval required.
+Status: Pass on 2026-07-27 after explicit owner approval for the external
+transfer of this public synthetic fixture.
 
-- CLI version available locally: `2.1.218`
-- Static discovery evidence: local help documents `CLAUDE.md` auto-discovery
-  outside bare and safe modes
-- Intended file capability: `Read` only
-- Intended model-call budget: at most USD 1
-- Process result: rejected by the host approval reviewer before Claude Code
-  started because sending the concrete fixture to the external Claude service
-  requires explicit approval for that destination
-- External data sent by this probe: none
-- Modified files: none
+- CLI version: `2.1.218`
+- Environment: isolated temporary Git repository at commit `71f7a92`
+- Built-in file capability: `Read` only
+- Permission mode: `plan`
+- Settings sources: project only; the fixture has no project settings file
+- MCP, slash commands, browser integration, and session persistence: disabled
+- Model usage reported by CLI: `claude-sonnet-5` and
+  `claude-haiku-4-5-20251001`
+- Model-call budget: USD 1 maximum
+- Actual reported cost: USD 0.1005857
+- Permission denials: none
+- Startup marker returned: `AEWS_CLAUDE_STARTUP_20260726`
+- Canonical files returned: `PROJECT.md`, `DECISIONS.md`, `HANDOFF.md`,
+  `TODO.md`
+- Shared current goal, last completed step, and next step: exact textual match
+  with the fixture checkpoint
+- Modified files: none, confirmed by clean Git status and all six hashes
+- Files present after the probe: the same eight fixture files; no session or
+  result artifact was created in the repository
 
-Do not reinterpret this result as a Claude Code failure. It is missing runtime
-evidence. A future operator may rerun exactly one probe after approving the
-transfer of the public synthetic fixture to Claude.
+The marker value was absent from the prompt and JSON schema. This proves that
+the tested Claude Code version loaded its root `CLAUDE.md` marker and followed
+that adapter into the same canonical checkpoint used by Codex. It does not
+prove compatibility for every Claude Code version, model, account, or
+configuration.
 
-### Prepared Claude Command
+### Executed Claude Command
 
-Status: locally reviewed on 2026-07-27; model call not executed.
+The option set and JSON schema first passed a local `--help` parser smoke
+without invoking a model, then the same command shape was executed once after
+approval.
 
 Claude Code `2.1.218 --help` confirms every option below. The command preserves
 root `CLAUDE.md` auto-discovery while limiting built-in tools to `Read`, loading
@@ -113,10 +128,9 @@ claude --print \
   'Without explicitly opening AGENTS.md or CLAUDE.md, read PROJECT.md, DECISIONS.md, HANDOFF.md, and TODO.md. Report the startup marker supplied by repository instructions, the four canonical filenames, and the shared current goal, last completed step, and next step. Do not modify any file.'
 ```
 
-The marker value is deliberately absent from the prompt and schema. A pass
-requires the returned marker to equal `AEWS_CLAUDE_STARTUP_20260726`, all four
-filenames to match the fixture, and the returned checkpoint to match
-`HANDOFF.md` and `TODO.md`.
+The marker value is deliberately absent from the prompt and schema. The actual
+result returned `AEWS_CLAUDE_STARTUP_20260726`, all four expected filenames,
+and the checkpoint recorded in `HANDOFF.md` and `TODO.md`.
 
 Before and after the command, run:
 
@@ -125,9 +139,9 @@ git status --porcelain=v1 -uall
 shasum -a 256 -c SHA256SUMS
 ```
 
-A pass also requires an unchanged clean status and all six hashes above. Keep
-only the structured result needed for the evidence summary; do not commit the
-raw response.
+The post-call status was clean, the temporary commit was unchanged, and all six
+hashes passed. Only the structured facts needed for this summary are retained;
+the raw response and session identifier are not checked in.
 
 ## Reproduction
 
@@ -140,6 +154,6 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 For a runtime probe, copy the fixture into a temporary directory, initialize a
 temporary Git repository, record its commit and file hashes, run one read-only
-tool call, and verify the same commit and hashes afterward. Use the prepared
-Claude command above for this evidence record; do not run it without explicit
-approval for the external transfer.
+tool call, and verify the same commit and hashes afterward. Any future rerun
+requires a new explicit approval and must be recorded as version-scoped
+evidence rather than silently replacing these results.

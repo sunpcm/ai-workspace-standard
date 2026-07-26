@@ -378,7 +378,7 @@ Status: Completed on 2026-07-26.
 
 ### 15. 为 Codex 和 Claude Code 增加受控 runtime-loading evidence
 
-Status: In progress on 2026-07-26.
+Status: Completed on 2026-07-27.
 
 目标：在明确授权模型调用后，用只读临时 fixture 验证两个工具是否真实
 加载相同 canonical roles 和当前 next step。
@@ -408,6 +408,10 @@ Status: In progress on 2026-07-26.
   未触发模型调用；
 - 已补全六个 fixture 文件的前后 SHA-256 验收条件，增加 checked-in
   `SHA256SUMS` 和回归测试防止 evidence drift；
+- owner 明确授权后，仅执行一次 Claude Code `2.1.218` 探针；实际费用约
+  USD 0.1006，返回预期 marker、四个 canonical 文件和共享 checkpoint；
+- Claude 探针前后临时 commit、clean status、六个 hash 和八文件清单均未
+  变化，无 permission denial，无 repo 内 session/result artifact；
 - 证据记录：`docs/runtime-loading-evidence.md`。
 
 ### 16. 用第三个真实仓库稳定 adoption warning
@@ -458,8 +462,8 @@ Status: Completed on 2026-07-26.
 
 ## 当前推荐顺序
 
-1. owner 返回后，明确授权 Claude external transfer 并补唯一一次探针
-2. owner 审核后，可选发布 v0.2.0 local candidate
+1. 用双工具 runtime evidence 完成 v1.0 release-readiness 最终审计
+2. owner 审核后，可选发布本地 release candidate
 3. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令

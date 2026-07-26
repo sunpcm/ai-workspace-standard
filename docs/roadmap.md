@@ -48,8 +48,7 @@ Possible deliverables:
 Current sequence:
 
 1. review and optionally publish the local v0.2.0 candidate;
-2. complete the Claude Code runtime probe after explicit external-transfer
-   approval; the Codex probe is complete;
+2. use the completed Codex and Claude Code runtime probes in the v1.0 audit;
 3. keep semantic and runtime-aware checks outside the first validator.
 
 Exit criteria:
@@ -81,9 +80,9 @@ Exit criteria:
 - Codex and Claude Code have repeatable compatibility evidence; adding another
   primary tool does not require changing canonical roles.
 
-Status: All local-only criteria are complete, but v1.0 is blocked by the Claude
-Code runtime-loading evidence criterion. Do not claim v1.0 compatibility until
-that controlled probe is authorized, passed, and recorded.
+Status: All exit criteria now have local evidence after the controlled Claude
+Code probe passed on 2026-07-27. Complete the full v1.0 release-readiness audit
+before any owner-controlled tag or publication.
 
 ## Deferred
 
