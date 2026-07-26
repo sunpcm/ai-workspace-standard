@@ -16,7 +16,8 @@ external-transfer approval, then reassess v1.0 readiness.
   published the tested adoption mapping and completed the local v0.2.0
   release-readiness record.
 - Next step: after owner approval, run exactly one read-only Claude Code probe
-  against the public synthetic fixture and record version-scoped evidence.
+  against the public synthetic fixture using the prepared command in
+  `docs/runtime-loading-evidence.md`, then record version-scoped evidence.
 - Blockers: Claude Code runtime evidence requires explicit approval to send the
   public synthetic fixture to the external Claude service. This blocks the
   v1.0 compatibility exit criterion, not the local v0.2.0 candidate.

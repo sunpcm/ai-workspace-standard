@@ -48,6 +48,15 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual([], result.failures)
         self.assertEqual([], result.warnings)
 
+    def test_runtime_loading_fixture_hash_manifest_matches(self) -> None:
+        root = fixture("runtime-loading")
+        manifest = (root / "SHA256SUMS").read_text(encoding="utf-8").splitlines()
+        self.assertEqual(6, len(manifest))
+        for entry in manifest:
+            expected, name = entry.split(maxsplit=1)
+            actual = hashlib.sha256((root / name).read_bytes()).hexdigest()
+            self.assertEqual(expected, actual, name)
+
     def test_aews_repository_passes_its_validator(self) -> None:
         result = VALIDATOR.validate_repository(ROOT, mode="template")
         self.assertEqual([], result.failures)

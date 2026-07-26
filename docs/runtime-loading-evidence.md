@@ -21,11 +21,14 @@ following SHA-256 values were unchanged:
 | --- | --- |
 | `AGENTS.md` | `e291628e787438f20a0656da262f69011ec3c534c908877b514c4e47fa2e3628` |
 | `CLAUDE.md` | `09e309de183a9cf118a300c6a1459a1d983380558977a9ec04df722aaeb34358` |
+| `PROJECT.md` | `5a7f928a083a0de937317290e9d03f4ffadcc82ea9faa35370c342c2ebf70413` |
+| `DECISIONS.md` | `7b7ab57c7052789682b2c871958eae74431e451aee162313094c39a46bcdd85d` |
 | `HANDOFF.md` | `adaab0281d028c5ad0dacbed303d79ed72d0698949dadee15fc2cd374516c4e3` |
 | `TODO.md` | `e1660e611bb3ddb8f0d1f1bd910efeceb989ee5665dde47662513d924c1f0547` |
 
 Raw model transcripts are not checked in. The fixture contains only public,
-synthetic test data.
+synthetic test data. The six inputs are now locked by the checked-in
+`SHA256SUMS` manifest and a regression test for future probes.
 
 ## Codex Result
 
@@ -78,6 +81,54 @@ Do not reinterpret this result as a Claude Code failure. It is missing runtime
 evidence. A future operator may rerun exactly one probe after approving the
 transfer of the public synthetic fixture to Claude.
 
+### Prepared Claude Command
+
+Status: locally reviewed on 2026-07-27; model call not executed.
+
+Claude Code `2.1.218 --help` confirms every option below. The command preserves
+root `CLAUDE.md` auto-discovery while limiting built-in tools to `Read`, loading
+only project settings, disabling slash commands and browser integration,
+excluding configured MCP servers, disabling session persistence, and capping
+the model-call budget. Passing the complete option set and JSON schema together
+with `--help` returned exit code `0`, so the current CLI parser accepts the
+prepared shape without invoking a model.
+
+Run it only from a clean, isolated copy of the fixture after explicit approval:
+
+```bash
+claude --print \
+  --tools Read \
+  --permission-mode plan \
+  --setting-sources project \
+  --strict-mcp-config \
+  --mcp-config '{"mcpServers":{}}' \
+  --disable-slash-commands \
+  --no-chrome \
+  --no-session-persistence \
+  --prompt-suggestions false \
+  --effort low \
+  --max-budget-usd 1 \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"startup_marker":{"type":"string"},"project_file":{"type":"string"},"decisions_file":{"type":"string"},"handoff_file":{"type":"string"},"task_file":{"type":"string"},"current_goal":{"type":"string"},"last_completed_step":{"type":"string"},"next_step":{"type":"string"}},"required":["startup_marker","project_file","decisions_file","handoff_file","task_file","current_goal","last_completed_step","next_step"],"additionalProperties":false}' \
+  'Without explicitly opening AGENTS.md or CLAUDE.md, read PROJECT.md, DECISIONS.md, HANDOFF.md, and TODO.md. Report the startup marker supplied by repository instructions, the four canonical filenames, and the shared current goal, last completed step, and next step. Do not modify any file.'
+```
+
+The marker value is deliberately absent from the prompt and schema. A pass
+requires the returned marker to equal `AEWS_CLAUDE_STARTUP_20260726`, all four
+filenames to match the fixture, and the returned checkpoint to match
+`HANDOFF.md` and `TODO.md`.
+
+Before and after the command, run:
+
+```bash
+git status --porcelain=v1 -uall
+shasum -a 256 -c SHA256SUMS
+```
+
+A pass also requires an unchanged clean status and all six hashes above. Keep
+only the structured result needed for the evidence summary; do not commit the
+raw response.
+
 ## Reproduction
 
 Validate the fixture without invoking a model:
@@ -89,5 +140,6 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 For a runtime probe, copy the fixture into a temporary directory, initialize a
 temporary Git repository, record its commit and file hashes, run one read-only
-tool call, and verify the same commit and hashes afterward. Do not run the
-Claude probe without explicit approval for the external transfer.
+tool call, and verify the same commit and hashes afterward. Use the prepared
+Claude command above for this evidence record; do not run it without explicit
+approval for the external transfer.

@@ -401,6 +401,13 @@ Status: In progress on 2026-07-26.
 - Claude Code 探针在进程启动前被 host approval reviewer 拒绝，未向外部
   服务发送 fixture；需要项目 owner 明确授权把该公开合成 fixture 发送给
   Claude 后才能补证据；
+- 已依据 Claude Code `2.1.218 --help` 固化唯一待执行命令：仅开放 `Read`、
+  plan permission、project-only settings、无 MCP/浏览器/session persistence、
+  结构化输出且预算不超过 USD 1；marker 不出现在 prompt/schema 中；
+- 完整参数和 JSON schema 的本地 parser smoke 以 `--help` 退出码 `0` 通过，
+  未触发模型调用；
+- 已补全六个 fixture 文件的前后 SHA-256 验收条件，增加 checked-in
+  `SHA256SUMS` 和回归测试防止 evidence drift；
 - 证据记录：`docs/runtime-loading-evidence.md`。
 
 ### 16. 用第三个真实仓库稳定 adoption warning
