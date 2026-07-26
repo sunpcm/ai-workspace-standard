@@ -33,6 +33,32 @@ Examples of non-breaking changes:
 - adding validation guidance that does not change acceptance rules,
 - fixing commands in documentation.
 
+## v1.x Compatibility
+
+Starting with v1.0, the stable surface includes the four scopes, canonical
+document roles, thin-adapter responsibility, routing-only adoption mapping
+version 1, and the validator's failure/warning boundary.
+
+A change to that surface is breaking and requires a new AEWS major version when
+it requires a conforming adopter to rename, move, reinterpret, or add required
+content to preserve the same meaning. Examples include:
+
+- renaming or removing a scope or canonical role;
+- changing a currently optional lifecycle role into a required active file;
+- making adapters own durable project knowledge;
+- removing or changing the meaning of an `aews.json` version 1 field;
+- promoting a warning to a failure without a migration path;
+- adding a required template section or runtime dependency.
+
+Backward-compatible optional roles, adapters, examples, and validator hints may
+ship in a minor release. Clarifications and fixes that do not change acceptance
+rules may ship in a patch release. Deprecate before removing whenever a
+practical compatibility path exists.
+
+The adoption mapping's `version` is its contract version, not automatically the
+same as the AEWS release version. Breaking that JSON contract requires both a
+new mapping version and the applicable AEWS major-version process.
+
 ## Adapter Changes
 
 Adapter files are projections from canonical documents.
@@ -98,6 +124,10 @@ Before tagging a version, update `CHANGELOG.md` and summarize:
 Keep the checklist reusable and store the concrete audit under
 `docs/releases/<version>-readiness.md`. A local readiness record must state
 explicitly when tag, push, and release publication have not occurred.
+
+For a stable release, the readiness record must map every published exit
+criterion to authoritative evidence and distinguish local readiness from
+external publication state.
 
 ## Decision Rule
 

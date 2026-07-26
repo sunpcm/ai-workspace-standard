@@ -2,8 +2,8 @@
 
 ## Current Goal
 
-Complete the v1.0 release-readiness audit after both primary runtime-loading
-probes passed.
+Owner review and optional publication of the completed local v1.0.0 release
+candidate.
 
 ## Current State
 
@@ -15,11 +15,12 @@ probes passed.
   read-only adoption evaluation that removed generated-artifact warning noise;
   published the tested adoption mapping and completed the local v0.2.0
   release-readiness record; passed the owner-approved Claude Code read-only
-  probe with unchanged Git state and fixture hashes.
-- Next step: run the full v1.0 requirement and release-readiness audit, update
-  version documents, and stop before push, tag, or release publication.
-- Blockers: none for local release readiness. Push, tag, and publication remain
-  owner-controlled external actions.
+  probe with unchanged Git state and fixture hashes; completed the v1.0
+  requirement audit, compatibility policy, and local readiness record.
+- Next step: owner reviews `docs/releases/v1.0.0-readiness.md` and decides
+  whether to push, tag `v1.0.0`, and publish release notes.
+- Blockers: none. Push, tag, and publication remain owner-controlled external
+  actions and were intentionally not performed.
 
 ## Evidence
 
@@ -43,6 +44,7 @@ sed -n '1,260p' examples/reference-evaluations/full-stack-application.md
 sed -n '1,280p' examples/reference-evaluations/ai-experiment-service.md
 sed -n '1,260p' CHANGELOG.md
 sed -n '1,320p' docs/releases/v0.2.0-readiness.md
+sed -n '1,320p' docs/releases/v1.0.0-readiness.md
 python3 scripts/aews_validate.py . --mode template
 python3 scripts/aews_validate.py tests/fixtures/runtime-loading --mode template
 python3 -m unittest discover -s tests -p 'test_*.py' -v
@@ -60,5 +62,5 @@ git log --oneline --decorate -5
 
 ## Expiration
 
-Replace this handoff after the Claude probe or any owner-controlled release
-action changes the current evidence.
+Replace this handoff after any owner-controlled release action changes the
+current evidence.

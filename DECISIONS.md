@@ -226,3 +226,31 @@ custom filename should use a normal Markdown link or an explicit relative path.
 
 Evidence: `scripts/aews_validate.py`, `tests/fixtures/adoption-warnings/README.md`,
 `examples/reference-evaluations/ai-experiment-service.md`
+
+### 2026-07-27: Promote the completed validation phase directly to a v1.0 candidate
+
+Status: Accepted
+
+Scope: Repo
+
+Context: The v0.2 validation phase produced three real-repository evaluations,
+a stable mapping contract, a tested read-only validator, a migration path, and
+version-scoped runtime-loading evidence for both primary tools. No v0.2 tag was
+published and therefore no external v0.2 consumers depend on an intermediate
+release. All documented v1.0 exit criteria now have evidence.
+
+Decision: Preserve the v0.2.0 readiness record as phase evidence, but make the
+next local release candidate `v1.0.0` rather than publishing an intermediate
+v0.2.0 tag. The v1 stable surface is the scope model, canonical roles,
+thin-adapter contract, adoption mapping version 1, read-only validator, and
+optional checkpoint continuity protocol.
+
+Consequences: Future breaking changes to this stable surface require the
+major-version process in `docs/versioning.md`. Push, tag, changelog dating, and
+release publication remain owner-controlled. The absence of a v0.2 tag must not
+be represented as a missing migration dependency because v0.2 was never a
+published compatibility baseline.
+
+Evidence: `docs/releases/v0.2.0-readiness.md`,
+`docs/releases/v1.0.0-readiness.md`, `docs/runtime-loading-evidence.md`,
+`docs/roadmap.md`

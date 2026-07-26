@@ -78,16 +78,28 @@ and manual-review limits.
 
 v0.2 also defines evidence-backed adapter compatibility and optional
 cross-agent continuity without copying task history or treating runtime memory
-as project truth. Near-term runtime evidence focuses on Codex and Claude Code
-while the generic adapter contract remains open.
+as project truth. Runtime evidence focuses on Codex and Claude Code while the
+generic adapter contract remains open.
+
+## v1.0 Stable Surface
+
+The local v1.0.0 candidate stabilizes the scope model, canonical roles, thin
+adapter contract, adoption mapping version 1, read-only validator, and optional
+checkpoint continuity protocol. `docs/adoption-guide.md` and
+`templates/adoption/aews.example.json` are the shortest adoption route.
+
+Breaking changes to this surface follow `docs/versioning.md`. Runtime evidence
+is recorded per tested tool version and does not turn AEWS into an agent
+harness.
 
 ## Status
 
-AEWS v0.1.0 is published. The local v0.2.0 release candidate now includes three
-reference evaluations, the first read-only validator, a tested adoption
-mapping, an evidence-backed compatibility matrix, and the optional cross-agent
-continuity protocol. The candidate has not been tagged, pushed, or published;
-see `docs/releases/v0.2.0-readiness.md`.
+AEWS v0.1.0 is published. The completed, unpublished v0.2 validation phase has
+been promoted to a local v1.0.0 release candidate with three reference
+evaluations, the first read-only validator, a tested adoption mapping, an
+evidence-backed compatibility matrix, and optional cross-agent continuity.
+The candidate has not been tagged, pushed, or published; see
+`docs/releases/v1.0.0-readiness.md`.
 
 Controlled, version-scoped runtime-loading probes have passed for both Codex
 and Claude Code against the same public synthetic checkpoint. These results do

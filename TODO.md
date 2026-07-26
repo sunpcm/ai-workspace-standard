@@ -1,8 +1,9 @@
 # TODO
 
-AEWS v0.1.0 已发布，当前进入 v0.2 validation and template hardening。
-接下来优先用真实仓库稳定人工检查和 canonical role 映射，再实现轻量
-validator；不急着加 hooks、MCP、memory runtime 或复杂 CLI。
+AEWS v0.1.0 已发布，v0.2 validation and template hardening 阶段已完成，
+当前已形成未发布的本地 v1.0.0 release candidate。所有本地 roadmap 任务
+已完成；下一步由 owner 审核并决定是否 push、tag 和发布。hooks、MCP、
+memory runtime 或复杂 CLI 继续保持在 core scope 之外。
 
 ## P0: 继续开发前先做
 
@@ -457,13 +458,29 @@ Status: Completed on 2026-07-26.
 - 新增 `docs/releases/v0.2.0-readiness.md`，记录本地检查、已知限制和发布
   边界；
 - v0.2.0 本地 release candidate 可以交由 owner 审核、push、tag 和发布；
-- v1.0 仍由 Claude Code runtime-loading evidence 阻塞，不夸大兼容性；
+- 当时 v1.0 由 Claude Code runtime-loading evidence 阻塞；该项已在 #15
+  完成，并由 #19 重新审计；
 - 本轮不执行 push、tag、GitHub Release 或任何外部发布操作。
+
+### 19. 完成 v1.0.0 release readiness
+
+Status: Completed on 2026-07-27.
+
+交付结果：
+
+- Codex 与 Claude Code 均有同一合成 checkpoint 的受控 runtime-loading
+  证据；
+- 补充 v1.x 兼容性、major/minor/patch 和 mapping contract version 规则；
+- 新增 `docs/releases/v1.0.0-readiness.md`，逐项映射 v1 exit criteria 到
+  权威证据；
+- 因 v0.2.0 从未发布且 v1 条件已全部满足，保留 v0.2 readiness 作为 phase
+  evidence，下一本地 candidate 直接提升为 v1.0.0；
+- 不执行 push、tag、changelog dating 或 release publication。
 
 ## 当前推荐顺序
 
-1. 用双工具 runtime evidence 完成 v1.0 release-readiness 最终审计
-2. owner 审核后，可选发布本地 release candidate
+1. owner 审核本地 v1.0.0 release candidate
+2. owner 决定是否 push、tag `v1.0.0` 并发布 release notes
 3. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令

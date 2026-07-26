@@ -27,29 +27,29 @@ Exit criteria:
 
 Goal: make the standard testable.
 
-Status: Local release candidate complete. Three reference evaluations, the
+Status: Phase complete. Three reference evaluations, the
 first dependency-free read-only validator, a tested adoption mapping template,
 an evidence-backed adapter matrix, and the optional cross-agent continuity
-protocol are complete. Tag, push, and publication remain owner-controlled.
+protocol are complete. The unpublished v0.2.0 candidate is retained as phase
+evidence and superseded by the local v1.0.0 candidate.
 
 Primary compatibility targets: Codex and Claude Code. Other tools remain
 possible through the open adapter contract but are not active implementation
 or runtime-validation targets.
 
-Possible deliverables:
+Delivered:
 
 - checklist-based validator,
 - duplicate-context detector,
 - sample migration guide from large `AGENTS.md`,
 - more examples from real repo types,
-- optional bootstrap script,
 - evidence-backed cross-agent checkpoint protocol.
 
 Current sequence:
 
-1. review and optionally publish the local v0.2.0 candidate;
-2. use the completed Codex and Claude Code runtime probes in the v1.0 audit;
-3. keep semantic and runtime-aware checks outside the first validator.
+1. retain the v0.2.0 readiness record as phase evidence;
+2. use the completed Codex and Claude Code probes in the v1.0 evidence chain;
+3. keep semantic and runtime-aware checks outside the validator core.
 
 Exit criteria:
 
@@ -62,7 +62,7 @@ Exit criteria:
 
 Goal: make AEWS usable as a long-term open-source template.
 
-Possible deliverables:
+Delivered:
 
 - versioned standard,
 - changelog,
@@ -80,9 +80,10 @@ Exit criteria:
 - Codex and Claude Code have repeatable compatibility evidence; adding another
   primary tool does not require changing canonical roles.
 
-Status: All exit criteria now have local evidence after the controlled Claude
-Code probe passed on 2026-07-27. Complete the full v1.0 release-readiness audit
-before any owner-controlled tag or publication.
+Status: Local release candidate complete. All exit criteria have evidence after
+the controlled Claude Code probe passed on 2026-07-27. The full readiness audit
+is recorded in `docs/releases/v1.0.0-readiness.md`; tag, push, and publication
+remain owner-controlled.
 
 ## Deferred
 

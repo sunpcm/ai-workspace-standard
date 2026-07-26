@@ -35,8 +35,10 @@ rules in `docs/versioning.md`.
 - No hooks, MCP catalog, memory runtime, orchestration service, generator, or
   package distribution is part of AEWS core.
 
-The current Unreleased content is the local `v0.2.0` release candidate. It has
-not been tagged, pushed, or published by this readiness pass.
+The current Unreleased content is the local `v1.0.0` release candidate. The
+v0.2 validation phase was completed but never tagged; its local readiness
+record is retained as evidence. Neither candidate has been pushed, tagged, or
+published by these readiness passes.
 
 ## 0.1.0 - 2026-06-29
 
