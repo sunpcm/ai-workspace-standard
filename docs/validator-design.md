@@ -26,9 +26,14 @@ The validator should not include:
 
 ## Inputs
 
-The first version should inspect a repository directory and a small set of known AEWS paths.
+The first version should inspect a repository directory in one of two modes.
 
-Expected paths:
+### Template Mode
+
+Template mode validates the AEWS template repository or a repository that
+explicitly adopts the preferred AEWS filenames.
+
+Preferred paths:
 
 - `README.md`
 - `PROJECT.md`
@@ -39,7 +44,72 @@ Expected paths:
 - `standard/adapters.md`
 - adapter files that actually exist
 
-The validator should not require every possible adapter. A repository should pass with only the adapters it uses.
+Missing required canonical files may be failures in template mode.
+
+### Adoption Mode
+
+Adoption mode validates an existing repository without requiring it to rename
+equivalent documents.
+
+It should identify or accept mappings for these roles:
+
+- Project: durable repository facts, commands, and boundaries;
+- Decisions: accepted choices and rationale;
+- Handoff: active continuation state, when present;
+- Experiment: temporary evidence, when present;
+- Adapter: harness-specific loading and behavior.
+
+For example, an existing repository may use `ARCHITECTURE.md`, `RULES.md`, or
+`WORKING-CONTEXT.md` for part of these roles. The validator should report the
+mapping it used. A preferred filename that is absent should not be a failure
+when an explicit equivalent role is mapped.
+
+### Adoption Mapping Contract
+
+The ordinary application evaluation showed that a mature Project role may need
+one primary router plus narrower supplemental documents. Adoption mode should
+therefore accept a small JSON mapping:
+
+```json
+{
+  "version": 1,
+  "mode": "adoption",
+  "roles": {
+    "project": {
+      "primary": "README.md",
+      "supplements": ["docs/architecture.md"]
+    },
+    "decisions": {"status": "missing"},
+    "handoff": {"status": "inactive"},
+    "experiment": {"status": "inactive"}
+  },
+  "adapters": [
+    {"tool": "codex", "path": "AGENTS.md"}
+  ]
+}
+```
+
+The default checked-in filename is `aews.json`. A caller may provide another
+path explicitly so a repository can be evaluated without modification. The
+validator must never generate or rewrite this file.
+
+Mapping rules:
+
+- every mapped role has exactly one primary path;
+- a role may have zero or more narrower supplements;
+- all paths are repository-relative and must resolve inside the repository;
+- `missing` means the role should exist but has no canonical owner yet and must
+  produce a warning;
+- `inactive` is allowed only for lifecycle-dependent Handoff and Experiment
+  roles;
+- adapters are declared explicitly by tool and path;
+- the manifest contains routing metadata only, never architecture facts,
+  decisions, commands, task state, or copied adapter instructions.
+
+The first implementation must not guess canonical ownership from content and
+silently treat that guess as authoritative.
+
+Both modes should require only the adapters actually used by the repository.
 
 ## Checks
 
@@ -57,11 +127,11 @@ Result type: warning by default.
 
 Rationale: a longer adapter may be justified by tool-specific syntax, but it should trigger review.
 
-### 2. Canonical File Presence
+### 2. Canonical Role Presence
 
-Purpose: confirm that adapters have canonical documents to point at.
+Purpose: confirm that adapters have canonical document roles to point at.
 
-Suggested checks:
+Suggested template-mode checks:
 
 - `PROJECT.md` exists,
 - `DECISIONS.md` exists,
@@ -69,25 +139,60 @@ Suggested checks:
 - `standard/scopes.md` exists,
 - `standard/adapters.md` exists.
 
-Result type: failure for missing core files in an AEWS template repository; warning for adoption in an existing repository.
+Suggested adoption-mode checks:
 
-Rationale: adoption may be incremental, but the AEWS template itself should keep core files present.
+- the Project role has one identified primary home,
+- the Decisions role is mapped or explicitly marked `missing`,
+- active work has a mapped Handoff and inactive work may mark it `inactive`,
+- each mapped primary and supplement resolves to an existing file,
+- each supplement has narrower ownership and is routed from its primary,
+- `missing` produces a warning and `inactive` is used only for allowed roles,
+- no role mapping silently claims the same section as two independent sources
+  of truth.
+
+Result type: failure for missing core roles in the AEWS template repository;
+warning for missing or ambiguous roles during incremental adoption.
+
+Rationale: AEWS defines document roles and preferred filenames. Adoption may be
+incremental and may use equivalent documents, but canonical ownership must
+remain explicit.
 
 ### 3. Adapter Read Order References
 
 Purpose: detect adapters that do not route to canonical documents.
 
-Suggested checks:
+Suggested checks against the resolved role mapping:
 
-- existing adapters mention `PROJECT.md`,
-- existing adapters mention `DECISIONS.md`,
-- existing adapters mention `HANDOFF.md` or explicitly explain when handoff is absent.
+- existing adapters route to the Project role,
+- existing adapters route to the Decisions role,
+- existing adapters route to the Handoff role or explicitly explain when
+  handoff is absent,
+- adapter references resolve to existing files.
 
 Result type: warning.
 
 Rationale: adapter syntax differs across tools, so this should remain a text-level hint.
 
-### 4. Obvious Duplicate Sentences
+### 4. Mapped Document References
+
+Purpose: catch stale local links that make a canonical router unreliable.
+
+Suggested checks:
+
+- repository-local Markdown paths in mapped documents resolve,
+- mapped supplements are referenced by their primary document,
+- missing paths include the referring file and line number,
+- URLs, anchors, generated paths, and example placeholders are excluded from
+  the first version.
+
+Result type: warning.
+
+Rationale: the ordinary application evaluation found intended canonical files
+under a documentation directory while primary documents still referenced old
+root paths. Modification time alone could not determine which content was
+authoritative.
+
+### 5. Obvious Duplicate Sentences
 
 Purpose: catch copied durable facts across canonical files and adapters.
 
@@ -102,9 +207,10 @@ Result type: warning.
 
 Rationale: duplication detection should guide review, not decide intent.
 
-### 5. Forbidden Runtime Feature Mentions
+### 6. Forbidden Runtime Feature Mentions
 
-Purpose: prevent AEWS v0.1 from drifting into an agent harness by accident.
+Purpose: prevent the AEWS core standard from drifting into an agent harness by
+accident.
 
 Suggested terms:
 
@@ -127,7 +233,7 @@ Allowed contexts:
 
 Rationale: the validator should flag these terms for review, not ban them outright.
 
-### 6. Template Minimality Hints
+### 7. Template Minimality Hints
 
 Purpose: catch templates that start acting like framework scaffolds.
 
@@ -153,11 +259,20 @@ Suggested format:
 ```text
 AEWS validation
 
+Mode: adoption
+Role mapping:
+- Project: docs/architecture.md
+- Project supplements: docs/operations.md
+- Decisions: missing
+- Handoff: WORKING-CONTEXT.md
+
 Failures:
-- Missing PROJECT.md
+- None
 
 Warnings:
+- Decisions role is missing.
 - adapters/codex/AGENTS.md has 46 lines; soft limit is 30.
+- Broken local document reference in README.md:42: docs/setup.md.
 - Possible duplicate sentence in PROJECT.md:12 and AGENTS.md:18.
 - Runtime boundary term "MCP" found in docs/new-feature.md:22.
 
@@ -169,19 +284,30 @@ Manual review still required:
 
 ## Exit Codes
 
-If implemented later:
+The first implementation should use:
 
 - `0`: no failures,
 - `1`: one or more failures,
 - `2`: validator usage error.
 
-Warnings alone should not fail v0.1 validation unless a release checklist explicitly decides otherwise.
+Warnings alone should not fail validation unless a release checklist explicitly
+decides otherwise.
 
 ## Implementation Constraints
 
-Do not implement this design until the manual checklist has been used on more examples.
+The implementation evidence gate is satisfied: the manual checklist has been
+used on ECC and one ordinary full-stack application repository.
 
-When implementation becomes appropriate:
+The evaluations are recorded in:
+
+- `examples/reference-evaluations/ecc-v2.0.0.md`;
+- `examples/reference-evaluations/full-stack-application.md`.
+
+Together they demonstrate why adoption mode must be role-aware, why Project may
+have a primary router plus supplements, and why adapter length remains a
+warning.
+
+For the first implementation:
 
 - keep the first version as a local script or documented command,
 - avoid dependency-heavy parsing,
@@ -192,5 +318,8 @@ When implementation becomes appropriate:
 ## Open Questions
 
 - Should warning thresholds become configurable before v1.0?
-- Should adoption repositories and the AEWS template repository use different failure levels?
 - Should duplicate detection ignore all quoted checklist text by default?
+- Which repository-local Markdown link forms can be checked without adding a
+  Markdown parser dependency?
+- Should a missing Decisions role become a failure after an adoption repository
+  explicitly declares itself fully AEWS-compliant?

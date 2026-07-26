@@ -65,7 +65,16 @@ Adapter files must stay thin. If an adapter grows large, that usually means cano
 
 ECC is an agent harness: it organizes agents, skills, hooks, commands, memory, MCP, security, and cross-tool runtime behavior.
 
-AEWS is a workspace knowledge standard. It can learn from harness design, but it should not become a runtime harness in v0.1.
+AEWS is a workspace knowledge standard. It can learn from harness design, but
+runtime harness capabilities remain outside the core standard.
+
+The ECC v2.0.0 reference evaluation confirms a shared architectural principle:
+durable behavior should have one shared source and harness-specific files should
+adapt only loading or platform differences. It also shows why AEWS validation
+must distinguish document roles from preferred filenames and warnings from
+runtime-specific exceptions.
+
+Evidence: `examples/reference-evaluations/ecc-v2.0.0.md`
 
 ## Acceptance Criteria
 

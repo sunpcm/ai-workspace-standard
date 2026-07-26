@@ -10,5 +10,4 @@ Read:
 
 Rules:
 
-- Keep generated data changes tied to source changes.
 - Do not copy durable project knowledge into this file.

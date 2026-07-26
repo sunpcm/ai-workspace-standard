@@ -122,7 +122,7 @@ Required checks:
 
 ```bash
 git diff --check
-find . -maxdepth 6 -path ./.git -prune -o -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md CONTRIBUTING.md docs standard templates adapters examples
 ```

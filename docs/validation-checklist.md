@@ -2,7 +2,20 @@
 
 Use this checklist before accepting changes to AEWS documents, templates, examples, or adapters.
 
-The checklist is intentionally manual in v0.1. Automation should only be added after these checks prove stable.
+The checklist remains intentionally manual while v0.2 validates it against
+real repositories. Automation should only cover checks that prove stable.
+
+## Applying The Checklist
+
+Use template mode for the AEWS template repository and repositories that adopt
+the preferred AEWS filenames. Use adoption mode for an existing repository
+that has equivalent canonical documents under different names.
+
+In adoption mode, record the primary file for each applicable Project,
+Decisions, Handoff, and Experiment role plus every declared Adapter before
+evaluating the sections below. `aews.json` is the optional repeatable mapping
+format. Equivalent filenames and narrower supplements are allowed; ambiguous or
+duplicated ownership is not.
 
 ## 1. Scope Placement
 
@@ -20,6 +33,8 @@ Fail condition: the same fact could reasonably belong to multiple active files b
 - Stable repo facts are in `PROJECT.md` or an equivalent project document.
 - Experiments include hypothesis, method, artifacts, result, conclusion, and close condition.
 - Stale handoff or experiment content is archived or removed from active read order.
+- A task plan is treated as Handoff only when it records current goal, last
+  completed step, next step, blockers, evidence, and expiration.
 
 Fail condition: an agent adapter contains task history, experiment logs, or long-lived decision rationale.
 
@@ -46,6 +61,12 @@ Fail condition: an adapter repeats a durable project fact already present in can
 - `standard/adapters.md` remains the primary adapter rule source.
 - `docs/adapter-matrix.md` remains the primary tool mapping source.
 - `docs/roadmap.md` matches the current phase.
+- In adoption mode, every applicable canonical role has one recorded primary
+  document, even when preferred AEWS filenames are not used.
+- Every supplement exists, has narrower ownership, and is routed from its
+  primary document.
+- Adapter references resolve to the recorded canonical documents.
+- Repository-local Markdown references in mapped canonical documents resolve.
 
 Fail condition: two canonical documents define conflicting rules for the same concept.
 
@@ -56,7 +77,8 @@ Fail condition: two canonical documents define conflicting rules for the same co
 - Optional sections are clearly optional or omitted.
 - Examples remain smaller than the standard they demonstrate.
 
-Fail condition: a template starts acting like a framework scaffold before v0.1 is stable.
+Fail condition: a template starts acting like a framework scaffold instead of
+remaining a minimal document-role starting point.
 
 ## 6. ECC Boundary
 
@@ -81,7 +103,7 @@ Suggested commands:
 
 ```bash
 git status --short --branch
-find . -maxdepth 6 -path ./.git -prune -o -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 rg -n "TODO|TBD|copy|duplicate|harness|MCP|hook|memory" README.md docs standard templates adapters examples
 ```

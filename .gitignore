@@ -3,3 +3,6 @@
 .vscode/
 *.swp
 *.swo
+
+# Local reference checkout used for AEWS comparison and validation.
+ECC/

@@ -44,6 +44,17 @@ Use this path first. Expand only when the repository proves it needs more struct
 
 The first migration should not add scripts, generators, hooks, or new tool-specific behavior.
 
+These are preferred filenames, not mandatory names for every existing
+repository. If an existing architecture, decision, or working-context document
+already owns the equivalent role, record that mapping and improve the existing
+canonical document instead of creating a duplicate AEWS file.
+
+For repeatable adoption validation, an optional `aews.json` may map canonical
+roles to existing repository-relative paths. It may identify one primary
+document, narrower supplements, inactive lifecycle roles, and declared
+adapters. Keep all project knowledge in the mapped documents; the manifest is
+routing metadata only.
+
 ## Migrating From One Large `AGENTS.md`
 
 Use `examples/migrations/oversized-agents/` as the reference pattern.

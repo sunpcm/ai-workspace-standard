@@ -70,6 +70,57 @@ Context: v0.1 should prove the standard manually before adding scripts or genera
 
 Decision: AEWS will use `docs/validation-checklist.md` as the acceptance gate for document, template, example, and adapter changes.
 
-Consequences: Automation is deferred until the checklist stabilizes through real use.
+Consequences: Automation is deferred until the checklist stabilizes through
+real use. The first v0.2 evidence gate was satisfied on 2026-07-26; only the
+validated mechanical checks may now proceed.
 
 Evidence: `docs/validation-checklist.md`, `docs/roadmap.md`
+
+### 2026-07-26: Validate canonical roles before preferred filenames
+
+Status: Accepted
+
+Scope: Workspace
+
+Context: The ECC v2.0.0 reference evaluation showed that an existing repository
+can have governed project facts, decisions, working state, and adapters under
+different filenames. A filename-only validator would report avoidable warnings
+and could encourage duplicated documents during adoption.
+
+Decision: The v0.2 validator design will distinguish AEWS template mode from
+existing-repository adoption mode. Template mode may require preferred AEWS
+paths. Adoption mode must validate explicitly mapped canonical roles and report
+the mapping it used before applying filename-specific checks.
+
+Consequences: AEWS keeps preferred filenames without making them universal.
+The mapping input format was intentionally deferred until one ordinary
+application repository was manually evaluated and is now recorded in the
+following decision.
+
+Evidence: `docs/validator-design.md`,
+`examples/reference-evaluations/ecc-v2.0.0.md`
+
+### 2026-07-26: Use a routing-only JSON manifest for adoption mapping
+
+Status: Accepted
+
+Scope: Workspace
+
+Context: The ordinary full-stack application evaluation found durable project
+knowledge split across a root router, an architecture overview, and component
+runbooks. It also found truly missing Decisions and Handoff roles. CLI-only
+flags would not provide repeatable CI input, while a prose convention would be
+difficult to validate mechanically.
+
+Decision: Adoption mode will accept an optional `aews.json` manifest or an
+explicit path to an equivalent JSON file. It maps one primary document and
+optional supplements for each role, explicit `missing` or allowed `inactive`
+states, and declared adapter paths.
+
+Consequences: Existing repositories can be validated without renaming or
+duplicating documents. The manifest is a routing projection and must never hold
+project facts, decisions, commands, or working state. The validator must not
+generate or rewrite it.
+
+Evidence: `docs/validator-design.md`, `standard/documents.md`,
+`examples/reference-evaluations/full-stack-application.md`

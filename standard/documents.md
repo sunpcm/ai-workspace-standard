@@ -1,6 +1,9 @@
 # AEWS Documents
 
-AEWS defines document roles, not mandatory filenames for every project. Filenames can vary, but each role should have one canonical home.
+AEWS defines document roles, not mandatory filenames for every project.
+Filenames can vary, but each role should have one primary canonical home.
+Mature repositories may route from that primary document to narrower
+supplements with explicit ownership.
 
 ## Core Roles
 
@@ -30,8 +33,17 @@ Add these only when needed:
 - `operations/`
 - `research/`
 - `templates/`
-- generated adapter outputs.
+- generated adapter outputs,
+- `aews.json` when adoption validation needs repeatable role mapping.
+
+## Adoption Mapping
+
+`aews.json` is not a canonical knowledge document. It may contain only role,
+path, lifecycle-state, and adapter routing metadata. Do not put project facts,
+decisions, commands, or task state in it.
 
 ## Rule
 
-If two files contain the same durable fact, one of them is wrong. Replace duplication with a link or read-order reference.
+If two files contain the same durable fact, one of them is wrong. Replace
+duplication with a link or read-order reference. A supplement is valid only
+when its primary document routes to it and its narrower ownership is clear.

@@ -46,7 +46,7 @@ Examples:
 
 - use four scopes instead of two,
 - keep adapters thin,
-- delay automation until v0.2.
+- delay automation until manual evidence stabilizes the checks.
 
 Default document: `DECISIONS.md`.
 
