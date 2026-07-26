@@ -176,3 +176,29 @@ integration.
 
 Evidence: `docs/cross-agent-continuity.md`, `docs/adapter-matrix.md`,
 `examples/reference-evaluations/ecc-v2.0.0.md`
+
+### 2026-07-26: Prioritize Codex and Claude Code compatibility evidence
+
+Status: Accepted
+
+Scope: Workspace
+
+Context: The project owner currently uses Codex and Claude Code. Treating every
+possible agent tool as an equal implementation target would spread validation
+effort across tools that are not part of the active workflow and would make
+compatibility claims difficult to maintain.
+
+Decision: Codex and Claude Code are the primary compatibility targets for the
+current AEWS roadmap. The canonical role model, adapter rules, and adoption
+mapping remain vendor-neutral so Cursor, Gemini CLI, and future tools can add
+thin adapters. Existing non-primary projections may remain as reference
+examples, but AEWS does not commit to developing or runtime-testing them unless
+real usage or new evidence changes the priority.
+
+Consequences: Runtime-loading tests, cross-agent continuity examples, and
+near-term compatibility documentation will focus on Codex and Claude Code.
+Non-primary adapter entries must be labelled as extension references rather
+than equivalent support commitments. The canonical standard must not acquire
+Codex- or Claude-specific knowledge.
+
+Evidence: `PROJECT.md`, `docs/adapter-matrix.md`, `docs/roadmap.md`

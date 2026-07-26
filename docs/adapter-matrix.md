@@ -5,6 +5,18 @@ records the evidence behind each compatibility claim. Compatibility here means
 document discovery and projection. It does not imply hook, memory, orchestration,
 or real-time runtime parity.
 
+## Support Policy
+
+- **Primary:** Codex and Claude Code receive current compatibility evidence,
+  continuity examples, and planned runtime-loading checks.
+- **Extension reference:** Cursor, Gemini CLI, and future tools may use the open
+  adapter contract, but AEWS does not currently commit to implementation work
+  or runtime validation for them.
+
+The priority is based on current project usage, not a permanent vendor
+restriction. A non-primary tool can be promoted when there is real usage,
+maintainer capacity, and reproducible evidence.
+
 ## Canonical Sources
 
 | AEWS Role | Canonical File | Purpose |
@@ -19,12 +31,12 @@ or real-time runtime parity.
 
 ## Tool Projection
 
-| Tool | Discovery Surface | AEWS Projection | Continuity Behavior | Current Evidence | Known Limitation |
-| --- | --- | --- | --- | --- | --- |
-| Codex | Root `AGENTS.md` | `adapters/codex/AGENTS.md` | Reads shared handoff and task state; verifies it with Git | Static projection and AEWS validator pass; local `codex-cli 0.145.0` present on 2026-07-26 | Controlled runtime-loading fixture not yet run |
-| Claude Code | Root `CLAUDE.md` | `adapters/claude-code/CLAUDE.md` | Uses the same checkpoint protocol as Codex | Static projection and AEWS validator pass; local Claude Code `2.1.218` help confirms `CLAUDE.md` auto-discovery outside bare/safe modes | Projection is stored as an installable example, not a root file in this standard repo; runtime fixture not yet run |
-| Cursor | `.cursor/rules/*.mdc` | `adapters/cursor/.cursor/rules/aews.mdc` | Routes active editor sessions to shared canonical state | Static projection and AEWS validator pass on 2026-07-26 | Cursor runtime was not available for a controlled loading test |
-| Gemini CLI | Root `GEMINI.md` | `adapters/gemini/GEMINI.md` | Reads the same shared progress roles | Static projection and AEWS validator pass on 2026-07-26 | Gemini CLI was not available for a controlled loading test |
+| Tool | Priority | Discovery Surface | AEWS Projection | Continuity Behavior | Current Evidence | Known Limitation |
+| --- | --- | --- | --- | --- | --- | --- |
+| Codex | Primary | Root `AGENTS.md` | `adapters/codex/AGENTS.md` | Reads shared handoff and task state; verifies it with Git | Static projection and AEWS validator pass; local `codex-cli 0.145.0` present on 2026-07-26 | Controlled runtime-loading fixture not yet run |
+| Claude Code | Primary | Root `CLAUDE.md` | `adapters/claude-code/CLAUDE.md` | Uses the same checkpoint protocol as Codex | Static projection and AEWS validator pass; local Claude Code `2.1.218` help confirms `CLAUDE.md` auto-discovery outside bare/safe modes | Projection is stored as an installable example, not a root file in this standard repo; runtime fixture not yet run |
+| Cursor | Extension reference | `.cursor/rules/*.mdc` | `adapters/cursor/.cursor/rules/aews.mdc` | Demonstrates how an editor adapter could route to shared state | Static projection and AEWS validator pass on 2026-07-26 | No current implementation or runtime-validation commitment |
+| Gemini CLI | Extension reference | Root `GEMINI.md` | `adapters/gemini/GEMINI.md` | Demonstrates how a CLI adapter could route to shared state | Static projection and AEWS validator pass on 2026-07-26 | No current implementation or runtime-validation commitment |
 
 Evidence status must remain explicit. A checked-in adapter plus validator pass
 proves structural compatibility; only a controlled tool run can prove runtime
@@ -43,6 +55,9 @@ claude --help | rg "CLAUDE.md auto-discovery"
 command -v cursor || true
 command -v gemini || true
 ```
+
+The Cursor and Gemini commands only document local availability. Their absence
+does not block the Codex and Claude Code compatibility track.
 
 A controlled runtime-loading test, when explicitly authorized, should use a
 temporary fixture and a read-only prompt such as:

@@ -373,6 +373,8 @@ Status: Completed on 2026-07-26.
   额度运行 runtime-loading 测试；Cursor 与 Gemini CLI 当前不可用；
 - ECC Memory Vault 只作为可选、unreviewed handoff transport，不进入 AEWS
   core。
+- 当前主要兼容目标明确为 Codex 和 Claude Code；Cursor、Gemini 及未来工具
+  保留开放 adapter 接口和参考投影，但暂不投入 runtime 开发与验证。
 
 ### 15. 为 Codex 和 Claude Code 增加受控 runtime-loading evidence
 
@@ -412,5 +414,6 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 - 不要把 `AGENTS.md` 扩写成完整项目说明；
 - 不要新增 hooks / MCP / memory runtime；
 - 不要做自动生成器；
-- 不要绑定 Codex、Claude、Cursor 或 Gemini 任一厂商；
+- 不要让 canonical standard 绑定 Codex 或 Claude 的专有行为；兼容性实现
+  与证据可以优先这两个当前实际使用的工具；
 - 不要把个人全局偏好写进公开模板。

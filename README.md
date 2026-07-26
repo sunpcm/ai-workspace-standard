@@ -4,6 +4,11 @@ AI Engineering Workspace Standard (AEWS) is a minimal, agent-agnostic standard f
 
 AEWS treats the workspace as the durable asset. Agent-specific files are projections of the standard, not the source of truth.
 
+The standard remains open to any thin agent adapter. Current compatibility
+evidence and cross-agent workflow development prioritize Codex and Claude Code;
+Cursor, Gemini CLI, and future tools are extension targets rather than active
+runtime commitments.
+
 ## Goals
 
 - Keep engineering context small, precise, and task-relevant.
@@ -72,7 +77,8 @@ the optional `aews.json` mapping, implemented checks, and manual-review limits.
 
 v0.2 also defines evidence-backed adapter compatibility and optional
 cross-agent continuity without copying task history or treating runtime memory
-as project truth.
+as project truth. Near-term runtime evidence focuses on Codex and Claude Code
+while the generic adapter contract remains open.
 
 ## Status
 

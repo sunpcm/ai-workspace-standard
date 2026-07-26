@@ -68,6 +68,11 @@ Do not copy durable knowledge into:
 
 Adapters should contain read order, tool-specific behavior, and a warning not to duplicate canonical knowledge. If an adapter needs architecture, task history, decisions, or command references, move that content into canonical documents and link to it.
 
+Current compatibility implementation and runtime evidence prioritize Codex and
+Claude Code. Contributions may propose another adapter through the open
+contract, but a reference projection must not be presented as actively tested
+support without reproducible evidence and an accepted priority change.
+
 ## Validate Before Submitting
 
 Run the manual checklist in `docs/validation-checklist.md` against changed files.

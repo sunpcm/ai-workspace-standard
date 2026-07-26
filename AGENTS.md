@@ -30,5 +30,7 @@ This file is intentionally small. The durable project knowledge lives in the AEW
 
 AEWS v0.1.0 is published. v0.2 now has a read-only validator, an
 evidence-backed adapter matrix, and an optional cross-agent continuity
-protocol. Prefer controlled compatibility evidence before adding broader
-automation, hooks, or generator tools.
+protocol. Codex and Claude Code are the primary compatibility targets; keep
+other tools available through the open adapter contract without expanding
+their implementation scope. Prefer controlled compatibility evidence before
+adding broader automation, hooks, or generator tools.

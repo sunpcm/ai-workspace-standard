@@ -31,6 +31,10 @@ Status: In progress. Two reference evaluations, the first dependency-free
 read-only validator, an evidence-backed adapter matrix, and the optional
 cross-agent continuity protocol are complete.
 
+Primary compatibility targets: Codex and Claude Code. Other tools remain
+possible through the open adapter contract but are not active implementation
+or runtime-validation targets.
+
 Possible deliverables:
 
 - checklist-based validator,
@@ -65,7 +69,8 @@ Possible deliverables:
 - changelog,
 - migration guide,
 - template repository,
-- compatibility notes for major agent tools,
+- compatibility notes for Codex and Claude Code plus an extension contract for
+  other tools,
 - public contribution guidelines.
 
 Exit criteria:
@@ -73,6 +78,8 @@ Exit criteria:
 - Users can adopt AEWS without reading the entire design discussion.
 - Breaking changes are versioned and documented.
 - Agent adapters remain projections, not independent knowledge stores.
+- Codex and Claude Code have repeatable compatibility evidence; adding another
+  primary tool does not require changing canonical roles.
 
 ## Deferred
 

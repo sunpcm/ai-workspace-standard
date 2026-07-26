@@ -147,15 +147,15 @@ Required checks:
 sed -n '1,320p' docs/adapter-matrix.md
 codex --version || true
 claude --version || true
-command -v cursor || true
-command -v gemini || true
 ```
 
 Pass criteria:
 
 - each compatibility claim names its discovery surface and evidence status,
 - structural validation is not presented as a runtime-loading test,
-- missing local tools or unrun model-backed checks are recorded as limitations,
+- unrun Codex or Claude Code model-backed checks are recorded as limitations,
+- non-primary tools are labelled as extension references and do not block the
+  primary compatibility track,
 - the matrix does not claim hook, memory, or orchestration parity.
 
 ## 10. Secret And Private Context Review

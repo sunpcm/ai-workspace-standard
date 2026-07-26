@@ -6,6 +6,10 @@ If every tool becomes a separate source of truth, teams accumulate duplicated in
 
 AEWS exists to make engineering knowledge portable.
 
+Portability does not require equal implementation investment in every tool.
+The current project prioritizes Codex and Claude Code compatibility evidence
+while keeping the canonical model and adapter contract open to other agents.
+
 ## Problem
 
 Most AI workspace setups start by asking:

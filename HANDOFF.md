@@ -10,7 +10,9 @@ the evidence-backed compatibility matrix and cross-agent continuity protocol.
 - Repository path: repo root
 - Last completed step: defined shared progress, checkpoint, evidence, staleness,
   concurrency, and optional runtime boundaries; upgraded the compatibility
-  matrix and minimal example to cover Codex and Claude Code projections.
+  matrix and minimal example to cover Codex and Claude Code projections; set
+  those two tools as the primary compatibility targets while retaining an open
+  adapter contract.
 - Next step: after explicit authorization for model calls, run read-only
   runtime-loading fixtures for the locally available Codex and Claude Code
   versions.

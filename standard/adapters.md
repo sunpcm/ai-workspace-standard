@@ -13,6 +13,11 @@ Adapters are not sources of truth. They are routing files.
 | Cursor | `.cursor/rules/*.mdc` | Editor rule routing and scoped rule activation |
 | Gemini CLI | `GEMINI.md` | Read order and CLI-specific expectations |
 
+The adapter contract is open: adoption mappings accept a lowercase tool slug
+and repository-relative adapter path rather than a closed vendor enum. A
+project may still designate a smaller set of primary compatibility targets and
+keep other adapters as untested extension references.
+
 ## Adapter Rules
 
 - Keep adapters short.
