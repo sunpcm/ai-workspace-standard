@@ -10,12 +10,14 @@ Before changing files, read:
 2. `PROJECT.md`
 3. `DECISIONS.md`
 4. `HANDOFF.md` if present
-5. `docs/vision.md`
-6. `docs/architecture.md`
-7. `docs/document-lifecycle.md`
-8. `standard/scopes.md`
-9. `standard/adapters.md`
-10. `docs/validation-checklist.md`
+5. `TODO.md` or the active task tracker if present
+6. `docs/vision.md`
+7. `docs/architecture.md`
+8. `docs/document-lifecycle.md`
+9. `docs/cross-agent-continuity.md`
+10. `standard/scopes.md`
+11. `standard/adapters.md`
+12. `docs/validation-checklist.md`
 
 For example-only changes, also read the relevant `examples/*/README.md`.
 
@@ -45,6 +47,11 @@ Use the lifecycle model in `docs/document-lifecycle.md`:
 Update `DECISIONS.md` when a contribution accepts a durable choice that should constrain future work. Include status, scope, context, decision, consequences, and evidence.
 
 Update `HANDOFF.md` when the next contributor needs current state, blockers, evidence, or the next concrete step. Do not promote handoff notes into durable knowledge until they are stable and reviewed.
+
+For cross-agent work, verify the existing checkpoint against Git and tests,
+record only meaningful checkpoints, and use separate branches or worktrees for
+concurrent changes. A handoff is not a lock or a substitute for implementation
+evidence.
 
 ## Keep Adapters Thin
 
@@ -81,6 +88,7 @@ Then confirm:
 - new durable facts have one primary scope,
 - lifecycle placement is clear,
 - adapters remain thin,
+- cross-agent checkpoint claims are verifiable and do not imply live presence,
 - templates stay minimal,
 - no runtime features are introduced without an accepted decision,
 - the validator reports no unexplained failures or warnings,

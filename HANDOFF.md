@@ -2,17 +2,18 @@
 
 ## Current Goal
 
-Add an evidence-backed adapter compatibility matrix after completing the first
-read-only AEWS v0.2 validator.
+Add controlled Codex and Claude Code runtime-loading evidence after defining
+the evidence-backed compatibility matrix and cross-agent continuity protocol.
 
 ## Current State
 
 - Repository path: repo root
-- Last completed step: implemented and documented the dependency-free validator,
-  added template/adoption fixtures, passed eight regression tests, and replayed
-  both real reference evaluations with zero failures.
-- Next step: define evidence fields and current verification state for Codex,
-  Claude Code, Cursor, and Gemini document adapters.
+- Last completed step: defined shared progress, checkpoint, evidence, staleness,
+  concurrency, and optional runtime boundaries; upgraded the compatibility
+  matrix and minimal example to cover Codex and Claude Code projections.
+- Next step: after explicit authorization for model calls, run read-only
+  runtime-loading fixtures for the locally available Codex and Claude Code
+  versions.
 - Blockers: none.
 
 ## Evidence
@@ -28,6 +29,8 @@ wc -l docs/versioning.md
 wc -l templates/README.md
 wc -l docs/validator-design.md
 wc -l docs/validator.md
+wc -l docs/cross-agent-continuity.md
+sed -n '1,340p' docs/adapter-matrix.md
 wc -l docs/release-checklist.md
 sed -n '1,260p' examples/reference-evaluations/ecc-v2.0.0.md
 sed -n '1,260p' examples/reference-evaluations/full-stack-application.md
@@ -41,12 +44,12 @@ git log --oneline --decorate -5
 ## Open Questions
 
 - Whether to create a GitHub Release page for `v0.1.0`.
-- Which evidence fields make adapter compatibility claims useful without
-  copying ECC runtime parity semantics.
+- Whether controlled runtime fixtures should use an isolated temporary Git
+  repository or a checked-in fixture copied to a temporary directory.
 - Whether missing Decisions should become a failure only after a repository
   explicitly declares full AEWS compliance.
 
 ## Expiration
 
-Replace this handoff after the evidence-backed adapter compatibility matrix is
-complete.
+Replace this handoff after controlled Codex and Claude Code runtime-loading
+evidence is recorded.

@@ -15,6 +15,11 @@ supplements with explicit ownership.
 | Experiment | Temporary hypothesis and evidence | `EXPERIMENT.md` |
 | Adapter | Tool-specific read order and behavior | `AGENTS.md`, `CLAUDE.md`, `.cursor/rules`, `GEMINI.md` |
 
+A task queue such as `TODO.md` or an external issue tracker is a supporting
+execution surface, not a new canonical knowledge role. Under the optional
+cross-agent continuity profile, every participating adapter should route to
+the same queue.
+
 ## Required in v0.1
 
 A minimal AEWS repo should include:
@@ -35,6 +40,8 @@ Add these only when needed:
 - `templates/`
 - generated adapter outputs,
 - `aews.json` when adoption validation needs repeatable role mapping.
+- optional actor, timestamp, worktree, and commit evidence in an active
+  Handoff when multiple agents need continuation context.
 
 ## Adoption Mapping
 

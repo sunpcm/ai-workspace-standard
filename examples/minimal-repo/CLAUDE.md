@@ -1,6 +1,6 @@
-# AGENTS.md
+# CLAUDE.md
 
-Thin Codex adapter for the minimal AEWS example.
+Thin Claude Code adapter for the minimal AEWS example.
 
 Read:
 

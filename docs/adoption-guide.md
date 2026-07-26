@@ -67,6 +67,24 @@ An external mapping keeps the first evaluation read-only. See
 `docs/validator.md` for the mapping contract, exit codes, and supported local
 document references.
 
+## Enabling Cross-Agent Continuity
+
+Use the optional continuity profile when two or more agents need to continue
+the same project work:
+
+1. Make every participating adapter route to the same Project, Decisions,
+   Handoff, and task-queue roles.
+2. Require each agent to inspect Git before trusting the current handoff.
+3. Update `HANDOFF.md` only at a completed step, verified partial result,
+   blocker, or explicit transfer.
+4. Include commit, changed-area, test, CI, artifact, or external-task evidence.
+5. Use separate branches or worktrees for concurrent agents.
+
+Do not use `HANDOFF.md` as a lock or per-action log. If a harness memory system
+is added, keep it optional and unreviewed; promote accepted facts and decisions
+into canonical documents. The full protocol is in
+`docs/cross-agent-continuity.md`.
+
 ## Migrating From One Large `AGENTS.md`
 
 Use `examples/migrations/oversized-agents/` as the reference pattern.
@@ -111,6 +129,8 @@ Agent adapters may differ in syntax, but they should not define separate project
 - Adding automation before the manual checklist is stable.
 - Publishing public templates that include private Global preferences.
 - Describing harness features as AEWS v0.1 capabilities.
+- Treating a handoff as proof of implementation without checking Git or tests.
+- Letting concurrent agents edit the same worktree without explicit ownership.
 
 ## Adoption Check
 
@@ -122,3 +142,5 @@ Before considering adoption complete, confirm:
 - accepted decisions have context and consequences,
 - examples or migrations can be understood without scripts,
 - the repository still relies on its own docs, tests, CI, and runbooks for engineering correctness.
+- participating agents share one current-state and task-queue route rather than
+  maintaining separate progress histories.

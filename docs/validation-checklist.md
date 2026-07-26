@@ -55,7 +55,25 @@ Suggested soft limits:
 
 Fail condition: an adapter repeats a durable project fact already present in canonical docs.
 
-## 4. Canonical Consistency
+## 4. Cross-Agent Continuity
+
+- Every participating adapter routes to the same Handoff and task-queue roles.
+- A handoff records a meaningful checkpoint, not a transcript or activity log.
+- Completed-work claims identify verifiable Git, test, CI, artifact, or task
+  evidence.
+- Agents are instructed to verify stale working state before continuing it.
+- Concurrent work uses separate branches or worktrees, or an explicitly
+  documented external ownership mechanism.
+- Optional memory or handoff runtimes remain unreviewed transport and are not
+  treated as governed truth.
+
+Not applicable: repositories using only one agent or not enabling the optional
+continuity profile.
+
+Fail condition: different adapters expose conflicting task state, or a
+repository claims real-time coordination using only shared documents.
+
+## 5. Canonical Consistency
 
 - `README.md` explains the project at a high level without becoming a full specification.
 - `docs/architecture.md` remains the primary architecture explanation.
@@ -72,7 +90,7 @@ Fail condition: an adapter repeats a durable project fact already present in can
 
 Fail condition: two canonical documents define conflicting rules for the same concept.
 
-## 5. Template Minimality
+## 6. Template Minimality
 
 - Templates include only fields required to guide placement, continuation, or validation.
 - Templates do not assume a programming language, package manager, cloud provider, or AI vendor.
@@ -82,7 +100,7 @@ Fail condition: two canonical documents define conflicting rules for the same co
 Fail condition: a template starts acting like a framework scaffold instead of
 remaining a minimal document-role starting point.
 
-## 6. ECC Boundary
+## 7. ECC Boundary
 
 - New features do not turn AEWS into an agent harness by accident.
 - Hooks, MCP catalogs, memory runtimes, and security policy engines remain deferred unless explicitly accepted.
@@ -90,7 +108,7 @@ remaining a minimal document-role starting point.
 
 Fail condition: the change adds runtime behavior without first updating `docs/roadmap.md` and `DECISIONS.md`.
 
-## 7. Release Readiness
+## 8. Release Readiness
 
 Before publishing or tagging a version:
 

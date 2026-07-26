@@ -11,6 +11,8 @@ AEWS treats the workspace as the durable asset. Agent-specific files are project
 - Separate canonical workspace knowledge from agent-specific adapters.
 - Make handoffs, decisions, experiments, and repo facts easy to maintain.
 - Avoid copying the same knowledge across multiple agent tools.
+- Let multiple agents resume the same project state through a shared,
+  evidence-backed checkpoint protocol.
 
 ## Non-Goals
 
@@ -41,6 +43,16 @@ HANDOFF.md            Current working state
 AGENTS.md             Thin Codex entrypoint for this repo
 ```
 
+## Cross-Agent Continuity
+
+AEWS can let Codex, Claude Code, and other agents understand the same project
+progress by routing them to shared Project, Decisions, Handoff, and task-queue
+roles. Git and test artifacts verify what actually changed.
+
+This is checkpoint-based continuity, not real-time presence or transcript
+sharing. See `docs/cross-agent-continuity.md` for the start, checkpoint,
+staleness, concurrency, and optional harness-integration rules.
+
 ## v0.1 Deliverables
 
 - Architecture: why AEWS uses four scopes and a projection layer.
@@ -58,11 +70,17 @@ The first dependency-free, read-only validator is available at
 `scripts/aews_validate.py`. See `docs/validator.md` for template/adoption usage,
 the optional `aews.json` mapping, implemented checks, and manual-review limits.
 
+v0.2 also defines evidence-backed adapter compatibility and optional
+cross-agent continuity without copying task history or treating runtime memory
+as project truth.
+
 ## Status
 
 AEWS v0.1.0 is published. v0.2 validation and template hardening are in
 progress. The first validator slice is implemented after two reference
-evaluations. Keep harness runtime features outside the core standard.
+evaluations. The evidence-backed compatibility matrix and optional cross-agent
+continuity protocol are documented; controlled runtime adapter smoke tests are
+the next evidence gap. Keep harness runtime features outside the core standard.
 
 ## License
 

@@ -6,7 +6,9 @@ This file records a manual pass through `docs/validation-checklist.md` for the m
 
 Status: Pass with documented limitations.
 
-The example demonstrates the smallest useful AEWS document set for one repository. It does not claim to validate every adapter type, release process, or future automation boundary.
+The example demonstrates a small AEWS document set shared by Codex and Claude
+Code projections. It does not claim to validate every adapter type, release
+process, or runtime automation boundary.
 
 ## 1. Scope Placement
 
@@ -15,7 +17,8 @@ Pass.
 - Repo facts are in `PROJECT.md`.
 - Active continuation state is in `HANDOFF.md`.
 - Accepted rationale is in `DECISIONS.md`.
-- The adapter contains only read order and a duplication warning.
+- Both adapters contain only shared-state routing, a duplication warning, and
+  the evidence-verification rule.
 
 No Global or Workspace facts are introduced by this example.
 
@@ -25,6 +28,7 @@ Pass.
 
 - `PROJECT.md` contains stable repo facts.
 - `DECISIONS.md` records the accepted decision to keep the example documentation-only.
+- `TODO.md` records the shared queue without copying it into either adapter.
 - `HANDOFF.md` records current goal, state, evidence, open question, and expiration.
 - No experiment document is present because the example does not run an experiment.
 
@@ -32,13 +36,24 @@ Pass.
 
 Pass.
 
-- `AGENTS.md` is 11 lines.
-- It points to canonical files instead of copying durable knowledge.
+- `AGENTS.md` and `CLAUDE.md` stay below the adapter soft limit.
+- Both point to the same canonical files instead of copying durable knowledge.
 - No task history, decision rationale, architecture detail, or command reference appears in the adapter.
 
-Not applicable: Claude Code, Cursor, and Gemini adapters are not included in this minimal example. The example intentionally validates one thin adapter, not the full adapter matrix.
+Not applicable: Cursor and Gemini adapters are not included in this minimal
+example. Runtime discovery is recorded separately in the compatibility matrix.
 
-## 4. Canonical Consistency
+## 4. Cross-Agent Continuity
+
+Pass at the document-protocol level.
+
+- Codex and Claude Code route to the same Project, Decisions, Handoff, and task
+  queue roles.
+- The handoff names the last completed and next steps plus inspectable evidence.
+- Both adapters require verification rather than trusting prior-agent prose.
+- The example does not claim real-time presence, locking, or transcript sync.
+
+## 5. Canonical Consistency
 
 Pass.
 
@@ -46,34 +61,41 @@ Pass.
 - `PROJECT.md`, `DECISIONS.md`, and `HANDOFF.md` follow the lifecycle model used by the root standard.
 - No rule in the example conflicts with `standard/scopes.md` or `standard/adapters.md`.
 
-## 5. Template Minimality
+## 6. Template Minimality
 
 Pass.
 
 - The example is smaller than the standard it demonstrates.
 - It does not introduce a language, package manager, cloud provider, AI vendor, hook, or generator.
-- It uses only the minimum files needed to demonstrate repo facts, decisions, handoff state, and a thin adapter.
+- It uses only the minimum files needed to demonstrate repo facts, decisions,
+  handoff state, a task queue, and two thin adapters.
 
-## 6. ECC Boundary
+## 7. ECC Boundary
 
 Pass.
 
 - The example does not add hooks, MCP catalogs, memory runtimes, security policy engines, or agent harness behavior.
-- The handoff explicitly keeps the next step at adapter comparison rather than runtime automation.
+- The handoff explicitly keeps the next step at controlled compatibility
+  evidence rather than runtime implementation.
 
-## 7. Release Readiness
+## 8. Release Readiness
 
 Not applicable.
 
-This example is not a release candidate. The relevant release-readiness contribution is that the example can be inspected manually and passes the scope, lifecycle, adapter, consistency, template, and ECC boundary checks above.
+This example is not a release candidate. The relevant release-readiness
+contribution is that it can be inspected manually and passes the scope,
+lifecycle, adapter, continuity, consistency, template, and ECC boundary checks
+above.
 
 ## Issues Found
 
-- The minimal example does not cover multi-agent adapter comparison. This is intentional and should remain outside the minimal example unless the v0.1 scope changes.
+- The minimal example covers two document projections but does not prove
+  runtime discovery for every tool version.
 - During this validation pass, the repository-level checklist command needed to inspect nested migration examples and only existing adapter files. The command was updated in `docs/validation-checklist.md`.
 
 ## Template or Standard Updates Needed
 
-No template update is required from this validation pass.
+The optional Handoff metadata now makes actor, freshness, worktree, and commit
+evidence easier to record without requiring a runtime.
 
 The checklist remains usable for the minimal example when unsupported adapter types are recorded as not applicable.

@@ -25,10 +25,12 @@ No application architecture exists in this example. The repository is documentat
 1. `PROJECT.md`
 2. `DECISIONS.md`
 3. `HANDOFF.md`
+4. `TODO.md` if present
 
 ## Verification
 
-Check that adapter files reference canonical documents instead of copying their content.
+Check that both adapter files reference the same canonical documents instead of
+copying their content.
 
 ## Known Risks
 

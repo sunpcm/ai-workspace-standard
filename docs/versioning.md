@@ -42,6 +42,8 @@ An adapter change is breaking only when it changes what users must put in an ada
 Non-breaking adapter changes include:
 
 - adding an optional adapter for a new tool,
+- adding or refining the optional cross-agent continuity profile without
+  changing the core document roles,
 - clarifying that durable knowledge belongs in canonical documents,
 - tightening examples while preserving the same adapter responsibility,
 - documenting tool-specific syntax without changing AEWS roles.

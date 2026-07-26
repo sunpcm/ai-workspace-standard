@@ -82,6 +82,7 @@ Pass criteria:
 - last completed step is accurate,
 - next step is concrete,
 - blockers are recorded,
+- completed-work claims identify verifiable evidence,
 - stale continuation state has been replaced.
 
 ## 6. Minimal Example
@@ -91,14 +92,14 @@ Required checks:
 ```bash
 find examples/minimal-repo -maxdepth 2 -type f -print
 sed -n '1,220p' examples/minimal-repo/VALIDATION.md
-wc -l examples/minimal-repo/AGENTS.md
+wc -l examples/minimal-repo/AGENTS.md examples/minimal-repo/CLAUDE.md
 ```
 
 Pass criteria:
 
-- minimal example includes project, decision, handoff, and thin adapter files,
+- minimal example includes project, decision, handoff, and two thin adapter files,
 - `VALIDATION.md` records checklist results and limitations,
-- minimal adapter remains thin.
+- both adapters remain thin and route to the same state.
 
 ## 7. Migration Example
 
@@ -138,7 +139,26 @@ Pass criteria:
 - the validator reports no unexplained failures or warnings,
 - validator regression tests pass.
 
-## 9. Secret And Private Context Review
+## 9. Adapter Compatibility Evidence
+
+Required checks:
+
+```bash
+sed -n '1,320p' docs/adapter-matrix.md
+codex --version || true
+claude --version || true
+command -v cursor || true
+command -v gemini || true
+```
+
+Pass criteria:
+
+- each compatibility claim names its discovery surface and evidence status,
+- structural validation is not presented as a runtime-loading test,
+- missing local tools or unrun model-backed checks are recorded as limitations,
+- the matrix does not claim hook, memory, or orchestration parity.
+
+## 10. Secret And Private Context Review
 
 Required checks:
 
@@ -154,9 +174,9 @@ Pass criteria:
 - personal paths appear only when intentionally documenting local development state and are removed before public release if inappropriate,
 - no customer, client, or confidential project context is included.
 
-## 10. Public Remote Decision
+## 11. Public Remote Decision
 
-Do not create or push a public remote until sections 1-9 pass.
+Do not create or push a public remote until sections 1-10 pass.
 
 If publishing publicly, confirm:
 

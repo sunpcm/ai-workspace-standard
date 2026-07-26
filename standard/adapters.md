@@ -20,6 +20,10 @@ Adapters are not sources of truth. They are routing files.
 - Include only tool-specific behavior in adapters.
 - Review adapters when canonical document names or scope rules change.
 - Do not expose private Global context in public adapter templates.
+- Route participating agents to the same Handoff and task-queue roles when
+  cross-agent continuity is enabled.
+- Require agents to verify working-state claims against Git or other declared
+  evidence before continuing.
 
 ## Minimum Adapter Content
 
@@ -29,6 +33,18 @@ Each adapter should contain:
 2. read order,
 3. tool-specific rules,
 4. duplication warning.
+
+For repositories using the optional cross-agent continuity profile, an adapter
+should also route to the active Handoff and task queue. The shared checkpoint
+protocol belongs in `docs/cross-agent-continuity.md` or an equivalent canonical
+document; do not copy a growing activity history into every adapter.
+
+## Continuity Is Not Presence
+
+Thin adapters can make multiple agents read the same reviewed project state.
+They cannot show live file ownership, concurrent edits, or whether another
+agent is still running. Those capabilities require a runtime or coordination
+service and remain outside the adapter contract.
 
 ## Bad Adapter Smell
 

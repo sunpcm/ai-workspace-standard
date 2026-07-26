@@ -352,16 +352,46 @@ Status: Completed on 2026-07-26.
 
 ### 14. 增加 evidence-backed adapter compatibility matrix
 
-Status: Pending.
+Status: Completed on 2026-07-26.
 
 目标：不再笼统声称 agent 兼容，而是记录每个 adapter 的加载方式、
 验证命令、已知限制和最近验证证据。
 
 该矩阵应描述文档投影兼容性，不复制 ECC 的 runtime parity 模型。
 
+交付结果：
+
+- `docs/adapter-matrix.md` 记录 discovery surface、continuity behavior、
+  当前证据和已知限制；
+- `docs/cross-agent-continuity.md` 定义 start/checkpoint、证据、新鲜度、
+  冲突和并发边界；
+- Codex、Claude Code、Cursor、Gemini adapters 路由到相同 Handoff 和任务
+  队列角色；
+- minimal example 增加第二个 Claude Code projection，证明两个 adapter
+  可以共享 canonical state；
+- 本机确认 Codex CLI `0.145.0` 和 Claude Code `2.1.218` 可用，未消费模型
+  额度运行 runtime-loading 测试；Cursor 与 Gemini CLI 当前不可用；
+- ECC Memory Vault 只作为可选、unreviewed handoff transport，不进入 AEWS
+  core。
+
+### 15. 为 Codex 和 Claude Code 增加受控 runtime-loading evidence
+
+Status: Pending.
+
+目标：在明确授权模型调用后，用只读临时 fixture 验证两个工具是否真实
+加载相同 canonical roles 和当前 next step。
+
+验收标准：
+
+- 记录工具版本、fixture commit、命令形态、观察到的文件、日期和结果；
+- prompt 明确禁止修改文件；
+- 验证前后 fixture 和 AEWS 工作区保持不变；
+- 不把单一版本的成功夸大成所有版本兼容；
+- 不保存凭证或原始私有 transcript。
+
 ## 当前推荐顺序
 
-1. 增加 evidence-backed adapter compatibility matrix
+1. 在明确授权后运行 Codex / Claude Code 受控 runtime-loading fixture
 2. 再选择一个 adoption candidate 使用 validator，观察 warning 稳定性
 3. 决定是否增加可复用 adoption mapping template
 4. 可选：补 GitHub Release 页面说明 `v0.1.0`

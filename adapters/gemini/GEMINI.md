@@ -7,10 +7,12 @@ This is a thin Gemini CLI adapter for an AEWS-compatible repository.
 1. `PROJECT.md`
 2. `DECISIONS.md`
 3. `HANDOFF.md` if present
-4. Relevant task files
+4. `TODO.md` or the declared task tracker if present
+5. Relevant task files
 
 ## Rules
 
 - Prefer canonical AEWS documents.
 - Keep this adapter short.
 - Do not store experiment logs or long architecture notes here.
+- Verify prior-agent progress against Git and tests before continuing it.

@@ -148,3 +148,31 @@ heuristics.
 
 Evidence: `scripts/aews_validate.py`, `tests/test_validator.py`,
 `docs/validator.md`
+
+### 2026-07-26: Define cross-agent continuity as an optional document protocol
+
+Status: Accepted
+
+Scope: Workspace
+
+Context: Codex and Claude Code can read the same canonical project documents,
+but shared documents alone do not prove what another agent changed or prevent
+concurrent edits. ECC demonstrates useful explicit handoff and memory transport,
+while also confirming that session capture, MCP, presence, and orchestration are
+harness-runtime concerns.
+
+Decision: AEWS will define an optional cross-agent continuity profile. All
+participating agents read the same Project, Decisions, Handoff, and task-queue
+roles; Git and verified artifacts provide implementation evidence; checkpoint
+updates replace transcript-style activity logs. Runtime memory may transport
+unreviewed handoffs but remains outside AEWS core and cannot become governed
+truth automatically.
+
+Consequences: Repositories can support Codex-to-Claude continuation without
+adopting a runtime. AEWS does not promise real-time awareness, file locking, or
+automatic transcript synchronization. Concurrent agents should use separate
+branches or worktrees, and runtime-specific automation remains an optional
+integration.
+
+Evidence: `docs/cross-agent-continuity.md`, `docs/adapter-matrix.md`,
+`examples/reference-evaluations/ecc-v2.0.0.md`

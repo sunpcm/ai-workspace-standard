@@ -6,14 +6,19 @@ State the active objective in one paragraph.
 
 ## Current State
 
-- Branch:
+- Updated by (optional agent or harness):
+- Updated at:
+- Branch or worktree:
+- Last verified commit:
 - Last completed step:
 - Next step:
 - Blockers:
 
 ## Evidence
 
-List exact commands, artifact paths, or logs that matter for continuation.
+List exact commits, changed areas, commands, artifact paths, or logs that
+matter for continuation. Another agent must be able to verify the important
+claims without the previous chat transcript.
 
 ```bash
 # Last useful command

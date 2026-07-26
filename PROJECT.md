@@ -4,7 +4,9 @@
 
 AI Engineering Workspace Standard (AEWS) defines a minimal, agent-agnostic way to organize engineering knowledge for AI-assisted development.
 
-The project focuses on durable workspace knowledge, document lifecycle, scope boundaries, and thin projections into tool-specific adapter files.
+The project focuses on durable workspace knowledge, document lifecycle, scope
+boundaries, thin projections into tool-specific adapter files, and optional
+evidence-backed continuity between agents.
 
 ## Scope
 
@@ -21,6 +23,10 @@ AEWS has two layers:
 
 The canonical standard is the source of truth. Adapters should reference canonical documents rather than copy their content.
 
+Cross-agent continuity is a document protocol layered on those sources. Git
+and verified artifacts establish implementation state; optional harness memory
+may transport a handoff but does not become governed truth.
+
 ## Commands
 
 ```bash
@@ -32,6 +38,12 @@ wc -l README.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/
 
 # Search for adapter references
 rg -n "AGENTS.md|CLAUDE.md|GEMINI.md|PROJECT.md|HANDOFF.md|DECISIONS.md"
+
+# Inspect local adapter runtime availability without invoking a model
+codex --version
+claude --version
+command -v cursor || true
+command -v gemini || true
 
 # Run the read-only validator
 python3 scripts/aews_validate.py . --mode template
@@ -48,6 +60,8 @@ Before considering changes complete:
 - canonical concepts live under `docs/` or `standard/`,
 - templates are minimal,
 - adapters do not duplicate durable architecture content,
+- declared adapters route to the same active handoff and task queue when the
+  continuity profile is used,
 - examples can be understood without scripts,
 - `docs/validation-checklist.md` passes for the changed files,
 - `python3 scripts/aews_validate.py . --mode template` reports no failures or
@@ -59,3 +73,7 @@ Before considering changes complete:
 - The project can drift into an ECC-style harness if hooks, MCP, security, and runtime features are added too early.
 - Adapter files can become duplicated sources of truth if the projection rule is not enforced.
 - Personal preferences can leak into public templates if Global scope is not treated carefully.
+- A stale handoff can mislead another agent unless it is checked against Git
+  and tests.
+- Concurrent agents in one worktree can overwrite or accidentally commit each
+  other's changes; use separate branches or worktrees.

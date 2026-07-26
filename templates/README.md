@@ -28,6 +28,10 @@ Avoid a template when:
 
 For example, a repository with no active work does not need `HANDOFF.md` until there is continuation state to preserve.
 
+The Handoff template includes optional actor and commit metadata for
+cross-agent continuity. These fields do not make the document a runtime log or
+locking mechanism; omit them when they do not improve continuation.
+
 ## Keep Templates Minimal
 
 Templates should include only fields that help with:

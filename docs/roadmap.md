@@ -27,9 +27,9 @@ Exit criteria:
 
 Goal: make the standard testable.
 
-Status: In progress. Two reference evaluations are complete, and the first
-dependency-free read-only validator implements template/adoption modes plus the
-optional `aews.json` mapping.
+Status: In progress. Two reference evaluations, the first dependency-free
+read-only validator, an evidence-backed adapter matrix, and the optional
+cross-agent continuity protocol are complete.
 
 Possible deliverables:
 
@@ -37,11 +37,13 @@ Possible deliverables:
 - duplicate-context detector,
 - sample migration guide from large `AGENTS.md`,
 - more examples from real repo types,
-- optional bootstrap script.
+- optional bootstrap script,
+- evidence-backed cross-agent checkpoint protocol.
 
 Current sequence:
 
-1. add an evidence-backed adapter compatibility matrix;
+1. run explicitly authorized, read-only Codex and Claude Code runtime-loading
+   fixtures;
 2. use the validator on another adoption candidate before tightening warnings;
 3. decide whether to add a reusable adoption mapping template;
 4. keep semantic and runtime-aware checks outside the first validator.
@@ -50,6 +52,8 @@ Exit criteria:
 
 - The template can be applied to a real repo and reviewed with a repeatable checklist.
 - Adapter files can be checked for obvious duplication.
+- Two agents can consume one evidence-backed continuation checkpoint without
+  requiring a shared runtime.
 
 ## v1.0: Stable Template and Migration Path
 

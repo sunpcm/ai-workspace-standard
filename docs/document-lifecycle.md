@@ -26,6 +26,10 @@ Examples:
 
 Default document: `HANDOFF.md`.
 
+When multiple agents participate, Working State is a shared checkpoint rather
+than a transcript. It should identify the last completed step, next step,
+blockers, freshness boundary, and evidence that another agent can verify.
+
 ### Task
 
 A concrete unit of work with expected output and verification.
@@ -98,5 +102,10 @@ Default location: `archive/` when needed. Avoid creating archive structure until
 ## Expiration Rules
 
 - `HANDOFF.md` should be updated at the end of active work.
+- Cross-agent handoffs should also be refreshed at meaningful verified
+  checkpoints; they must not imply live file ownership or presence.
 - Experiment notes should include a review date or close condition.
 - Adapter files should be reviewed whenever canonical document names or read order changes.
+
+See `docs/cross-agent-continuity.md` for the start, checkpoint, conflict, and
+optional runtime-integration protocol.

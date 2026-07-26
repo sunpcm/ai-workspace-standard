@@ -14,4 +14,4 @@ Decision: The minimal example will avoid scripts, hooks, and generated files.
 
 Consequences: The example stays easy to inspect and compare across agent tools.
 
-Evidence: `PROJECT.md`, `AGENTS.md`
+Evidence: `PROJECT.md`, `AGENTS.md`, `CLAUDE.md`

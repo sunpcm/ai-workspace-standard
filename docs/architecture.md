@@ -17,6 +17,7 @@ AEWS Canonical Standard
     +-- Document lifecycle
     +-- Templates
     +-- Examples
+    +-- Optional continuity protocol
     |
     v
 Agent Adapters
@@ -76,9 +77,23 @@ runtime-specific exceptions.
 
 Evidence: `examples/reference-evaluations/ecc-v2.0.0.md`
 
+## Cross-Agent Continuity
+
+Codex, Claude Code, and other agents can share project progress by reading the
+same Project, Decisions, Handoff, and task-queue roles. Git commits, diffs, and
+test artifacts remain the evidence for what actually changed.
+
+AEWS defines the start, checkpoint, staleness, and concurrency protocol in
+`docs/cross-agent-continuity.md`. It deliberately does not record vendor
+transcripts, provide live presence, or lock files. A harness such as ECC may be
+used as an optional handoff transport without becoming the canonical source of
+project truth.
+
 ## Acceptance Criteria
 
 - A new contributor can identify where a piece of information belongs before writing it.
 - Codex, Claude Code, Cursor, and Gemini can consume the same canonical knowledge through thin adapters.
+- Two agents can identify the same current and next steps through shared
+  canonical state and verify the completed work against repository evidence.
 - No durable engineering fact must be copied into multiple adapter files.
 - Temporary experiment notes have a clear path to become decisions, knowledge, tasks, or archive.

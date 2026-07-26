@@ -2,25 +2,32 @@
 
 ## Current Goal
 
-Validate that a minimal AEWS repo can guide an agent without a large instruction file.
+Validate that a minimal AEWS repo can guide Codex and Claude Code through the
+same canonical project state without large instruction files.
 
 ## Current State
 
-- Branch: not applicable
-- Last completed step: created minimal document set
-- Next step: test a second agent adapter against the same canonical files
+- Updated by: AEWS reference example
+- Updated at: 2026-07-26
+- Branch or worktree: not applicable
+- Last verified commit: not applicable
+- Last completed step: added two thin adapters that route to the same canonical files
+- Next step: run controlled runtime-loading fixtures when explicitly authorized
 - Blockers: none
 
 ## Evidence
 
 - `PROJECT.md`
 - `DECISIONS.md`
+- `TODO.md`
 - `AGENTS.md`
+- `CLAUDE.md`
 
 ## Open Questions
 
-- Should the example include `CLAUDE.md` in v0.1 or keep only one adapter?
+- Which controlled runtime fixture should become the first repeatable
+  compatibility test?
 
 ## Expiration
 
-Archive this handoff when adapter comparison is complete.
+Replace this handoff after controlled runtime-loading evidence is recorded.
