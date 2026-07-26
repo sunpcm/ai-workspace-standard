@@ -9,7 +9,7 @@ The project focuses on durable workspace knowledge, document lifecycle, scope bo
 ## Scope
 
 - Scope: Workspace standard
-- Current version: v0.1 architecture-first draft
+- Current version: v0.2 validation and template hardening; v0.1.0 published
 - Primary audience: engineers who use multiple AI coding agents across repositories
 
 ## Architecture
@@ -25,7 +25,7 @@ The canonical standard is the source of truth. Adapters should reference canonic
 
 ```bash
 # Inspect files
-find . -maxdepth 6 -path ./.git -prune -o -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 
 # Check for large markdown files
 wc -l README.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/*.md

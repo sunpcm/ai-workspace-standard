@@ -27,6 +27,10 @@ Exit criteria:
 
 Goal: make the standard testable.
 
+Status: In progress. ECC and ordinary full-stack application reference
+evaluations are complete. The validator design now distinguishes template mode
+from role-aware adoption mode and defines the optional `aews.json` mapping.
+
 Possible deliverables:
 
 - checklist-based validator,
@@ -34,6 +38,13 @@ Possible deliverables:
 - sample migration guide from large `AGENTS.md`,
 - more examples from real repo types,
 - optional bootstrap script.
+
+Current sequence:
+
+1. implement stable read-only mechanical checks;
+2. add template/adoption fixtures and regression tests;
+3. validate the first implementation against both reference evaluations;
+4. add an evidence-backed adapter compatibility matrix.
 
 Exit criteria:
 

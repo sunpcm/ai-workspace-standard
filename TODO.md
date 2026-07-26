@@ -1,6 +1,8 @@
 # TODO
 
-AEWS 当前处于 v0.1 architecture-first 阶段。接下来优先补齐可维护性和验证闭环，不急着加脚本、hooks、MCP、memory runtime 或复杂 CLI。
+AEWS v0.1.0 已发布，当前进入 v0.2 validation and template hardening。
+接下来优先用真实仓库稳定人工检查和 canonical role 映射，再实现轻量
+validator；不急着加 hooks、MCP、memory runtime 或复杂 CLI。
 
 ## P0: 继续开发前先做
 
@@ -231,17 +233,125 @@ gh repo create ai-workspace-standard --public --source . --remote origin --push
 - `--public` 会公开仓库；
 - 推送前必须确认没有私人偏好、路径、token、内部项目细节。
 
+## P3: v0.2 验证与模板加固
+
+### 10. 用 ECC v2.0.0 做大型 reference evaluation
+
+Status: Completed on 2026-07-26.
+
+目标：验证 AEWS 对大型多 harness 仓库的解释力，同时保持 AEWS 与
+agent harness 的产品边界。
+
+交付物：
+
+- `examples/reference-evaluations/ecc-v2.0.0.md`
+- 本地 `ECC/` checkout 加入 Git ignore
+
+结论：
+
+- adapter 行数只能作为 warning，不能单独决定通过或失败；
+- adoption repo 必须允许等价 canonical 文档；
+- trust、human promotion 和 supersession 值得进入知识治理讨论；
+- hooks、MCP、memory runtime、orchestration 和 installer 仍不属于 AEWS
+  core。
+
+### 11. 把 validator 设计收敛为 template/adoption 两种模式
+
+Status: Completed on 2026-07-26.
+
+目标：避免 validator 把 preferred filename 当成唯一合法文档结构。
+
+已完成：
+
+- template mode 可以验证 AEWS 首选路径；
+- adoption mode 先解析显式 canonical role mapping；
+- Project、Decisions、Handoff、Experiment、Adapter 按角色验证；
+- line count 保持 warning；
+- exact mapping input 已在第二个真实仓库评估后收敛为可选
+  `aews.json`。
+
+证据：
+
+- `docs/validator-design.md`
+- `docs/validation-checklist.md`
+- `DECISIONS.md`
+
+### 12. 评估一个普通应用仓库
+
+Status: Completed on 2026-07-26.
+
+目标：避免 validator 只适配 AEWS template 和 ECC harness 两个极端。
+
+交付物：
+
+- 一份不复制私有代码或敏感信息的 reference evaluation；
+- Project / Decisions / Handoff / Experiment / Adapter role mapping；
+- 对 template mode 与 adoption mode failure/warning 边界的验证；
+- 对 mapping input 最小格式的建议。
+
+验收标准：
+
+- 只读评估，不要求目标仓库为了通过检查而重命名文档；
+- 明确区分缺少 canonical role 与仅使用不同文件名；
+- 记录误报、漏报和不适用项；
+- 不把目标仓库业务知识复制进 AEWS。
+
+交付结果：
+
+- `examples/reference-evaluations/full-stack-application.md`
+- 目标仓库全程只读，未运行依赖、测试、服务或部署命令；
+- Project role 需要一个 primary router 加可选 supplements；
+- Decisions role 的分散内容属于真实缺失，不是文件名差异；
+- 计划文件只有满足新鲜度与 handoff 字段时才能映射为 Handoff；
+- 未声明 adapter 时不推断 agent 使用；
+- 本地 Markdown 失效引用应成为 validator warning；
+- 最小 mapping input 确定为 routing-only `aews.json`。
+
+### 13. 实现第一版只读 validator
+
+Status: Pending. Evidence gate satisfied by items 10 and 12.
+
+第一版只实现已经通过两类真实仓库验证的机械检查：
+
+- canonical role presence 和显式 mapping；
+- `aews.json` primary / supplements / missing / inactive 校验；
+- mapped document 本地引用有效性；
+- adapter 引用有效性；
+- adapter line-count warning；
+- 明显重复 durable sentence warning；
+- template/adoption mode 不同 failure level；
+- 纯文本输出和稳定 exit code。
+
+暂时不要实现：
+
+- 自动文档重写；
+- 语义模型或 embedding；
+- agent-specific AST/parser；
+- hooks、MCP 或常驻服务；
+- npm / Python package 发布。
+
+### 14. 增加 evidence-backed adapter compatibility matrix
+
+Status: Pending.
+
+目标：不再笼统声称 agent 兼容，而是记录每个 adapter 的加载方式、
+验证命令、已知限制和最近验证证据。
+
+该矩阵应描述文档投影兼容性，不复制 ECC 的 runtime parity 模型。
+
 ## 当前推荐顺序
 
-1. 可选：创建 GitHub Release 页面说明 `v0.1.0`
-2. 开始规划 v0.2 validator / template hardening
+1. 实现第一版只读 validator 和 template/adoption fixtures
+2. 用 ECC 与普通应用 reference findings 回归 validator
+3. 增加 evidence-backed adapter compatibility matrix
+4. 可选：补 GitHub Release 页面说明 `v0.1.0`
 
 ## 每次继续开发前的检查命令
 
 ```bash
 cd <repo-root>
 git status --short --branch
-find . -maxdepth 6 -path ./.git -prune -o -type f -print
+find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 ```
 

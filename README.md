@@ -54,7 +54,10 @@ AGENTS.md             Thin Codex entrypoint for this repo
 
 ## Status
 
-This repository is in architecture-first v0.1. Do not add automation until the canonical model and minimal templates are stable.
+AEWS v0.1.0 is published. v0.2 validation and template hardening are in
+progress. Keep the work architecture-first: validate the canonical model on
+real repositories before adding automation, and keep harness runtime features
+outside the core standard.
 
 ## License
 
