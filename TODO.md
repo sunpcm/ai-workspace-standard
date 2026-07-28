@@ -493,11 +493,70 @@ to owner.
 - 提供 annotated `v1.0.0` tag、push 和 GitHub Release 的手动命令；
 - agent 不执行任何外部发布动作；owner 发布后再更新实际远端状态。
 
+### 21. 定义跨 Agent 多服务部署证据协议
+
+Status: Pending after v1.0.0 publication.
+
+目标：当 Codex、Claude Code 或人工分别部署多个服务时，让任一后续 Agent
+可以依据共享、可验证的 deployment receipts 汇总全部部署，而不需要读取或
+同步其他 Agent 的原始聊天记录。
+
+问题场景：
+
+- 例如 Codex 部署 service A、service B，Claude Code 部署 service C；
+- 三次会话彼此独立，默认不能互读 vendor transcript；
+- 最终汇总必须回答每个服务部署了什么版本、部署到哪个环境、是否成功、
+  如何验证、有哪些风险以及如何回滚；
+- 聊天中的计划、推断或“已经完成”声明不能作为部署成功证据。
+
+建议交付物：
+
+- `templates/deployment/DEPLOYMENT.md`：单次部署 receipt 的最小模板；
+- `docs/deployment-evidence.md`：记录生命周期、信任边界、单 repo 与多 repo
+  聚合方式；
+- `examples/multi-service-deployment/`：至少包含两次 Codex 部署、一次
+  Claude Code 部署和一个跨三次部署的汇总示例；
+- README / adoption guide 中的可选 operations profile 入口；
+- 在人工格式稳定后，再评估由 CI/CD 生成 receipt 或索引的轻量自动化。
+
+每份 deployment receipt 至少记录：
+
+- service、environment、部署发起者或 harness；
+- source commit、image/artifact digest；
+- deployment command、CI/CD run 或外部任务链接；
+- started/finished timestamp；
+- result 和实际运行版本；
+- health/smoke verification 及其证据；
+- known risks、rollback target 和 rollback verification；
+- receipt 的 freshness / supersession 条件。
+
+权威性规则：
+
+- Git commit、不可变 artifact/image digest、CI/CD 结果和运行环境健康检查
+  优先于 Agent prose；
+- `HANDOFF.md` 只链接最新部署 checkpoint，不保存累积 transcript；
+- `TODO.md` 或外部任务系统保存服务级计划与完成状态；
+- receipts 是 operations evidence，不新增 AEWS core canonical role；
+- 单 repo 可放在 `operations/deployments/`；多 repo 应使用 workspace/ops
+  repo 或已有部署平台作为聚合源，并由各服务 repo 链接过去；
+- 不记录 token、secret、完整命令输出或可能泄露环境配置的原始日志。
+
+验收标准：
+
+- Codex 与 Claude Code 都能从同一组 receipts 得到一致的三服务部署摘要；
+- 汇总不读取、导入或依赖任何 vendor chat transcript；
+- 每个“成功”结论都能追溯到 commit/digest、部署运行和健康验证证据；
+- 缺少证据、部署失败、部分成功和已回滚状态不会被误报为成功；
+- 并发部署不会依赖多个 Agent 持续重写同一个状态文件；
+- 不引入 hooks、MCP、memory runtime、常驻服务或 Agent orchestration；
+- 模板和示例通过 validator，且明确这是一项可选 operations profile。
+
 ## 当前推荐顺序
 
 1. owner 检查并 push 本地 release-preparation commit
 2. owner 创建和推送 `v1.0.0` annotated tag
 3. owner 发布 GitHub Release 并更新发布后状态
+4. 发布完成后再评估 #21，不阻塞 v1.0.0
 
 ## 每次继续开发前的检查命令
 
