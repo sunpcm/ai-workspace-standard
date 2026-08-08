@@ -254,3 +254,58 @@ published compatibility baseline.
 Evidence: `docs/releases/v0.2.0-readiness.md`,
 `docs/releases/v1.0.0-readiness.md`, `docs/runtime-loading-evidence.md`,
 `docs/roadmap.md`
+
+### 2026-08-08: Promote GitHub Copilot to a primary compatibility target
+
+Status: Accepted
+
+Scope: Repo
+
+Context: The 2026-07-26 decision made Codex and Claude Code the primary
+compatibility targets because they were the owner's active tools, and it
+explicitly allowed promotion when a tool gains real usage. The owner now uses
+GitHub Copilot daily alongside those two. Copilot coding agent can read a root
+`AGENTS.md`, but the IDE surface reads `.github/copilot-instructions.md`, so
+the existing Codex projection did not cover everyday editor usage.
+
+Decision: Treat GitHub Copilot as a primary compatibility target and add a thin
+`.github/copilot-instructions.md` projection plus template-mode discovery for
+it. Project only the repository-wide instructions file. Path-scoped
+`.github/instructions/*.instructions.md` rules stay with the adopting
+repository, because activation globs are editor behavior rather than canonical
+knowledge routing.
+
+Consequences: Primary priority now records maintainer commitment rather than
+completed runtime evidence. Codex and Claude Code keep controlled
+runtime-loading results; Copilot has structural evidence only, and its runtime
+check is planned rather than performed. The compatibility matrix must keep that
+difference visible, because Copilot's IDE surface has no headless read-only
+invocation comparable to `codex` or `claude`.
+
+Evidence: `adapters/copilot/.github/copilot-instructions.md`,
+`docs/adapter-matrix.md`, `standard/adapters.md`, `scripts/aews_validate.py`
+
+### 2026-08-08: Classify adapter discovery additions as a minor release
+
+Status: Accepted
+
+Scope: Repo
+
+Context: Adding GitHub Copilot required a new branch in template-mode adapter
+discovery. It was unclear whether changing validator discovery touches the v1
+stable surface, which would force the major-version process in
+`docs/versioning.md`.
+
+Decision: Treat a discovery addition that recognizes one more adapter surface as
+a backward-compatible minor change, and ship this one as `1.1.0`. The rule
+generalizes: recognizing an additional surface is minor because no existing
+repository must change a file, mapping, or read order to keep passing. Such a
+change becomes breaking only when it stops recognizing a previously valid
+surface, or makes a previously passing repository fail.
+
+Consequences: Future adapter additions follow the same path and do not require a
+major version. The adoption mapping contract version stays at 1 because the
+`aews.json` schema is unchanged. Release notes and a readiness record for
+`1.1.0` remain owner-controlled release-preparation work.
+
+Evidence: `docs/versioning.md`, `scripts/aews_validate.py`

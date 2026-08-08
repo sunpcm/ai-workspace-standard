@@ -44,7 +44,7 @@ Fail condition: an agent adapter contains task history, experiment logs, or long
 
 - Root `AGENTS.md` remains a routing file, not the project knowledge base.
 - Adapter files contain read order and tool-specific behavior only.
-- Codex, Claude Code, Cursor, and Gemini adapters point to canonical documents instead of copying them.
+- Codex, Claude Code, GitHub Copilot, Cursor, and Gemini adapters point to canonical documents instead of copying them.
 - Adapter file growth is justified by a tool-specific need.
 
 Suggested soft limits:

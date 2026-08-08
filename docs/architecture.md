@@ -92,7 +92,7 @@ project truth.
 ## Acceptance Criteria
 
 - A new contributor can identify where a piece of information belongs before writing it.
-- Codex, Claude Code, Cursor, and Gemini can consume the same canonical knowledge through thin adapters.
+- Codex, Claude Code, GitHub Copilot, Cursor, and Gemini can consume the same canonical knowledge through thin adapters.
 - Two agents can identify the same current and next steps through shared
   canonical state and verify the completed work against repository evidence.
 - No durable engineering fact must be copied into multiple adapter files.

@@ -1,14 +1,15 @@
 # Vision
 
-Modern AI coding tools change quickly. Codex, Claude Code, Cursor, Gemini CLI, and future agents all need repository context, but each tool asks for that context in a different shape.
+Modern AI coding tools change quickly. Codex, Claude Code, GitHub Copilot, Cursor, Gemini CLI, and future agents all need repository context, but each tool asks for that context in a different shape.
 
 If every tool becomes a separate source of truth, teams accumulate duplicated instructions, stale handoff notes, conflicting rules, and oversized context files. That makes agents more expensive to run and less reliable.
 
 AEWS exists to make engineering knowledge portable.
 
 Portability does not require equal implementation investment in every tool.
-The current project prioritizes Codex and Claude Code compatibility evidence
-while keeping the canonical model and adapter contract open to other agents.
+The current project prioritizes Codex, Claude Code, and GitHub Copilot
+compatibility evidence while keeping the canonical model and adapter contract
+open to other agents.
 
 ## Problem
 

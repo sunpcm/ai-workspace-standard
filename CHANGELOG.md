@@ -5,6 +5,22 @@ rules in `docs/versioning.md`.
 
 ## Unreleased
 
+## 1.1.0 - 2026-08-08
+
+### Added
+
+- A thin GitHub Copilot adapter at
+  `adapters/copilot/.github/copilot-instructions.md`.
+- Template-mode validator discovery for `.github/copilot-instructions.md` at a
+  repository root and inside `adapters/`.
+- A root `.github/copilot-instructions.md` entrypoint for this repository.
+
+### Changed
+
+- GitHub Copilot is now a primary compatibility target alongside Codex and
+  Claude Code. Primary priority records maintainer commitment, not completed
+  runtime evidence; Copilot has structural evidence only.
+
 ## 1.0.0 - 2026-07-27
 
 ### Added

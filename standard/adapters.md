@@ -10,8 +10,14 @@ Adapters are not sources of truth. They are routing files.
 | --- | --- | --- |
 | Codex | `AGENTS.md` | Read order, collaboration rules, repo-specific constraints |
 | Claude Code | `CLAUDE.md` | Read order, commands, tool-specific workflow notes |
+| GitHub Copilot | `.github/copilot-instructions.md` | Read order and IDE-side repository instructions |
 | Cursor | `.cursor/rules/*.mdc` | Editor rule routing and scoped rule activation |
 | Gemini CLI | `GEMINI.md` | Read order and CLI-specific expectations |
+
+A tool may expose more than one discovery surface. GitHub Copilot reads
+`.github/copilot-instructions.md` in the IDE, while Copilot coding agent can
+also read a root `AGENTS.md`. Project both surfaces from the same canonical
+documents instead of letting either accumulate its own knowledge.
 
 The adapter contract is open: adoption mappings accept a lowercase tool slug
 and repository-relative adapter path rather than a closed vendor enum. A

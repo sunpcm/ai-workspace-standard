@@ -551,12 +551,156 @@ Status: Pending after v1.0.0 publication.
 - 不引入 hooks、MCP、memory runtime、常驻服务或 Agent orchestration；
 - 模板和示例通过 validator，且明确这是一项可选 operations profile。
 
+## P4: v1.0.0 之后的候选
+
+### 22. 增加诊断产出物模板与证据校验
+
+Status: Pending.
+
+目标：把“先检索已有材料再做代码推演”从只能被读到的软约束，变成可机械
+校验的产出物要求，降低无证据根因排序对读者的误导。
+
+背景证据（来自一次真实复盘，不复制目标仓库业务细节）：
+
+- 两个 Agent 先后只做代码推演，未检索仓库内已存在的事故文档、决策记录
+  和 `git log`，也未确认问题是否已有在飞的修复；
+- 被标注为“最可能”的根因没有任何证据支撑，且与真实根因相反；
+- 因两个语义相近的文档目录，两个 Agent 先后检索错同一个目录。
+
+建议路径：
+
+```text
+templates/diagnosis/DIAGNOSIS.md
+docs/diagnosis-evidence.md
+```
+
+该模板是 Experiment scope 的特化，不新增 canonical knowledge role。
+
+必填段：
+
+- 检索记录：已搜索的路径、匹配模式、`git log` 范围、命中与未命中；
+- 候选根因：每条必须带证据字段，取值为 `路径:行号`、commit、日志路径，
+  或显式的“无证据 — 仅代码推演”；
+- 排序约束：存在“仅推演”候选时，禁止使用“最可能”一类置信度措辞；
+- 验证步骤：可执行命令加可证伪的预期结果。
+
+validator 增量检查（保持只读、无第三方依赖）：
+
+- 诊断文档缺少四个必填段之一 → warning；
+- 出现置信度措辞但同段落无证据引用 → warning；
+- 证据字段引用的本地路径不存在 → 复用现有引用有效性检查。
+
+验收标准：
+
+- 模板不绑定语言、技术栈、厂商或具体故障类型；
+- 不新增 canonical role，仅作为 Experiment 特化；
+- 检查保持 warning 级别，与 adapter line count 的处理一致；
+- 明确记录该模板防不住什么：它不能阻止填写虚假证据，也不能纠正模型在
+  被质疑时的立场漂移；
+- 至少一个 example 展示“无证据 — 仅代码推演”的正确写法。
+
+### 23. 增加 GitHub Copilot adapter（primary target）
+
+Status: Completed on 2026-08-08.
+
+原计划按 extension reference 加入。owner 说明 Copilot 与 Codex、Claude Code
+同为日常主力工具后，改按 primary target 加入。2026-07-26 的优先级决策本身
+允许在出现真实使用时提升，因此这是执行既有策略，不是放宽证据要求。
+
+交付结果：
+
+- `adapters/copilot/.github/copilot-instructions.md` 提供投影模板；
+- 本仓库新增根 `.github/copilot-instructions.md`，因为 Copilot 的 IDE 侧
+  不读取 `AGENTS.md`，没有这个文件时 owner 在本仓库用 Copilot 拿不到路由；
+- `scripts/aews_validate.py` 增加 `ADAPTER_FILENAME_TOOLS` 映射，同时发现
+  仓库根和 `adapters/` 下的 copilot instructions；
+- `standard/adapters.md` 与 `docs/adapter-matrix.md` 增加对应行、最小投影和
+  验证命令；
+- `DECISIONS.md` 记录提升决策及其证据边界；
+- 测试增加 copilot 双位置发现断言，README Quick Start 回归同步覆盖 copilot。
+
+证据等级（不得含糊）：
+
+- Copilot 为 primary priority，但只有 static projection 加 validator pass；
+- 只有 Codex 和 Claude Code 具备受控 runtime-loading 证据；
+- Copilot 的 IDE 侧没有与 `codex`、`claude` 对等的 headless 只读调用方式，
+  受控探针需要人工编辑器会话，尚未执行。
+
+范围限制（已执行）：
+
+- 只投影 `.github/copilot-instructions.md`；
+- 未投影 `.github/instructions/*.instructions.md` 的 path-scoped 规则。
+
+版本判定：
+
+- 按 `docs/versioning.md`，新增可选 adapter 与 validator discovery 属于
+  backward-compatible，定为 `1.1.0`；
+- 判定规则已记入 `DECISIONS.md`，后续新增 adapter 沿用同一路径；
+- `1.1.0` 的 release notes 与 readiness 记录仍属 owner 控制的发布准备工作，
+  本项不代为执行。
+
+### 24. 落地 Workspace scope 的多仓库形态
+
+Status: Pending. 需要先完成一次真实工作区评估。
+
+目标：`standard/scopes.md` 已定义 Workspace scope，但目前没有任何落地
+产物——没有 workspace 级模板，`aews.json` 只有 template 与 adoption 两种
+单仓库模式，validator 也要求全部路径位于单个 target 内。
+
+真实场景（第四类评估目标）：
+
+- 工作区根并列多个独立部署、各自持有 `.git` 的子项目；
+- 工作区根本身不是 git 仓库，共享规则文件无法随仓库分发给协作者；
+- 跨项目文档与项目内文档分处两个语义相近的目录，导致检索错目录。
+
+按既有方法论推进，先评估再收敛 schema：
+
+1. 完成一次只读工作区评估，记录 role 映射、失败与误报；
+2. 再决定 `aews.json` 是否增加 workspace mode 及其最小字段；
+3. 最后才考虑 validator 的多 target 路径解析。
+
+需要回答的问题：
+
+- workspace 级 role 映射与成员仓库 role 映射的边界；
+- 共享规则的分发形态，以及 workspace meta-repo 与各仓库薄投影的关系；
+- validator 是否允许在已声明的成员边界内解析跨仓库路径；
+- Workspace scope 是否需要独立 canonical 文档，还是复用现有 role。
+
+验收标准：
+
+- 评估全程只读，不要求目标工作区重命名或移动文档；
+- 不引入 orchestration、hooks、常驻服务或 agent 间实时协调；
+- 若评估结论是现有 adoption mode 已经够用，允许不新增 workspace mode，
+  并把该结论记入 `DECISIONS.md`。
+
+### 25. 评估 Handoff 新鲜度检查（先决策，后实现）
+
+Status: Pending decision.
+
+目标：`docs/cross-agent-continuity.md` 已定义 staleness 规则，但 validator
+目前只做文件系统层面的只读检查，无法验证 Handoff 声明的 commit 是否真实
+存在、是否仍是 HEAD 的祖先。
+
+先决策的问题：
+
+- validator 是否允许调用只读 `git` 命令；这会改变当前“无第三方依赖、纯
+  文件系统”的实现前提；
+- 若不允许，是否只做不依赖 git 的弱检查，例如必填字段是否为空、时间戳
+  格式是否合法。
+
+决策明确后再实现。不要为了增加检查项而扩大 validator 的运行前提。
+
 ## 当前推荐顺序
 
 1. owner 检查并 push 本地 release-preparation commit
 2. owner 创建和推送 `v1.0.0` annotated tag
 3. owner 发布 GitHub Release 并更新发布后状态
-4. 发布完成后再评估 #21，不阻塞 v1.0.0
+4. #22 诊断模板与证据校验：独立价值最高，不依赖外部发布
+5. #24 Workspace scope：需先完成一次真实工作区评估
+6. #21 与 #25 按需评估，不阻塞上述任何一项
+
+已完成 #23（Copilot primary adapter），其 runtime 探针留待人工编辑器会话，
+不阻塞上述任何一项。
 
 ## 每次继续开发前的检查命令
 

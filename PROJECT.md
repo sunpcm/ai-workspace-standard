@@ -13,7 +13,7 @@ evidence-backed continuity between agents.
 - Scope: Workspace standard
 - Current version: v1.0.0 release content finalized; publication owner-controlled
 - Primary audience: engineers who use multiple AI coding agents across repositories
-- Primary compatibility targets: Codex and Claude Code
+- Primary compatibility targets: Codex, Claude Code, and GitHub Copilot
 - Extension policy: keep the adapter contract vendor-neutral and open to other
   tools without committing to implement or runtime-test them now
 
@@ -30,8 +30,10 @@ Cross-agent continuity is a document protocol layered on those sources. Git
 and verified artifacts establish implementation state; optional harness memory
 may transport a handoff but does not become governed truth.
 
-Current compatibility work prioritizes Codex and Claude Code because they are
-the owner's active tools. Existing Cursor and Gemini projections remain useful
+Current compatibility work prioritizes Codex, Claude Code, and GitHub Copilot
+because they are the owner's active tools. Codex and Claude Code additionally
+have controlled runtime-loading evidence; GitHub Copilot currently has
+structural evidence only. Existing Cursor and Gemini projections remain useful
 reference implementations, but they are not active development or runtime
 validation commitments.
 

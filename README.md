@@ -1,13 +1,14 @@
 # AI Engineering Workspace Standard
 
-AI Engineering Workspace Standard (AEWS) is a minimal, agent-agnostic standard for organizing engineering knowledge so it can be consumed by Codex, Claude Code, Cursor, Gemini CLI, and future agents without binding the workspace to one vendor.
+AI Engineering Workspace Standard (AEWS) is a minimal, agent-agnostic standard for organizing engineering knowledge so it can be consumed by Codex, Claude Code, GitHub Copilot, Cursor, Gemini CLI, and future agents without binding the workspace to one vendor.
 
 AEWS treats the workspace as the durable asset. Agent-specific files are projections of the standard, not the source of truth.
 
 The standard remains open to any thin agent adapter. Current compatibility
-evidence and cross-agent workflow development prioritize Codex and Claude Code;
-Cursor, Gemini CLI, and future tools are extension targets rather than active
-runtime commitments.
+evidence and cross-agent workflow development prioritize Codex, Claude Code,
+and GitHub Copilot; Cursor, Gemini CLI, and future tools are extension targets
+rather than active runtime commitments. Among the primary targets, only Codex
+and Claude Code have controlled runtime-loading evidence so far.
 
 ## Goals
 
@@ -46,6 +47,8 @@ PROJECT.md            Durable facts for this repo
 DECISIONS.md          Accepted project decisions
 HANDOFF.md            Current working state
 AGENTS.md             Thin Codex entrypoint for this repo
+.github/copilot-instructions.md
+                      Thin GitHub Copilot entrypoint for this repo
 ```
 
 ## Quick Start
@@ -70,6 +73,8 @@ cp <aews-repo>/templates/repo/PROJECT.md ./PROJECT.md
 cp <aews-repo>/templates/decision/DECISIONS.md ./DECISIONS.md
 cp <aews-repo>/adapters/codex/AGENTS.md ./AGENTS.md
 cp <aews-repo>/adapters/claude-code/CLAUDE.md ./CLAUDE.md
+mkdir -p .github && cp <aews-repo>/adapters/copilot/.github/copilot-instructions.md \
+  ./.github/copilot-instructions.md
 ```
 
 Keep the repository's existing `README.md`, or create one before validation.
@@ -83,7 +88,7 @@ Then:
    continuation checkpoint.
 4. Use the repository's existing issue tracker or `TODO.md` as the shared task
    queue.
-5. Remove `AGENTS.md` or `CLAUDE.md` if that tool is not used.
+5. Remove any adapter whose tool is not used.
 
 Validate from the AEWS checkout:
 
@@ -115,9 +120,9 @@ python3 <aews-repo>/scripts/aews_validate.py <target-repo> \
 See `docs/adoption-guide.md` for migration decisions and
 `templates/adoption/README.md` for every mapping field.
 
-## Daily Codex And Claude Workflow
+## Daily Multi-Agent Workflow
 
-At the start of work, both adapters should route the agent to the same:
+At the start of work, every adapter should route its agent to the same:
 
 1. Project facts and verification commands;
 2. accepted Decisions;
@@ -129,7 +134,7 @@ At a meaningful verified checkpoint, update the shared task state and replace
 the Handoff with the completed step, exact evidence, next step, blockers, and
 expiration condition. Record durable rationale in Decisions and stable facts
 in Project. Do not copy transcripts or separate per-agent progress histories
-into `AGENTS.md` and `CLAUDE.md`.
+into any adapter file.
 
 For concurrent work, use separate branches or worktrees. AEWS does not provide
 live presence or file locking.
@@ -149,7 +154,7 @@ staleness, concurrency, and optional harness-integration rules.
 - Architecture: why AEWS uses four scopes and a projection layer.
 - Document lifecycle: how information moves from working state to durable knowledge.
 - Minimal templates: repo, handoff, decision, and experiment documents.
-- Adapter matrix: how canonical documents map to Codex, Claude Code, Cursor, and Gemini CLI.
+- Adapter matrix: how canonical documents map to Codex, Claude Code, GitHub Copilot, Cursor, and Gemini CLI.
 - Validation checklist: manual checks that prevent context duplication and adapter bloat.
 - Adoption guide: how to migrate existing repositories with minimal change.
 - Versioning policy: how to evaluate standard, template, example, and adapter changes.
