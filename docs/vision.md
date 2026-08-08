@@ -7,9 +7,9 @@ If every tool becomes a separate source of truth, teams accumulate duplicated in
 AEWS exists to make engineering knowledge portable.
 
 Portability does not require equal implementation investment in every tool.
-The current project prioritizes Codex, Claude Code, and GitHub Copilot
-compatibility evidence while keeping the canonical model and adapter contract
-open to other agents.
+The current project prioritizes Codex and Claude Code compatibility evidence,
+maintains GitHub Copilot as a secondary target without a runtime claim, and
+keeps the canonical model and adapter contract open to other agents.
 
 ## Problem
 

@@ -7,21 +7,21 @@ or real-time runtime parity.
 
 ## Support Policy
 
-- **Primary:** Codex, Claude Code, and GitHub Copilot receive current
-  compatibility evidence, continuity examples, and planned runtime-loading
-  checks.
+- **Primary:** Codex and Claude Code. Actively used as the main drivers, with
+  maintained thin adapters, validator discovery, continuity examples, and
+  controlled runtime-loading evidence.
+- **Secondary:** GitHub Copilot. Actively used in an assisting role, with the
+  same adapter and discovery maintenance, but no runtime-evidence commitment.
 - **Extension reference:** Cursor, Gemini CLI, and future tools may use the open
   adapter contract, but AEWS does not currently commit to implementation work
   or runtime validation for them.
 
-Primary priority records maintainer commitment, not completed runtime evidence.
-Codex and Claude Code have controlled runtime-loading results; GitHub Copilot
-currently has structural evidence only, and its runtime check is planned rather
-than performed. Read the evidence column before citing any compatibility claim.
+Each tier states what it guarantees. Only Primary carries a runtime-loading
+claim, so a Secondary target is never implied to be runtime verified.
 
-The priority is based on current project usage, not a permanent vendor
-restriction. A non-primary tool can be promoted when there is real usage,
-maintainer capacity, and reproducible evidence.
+Tiers reflect current project usage, not a permanent vendor restriction. A tool
+moves up when there is real usage, maintainer capacity, and, for Primary,
+reproducible runtime evidence.
 
 ## Canonical Sources
 
@@ -41,7 +41,7 @@ maintainer capacity, and reproducible evidence.
 | --- | --- | --- | --- | --- | --- | --- |
 | Codex | Primary | Root `AGENTS.md` | `adapters/codex/AGENTS.md` | Reads shared handoff and task state; verifies it with Git | Controlled read-only pass on `codex-cli 0.145.0`; see `docs/runtime-loading-evidence.md` | One local version and fixture do not prove universal compatibility |
 | Claude Code | Primary | Root `CLAUDE.md` | `adapters/claude-code/CLAUDE.md` | Uses the same checkpoint protocol as Codex | Controlled read-only pass on Claude Code `2.1.218`; see `docs/runtime-loading-evidence.md` | One local version, fixture, and approved external call do not prove universal compatibility |
-| GitHub Copilot | Primary | `.github/copilot-instructions.md` in the IDE; root `AGENTS.md` for Copilot coding agent | `adapters/copilot/.github/copilot-instructions.md` | Uses the same checkpoint protocol as Codex and Claude Code | Static projection and AEWS validator pass on 2026-08-08 | No controlled runtime-loading probe yet; the IDE surface has no headless read-only command comparable to `codex` or `claude` |
+| GitHub Copilot | Secondary | `.github/copilot-instructions.md` in the IDE; root `AGENTS.md` for Copilot coding agent | `adapters/copilot/.github/copilot-instructions.md` | Uses the same checkpoint protocol as Codex and Claude Code | Static projection and AEWS validator pass on 2026-08-08 | No controlled runtime-loading probe yet; the IDE surface has no headless read-only command comparable to `codex` or `claude` |
 | Cursor | Extension reference | `.cursor/rules/*.mdc` | `adapters/cursor/.cursor/rules/aews.mdc` | Demonstrates how an editor adapter could route to shared state | Static projection and AEWS validator pass on 2026-07-26 | No current implementation or runtime-validation commitment |
 | Gemini CLI | Extension reference | Root `GEMINI.md` | `adapters/gemini/GEMINI.md` | Demonstrates how a CLI adapter could route to shared state | Static projection and AEWS validator pass on 2026-07-26 | No current implementation or runtime-validation commitment |
 
@@ -68,7 +68,7 @@ command -v gemini || true
 ```
 
 The Cursor and Gemini commands only document local availability. Their absence
-does not block the primary compatibility track.
+does not block the primary or secondary compatibility track.
 
 The GitHub Copilot check is a file-presence check only. Copilot's IDE surface
 has no headless, read-only invocation comparable to `codex` or `claude`, so a

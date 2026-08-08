@@ -255,7 +255,7 @@ Evidence: `docs/releases/v0.2.0-readiness.md`,
 `docs/releases/v1.0.0-readiness.md`, `docs/runtime-loading-evidence.md`,
 `docs/roadmap.md`
 
-### 2026-08-08: Promote GitHub Copilot to a primary compatibility target
+### 2026-08-08: Add a Secondary tier and place GitHub Copilot in it
 
 Status: Accepted
 
@@ -263,24 +263,34 @@ Scope: Repo
 
 Context: The 2026-07-26 decision made Codex and Claude Code the primary
 compatibility targets because they were the owner's active tools, and it
-explicitly allowed promotion when a tool gains real usage. The owner now uses
-GitHub Copilot daily alongside those two. Copilot coding agent can read a root
-`AGENTS.md`, but the IDE surface reads `.github/copilot-instructions.md`, so
-the existing Codex projection did not cover everyday editor usage.
+allowed promotion when a tool gains real usage. The owner now uses GitHub
+Copilot daily, but in an assisting role rather than as a main driver. Copilot
+coding agent can read a root `AGENTS.md`, while the IDE surface reads
+`.github/copilot-instructions.md`, so the existing Codex projection did not
+cover everyday editor usage.
 
-Decision: Treat GitHub Copilot as a primary compatibility target and add a thin
-`.github/copilot-instructions.md` projection plus template-mode discovery for
-it. Project only the repository-wide instructions file. Path-scoped
+The existing two-tier model could not express this. Calling Copilot Primary
+would imply runtime-loading evidence it does not have; calling it an extension
+reference would understate a real maintenance commitment.
+
+Decision: Add a third tier. Primary means an actively used main driver with a
+maintained adapter, validator discovery, and controlled runtime-loading
+evidence; Codex and Claude Code stay there. Secondary means the same
+maintenance commitment without a runtime-evidence claim; GitHub Copilot goes
+there, with a thin `.github/copilot-instructions.md` projection and
+template-mode discovery. Extension reference is unchanged.
+
+Project only the repository-wide instructions file. Path-scoped
 `.github/instructions/*.instructions.md` rules stay with the adopting
 repository, because activation globs are editor behavior rather than canonical
 knowledge routing.
 
-Consequences: Primary priority now records maintainer commitment rather than
-completed runtime evidence. Codex and Claude Code keep controlled
-runtime-loading results; Copilot has structural evidence only, and its runtime
-check is planned rather than performed. The compatibility matrix must keep that
-difference visible, because Copilot's IDE surface has no headless read-only
-invocation comparable to `codex` or `claude`.
+Consequences: Each tier now states what it guarantees, so a runtime claim
+cannot leak across tiers, and no per-tool caveat is needed to correct the tier
+label. Promotion of Copilot to Primary requires a manual editor probe, because
+its IDE surface has no headless read-only invocation comparable to `codex` or
+`claude`. The minimal example continues to demonstrate the two Primary tools
+only, which stays consistent under this model.
 
 Evidence: `adapters/copilot/.github/copilot-instructions.md`,
 `docs/adapter-matrix.md`, `standard/adapters.md`, `scripts/aews_validate.py`

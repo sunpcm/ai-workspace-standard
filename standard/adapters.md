@@ -21,8 +21,9 @@ documents instead of letting either accumulate its own knowledge.
 
 The adapter contract is open: adoption mappings accept a lowercase tool slug
 and repository-relative adapter path rather than a closed vendor enum. A
-project may still designate a smaller set of primary compatibility targets and
-keep other adapters as untested extension references.
+project may still rank its tools: main drivers with runtime evidence,
+assisting tools maintained without a runtime claim, and untested extension
+references.
 
 ## Adapter Rules
 

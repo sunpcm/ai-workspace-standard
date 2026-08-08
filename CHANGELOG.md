@@ -17,9 +17,10 @@ rules in `docs/versioning.md`.
 
 ### Changed
 
-- GitHub Copilot is now a primary compatibility target alongside Codex and
-  Claude Code. Primary priority records maintainer commitment, not completed
-  runtime evidence; Copilot has structural evidence only.
+- Support policy now has three tiers. Codex and Claude Code remain Primary
+  with runtime-loading evidence. GitHub Copilot joins as Secondary: maintained
+  adapter and discovery, no runtime-evidence claim. Extension reference is
+  unchanged.
 
 ## 1.0.0 - 2026-07-27
 

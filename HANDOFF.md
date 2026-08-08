@@ -2,8 +2,8 @@
 
 ## Current Goal
 
-Owner manually publishes the prepared v1.0.0 release and records the resulting
-external state.
+Owner manually publishes the prepared v1.0.0 and v1.1.0 releases and records
+the resulting external state.
 
 ## Current State
 
@@ -19,16 +19,21 @@ external state.
   requirement audit, compatibility policy, and local readiness record; added
   tested README Quick Start paths, neutralized the Decisions template, dated
   the changelog, and prepared GitHub Release notes and manual commands.
-- Later completed step: promoted GitHub Copilot to a primary compatibility
-  target after the owner confirmed daily use alongside Codex and Claude Code;
-  added the thin projection, a root entrypoint for this repository, validator
-  discovery for both locations, matrix and decision records, and regression
-  coverage. Copilot has structural evidence only; no runtime probe was run.
-- Next step: owner reviews and pushes the local preparation commit, creates and
-  pushes annotated tag `v1.0.0`, publishes the GitHub Release, then updates
-  post-release state. The Copilot work is dated `1.1.0` in the changelog and
-  should be released after `v1.0.0`; its release notes and readiness record are
-  not written yet.
+- Later completed step: added a Secondary support tier and placed GitHub
+  Copilot in it, after the owner defined Codex and Claude Code as the main
+  drivers and Copilot as an assisting tool; added the thin projection, a root
+  entrypoint for this repository, validator discovery for both locations,
+  matrix and decision records, and regression coverage. Copilot has structural
+  evidence only; no runtime probe was run.
+- Latest completed step: wrote `docs/releases/v1.1.0.md` and
+  `docs/releases/v1.1.0-readiness.md`; re-ran the release checks and the three
+  privacy scans on 2026-08-08 with no findings; then replaced the two-tier
+  support policy with Primary, Secondary, and Extension reference across the
+  matrix, standard, evidence record, roadmap, checklist, and decisions.
+- Next step: the `v1.0.0` tag is pushed and visible at `efb1724`. Commit the
+  v1.1.0 preparation, publish the v1.0.0 GitHub Release if it is still absent,
+  then tag and publish `v1.1.0` at the preparation commit. Commands are in
+  `docs/releases/v1.1.0-readiness.md`. Record post-release state afterwards.
 - Blockers: none in repository content. The owner's local `gh` authentication
   must be valid before the manual GitHub Release command.
 

@@ -4,11 +4,11 @@ AI Engineering Workspace Standard (AEWS) is a minimal, agent-agnostic standard f
 
 AEWS treats the workspace as the durable asset. Agent-specific files are projections of the standard, not the source of truth.
 
-The standard remains open to any thin agent adapter. Current compatibility
-evidence and cross-agent workflow development prioritize Codex, Claude Code,
-and GitHub Copilot; Cursor, Gemini CLI, and future tools are extension targets
-rather than active runtime commitments. Among the primary targets, only Codex
-and Claude Code have controlled runtime-loading evidence so far.
+The standard remains open to any thin agent adapter. Codex and Claude Code are
+the primary targets and carry controlled runtime-loading evidence. GitHub
+Copilot is a secondary target: actively used and maintained, but without a
+runtime-evidence claim. Cursor, Gemini CLI, and future tools are extension
+references rather than active runtime commitments.
 
 ## Goals
 

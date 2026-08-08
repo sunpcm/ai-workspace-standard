@@ -3,6 +3,12 @@
 This record distinguishes static adapter validation from controlled runtime
 discovery for the primary Codex and Claude Code targets.
 
+GitHub Copilot was added in `1.1.0` as a secondary target and does not appear
+below, because no controlled probe has been run for it. Its IDE surface has no
+headless, read-only invocation comparable to `codex` or `claude`. Only Primary
+targets carry a runtime-loading claim; absence here means absent evidence, not
+a failed probe.
+
 ## Probe Contract
 
 - Dates: 2026-07-26 to 2026-07-27

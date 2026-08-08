@@ -85,6 +85,26 @@ the controlled Claude Code probe passed on 2026-07-27. The full readiness audit
 is recorded in `docs/releases/v1.0.0-readiness.md`; tag, push, and publication
 remain owner-controlled.
 
+## v1.1: Secondary Support Tier
+
+Status: Local release candidate complete on 2026-08-08. A Secondary support
+tier was added and GitHub Copilot placed in it, after the owner confirmed daily
+use of Copilot in an assisting role alongside the two main drivers.
+
+Primary: Codex and Claude Code. Secondary: GitHub Copilot. Cursor, Gemini CLI,
+and future tools remain possible through the open adapter contract but are not
+active implementation or runtime-validation targets.
+
+This release tested the v1.0 exit criterion that adding another tool does not
+require changing canonical roles. It did not: only an adapter file, validator
+discovery, and documentation changed.
+
+Outstanding for this track:
+
+- no controlled runtime probe exists for GitHub Copilot,
+- recorded Codex and Claude Code probes have not been re-run against newer
+  local tool versions.
+
 ## Deferred
 
 These are intentionally deferred until the standard is stable:

@@ -599,13 +599,14 @@ validator 增量检查（保持只读、无第三方依赖）：
   被质疑时的立场漂移；
 - 至少一个 example 展示“无证据 — 仅代码推演”的正确写法。
 
-### 23. 增加 GitHub Copilot adapter（primary target）
+### 23. 增加 GitHub Copilot adapter（secondary target）
 
 Status: Completed on 2026-08-08.
 
-原计划按 extension reference 加入。owner 说明 Copilot 与 Codex、Claude Code
-同为日常主力工具后，改按 primary target 加入。2026-07-26 的优先级决策本身
-允许在出现真实使用时提升，因此这是执行既有策略，不是放宽证据要求。
+原计划按 extension reference 加入，中途一度按 primary 加入，最终由 owner 明确
+定位：Codex 与 Claude Code 是主力，Copilot 是辅助。为此新增 Secondary 层级——
+原有两层无法表达「真实维护但无运行时证据」这一状态，硬塞进 primary 就必须靠
+附加说明去修正标签本身。
 
 交付结果：
 
@@ -619,25 +620,31 @@ Status: Completed on 2026-08-08.
 - `DECISIONS.md` 记录提升决策及其证据边界；
 - 测试增加 copilot 双位置发现断言，README Quick Start 回归同步覆盖 copilot。
 
-证据等级（不得含糊）：
+三层定义（各层自述其保证，避免运行时声明跨层泄漏）：
 
-- Copilot 为 primary priority，但只有 static projection 加 validator pass；
-- 只有 Codex 和 Claude Code 具备受控 runtime-loading 证据；
-- Copilot 的 IDE 侧没有与 `codex`、`claude` 对等的 headless 只读调用方式，
-  受控探针需要人工编辑器会话，尚未执行。
+- Primary：主力工具，维护 adapter 与 discovery，且有受控 runtime-loading 证据；
+- Secondary：同等维护承诺，但不作运行时证据声明；
+- Extension reference：仅开放契约与参考投影，不承诺实现与验证。
+
+Copilot 位于 Secondary。升入 Primary 需要人工编辑器探针，因为其 IDE 侧没有与
+`codex`、`claude` 对等的 headless 只读调用方式。
 
 范围限制（已执行）：
 
 - 只投影 `.github/copilot-instructions.md`；
 - 未投影 `.github/instructions/*.instructions.md` 的 path-scoped 规则。
 
-版本判定：
+版本判定与发布准备：
 
 - 按 `docs/versioning.md`，新增可选 adapter 与 validator discovery 属于
   backward-compatible，定为 `1.1.0`；
 - 判定规则已记入 `DECISIONS.md`，后续新增 adapter 沿用同一路径；
-- `1.1.0` 的 release notes 与 readiness 记录仍属 owner 控制的发布准备工作，
-  本项不代为执行。
+- `docs/releases/v1.1.0.md` 与 `docs/releases/v1.1.0-readiness.md` 已补齐，
+  发布检查与三项隐私扫描于 2026-08-08 实跑通过；
+- 新增 `docs/releases/TEMPLATE.md`，把两份发布文档的骨架和证据纪律固化下来，
+  避免每次发布重新发明结构；它是本仓库的发布脚手架，不属于 AEWS 标准表面；
+- `v1.0.0` 标签已在本地创建并指向 `efb1724`，尚未推送；
+- 推送、打 `v1.1.0` 标签和 GitHub Release 仍由 owner 手动执行。
 
 ### 24. 落地 Workspace scope 的多仓库形态
 
@@ -699,7 +706,7 @@ Status: Pending decision.
 5. #24 Workspace scope：需先完成一次真实工作区评估
 6. #21 与 #25 按需评估，不阻塞上述任何一项
 
-已完成 #23（Copilot primary adapter），其 runtime 探针留待人工编辑器会话，
+已完成 #23（Copilot secondary adapter），其 runtime 探针留待人工编辑器会话，
 不阻塞上述任何一项。
 
 ## 每次继续开发前的检查命令

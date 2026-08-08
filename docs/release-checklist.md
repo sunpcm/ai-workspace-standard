@@ -155,15 +155,18 @@ Required checks:
 sed -n '1,320p' docs/adapter-matrix.md
 codex --version || true
 claude --version || true
+test -f .github/copilot-instructions.md || true
 ```
 
 Pass criteria:
 
 - each compatibility claim names its discovery surface and evidence status,
 - structural validation is not presented as a runtime-loading test,
-- unrun Codex or Claude Code model-backed checks are recorded as limitations,
-- non-primary tools are labelled as extension references and do not block the
-  primary compatibility track,
+- unrun model-backed checks for any declared target are recorded as limitations,
+- only Primary targets carry a runtime-loading claim; Secondary and extension
+  targets are never implied to have one,
+- each non-primary tool is labelled with its actual tier and does not block
+  the primary compatibility track,
 - the matrix does not claim hook, memory, or orchestration parity.
 
 ## 10. Secret And Private Context Review
@@ -202,7 +205,8 @@ Risk:
 ## Release Result
 
 Record each release result in `docs/releases/<version>-readiness.md` before
-tagging or publishing. Include:
+tagging or publishing. Copy the skeletons in `docs/releases/TEMPLATE.md` rather
+than editing a previous release's record. Include:
 
 - Status: Not started | Passed | Blocked
 - Version:
