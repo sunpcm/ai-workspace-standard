@@ -320,40 +320,57 @@ major version. The adoption mapping contract version stays at 1 because the
 
 Evidence: `docs/versioning.md`, `scripts/aews_validate.py`
 
-### 2026-08-09: Keep documentation in English and use translations for other languages
+### 2026-08-09: Choose document language by what reads it, not by directory
 
 Status: Accepted
 
 Scope: Repo
 
 Context: The owner's readers are Chinese today, so writing the working
-documents in Chinese was tried. Measuring the cost first showed it was larger
-than expected. `_validate_duplicates` is the check that enforces the central
-AEWS rule that adapters are projections rather than knowledge stores. It
-compares normalized lines, and `_statements` ignores any line shorter than 60
-characters.
+documents in Chinese was tried. Measuring the cost first showed where it is
+real and where it is not.
 
-Measured on the translated files: `PROJECT.md` produced 1 qualifying statement
-from 67 non-empty lines and `DECISIONS.md` produced 9 from 208, against 11 from
-30 lines in the English root `AGENTS.md`. Chinese wraps at roughly 35 to 40
-characters per line, so almost no line reached the threshold. A constructed
-duplicate was detected between an English document and an English adapter, and
-went undetected in all three Chinese variants, including a verbatim Chinese
-copy wrapped in the repository's normal style.
+`_validate_duplicates` enforces the central AEWS rule that adapters are
+projections rather than knowledge stores. It compares normalized lines, and
+`_statements` skips any line shorter than 60 characters. Measured on the
+translated files: `PROJECT.md` produced 1 qualifying statement from 67
+non-empty lines and `DECISIONS.md` produced 9 from 208, against 11 from 30
+lines in the English root `AGENTS.md`. Chinese wraps at roughly 35 to 40
+characters per line, so almost nothing reached the threshold. A constructed
+duplicate was caught between an English document and an English adapter and
+missed in all three Chinese variants, including a verbatim Chinese copy wrapped
+in this repository's normal style.
 
-Decision: Documentation is written in English. Other languages are added as
+The first reaction was to require English everywhere, which was stricter than
+the evidence supports. `_mapped_files` returns only `PROJECT.md`,
+`DECISIONS.md`, and `HANDOFF.md` in template mode. All 20 documents under
+`docs/` are outside every automated comparison.
+
+Decision: A document must be English when either test applies.
+
+1. The validator compares it: the three mapped canonical documents.
+2. An adopter must read it to use AEWS: the standard, templates, adapters,
+   examples, release records, and the adoption, validator, and compatibility
+   documents under `docs/`.
+
+Documents failing both tests may use the maintainer's language. Today those are
+`TODO.md`, `docs/roadmap.md`, and `docs/vision.md`; no README or adoption
+document links the latter two. Other languages otherwise arrive as
 `<name>.<lang>.md` translations beside the English original, as in
-`README.zh-CN.md`. `TODO.md` stays Chinese because it is a task queue, not a
-canonical knowledge role.
+`README.zh-CN.md`, which costs nothing because README is not a mapped role.
 
-Consequences: Duplicate detection keeps working for the three mapped canonical
-documents, which are the only files it compares against adapters. Chinese
-readers are served by translations, at the cost of keeping each translation in
-sync by hand. The narrower fact is worth recording: only `PROJECT.md`,
-`DECISIONS.md`, and `HANDOFF.md` lose the check when translated in place, since
-`docs/roadmap.md`, `docs/vision.md`, `TODO.md`, and any README are not mapped
-roles. Lowering the 60-character threshold for CJK would be the alternative,
-but it was not measured and is not part of this decision.
+Consequences: Duplicate detection keeps working where it is defined, Chinese
+readers keep the documents written for them, and the rule states a reason
+rather than a directory, so a new document can be placed by asking the two
+questions. `tests/test_language_boundary.py` enforces it and is default-deny,
+so an undeclared new document must be English. Two costs remain: a translation
+can drift from its original with no automated check, and
+`docs/runtime-loading-evidence.md` stays English despite being internal,
+because `docs/adapter-matrix.md` cites it as evidence and an English reader
+follows that link.
+
+Lowering the 60-character threshold for CJK would remove the first test
+entirely. It was not measured and is not part of this decision.
 
 Evidence: `scripts/aews_validate.py`, `tests/test_language_boundary.py`,
-`README.zh-CN.md`
+`docs/roadmap.md`, `README.zh-CN.md`

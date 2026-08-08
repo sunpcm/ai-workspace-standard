@@ -1,16 +1,26 @@
 """Guard this repository's bilingual policy.
 
-This is NOT part of the AEWS standard. It enforces one repository-local rule:
-documentation is written in English, and other languages arrive as
-`<name>.<lang>.md` translations beside the English original.
+This is NOT part of the AEWS standard. It enforces one repository-local rule.
 
-The rule exists because `_validate_duplicates` compares normalized lines and
-skips anything under 60 characters. Chinese wraps well below that, so an
-in-place translation silently disables the check that keeps adapters from
-becoming knowledge stores. See the 2026-08-09 entry in `DECISIONS.md`.
+A document must be English when either test applies:
+
+1. The validator compares it. `_validate_duplicates` and
+   `_validate_document_references` only read files returned by `_mapped_files`,
+   which in template mode are `PROJECT.md`, `DECISIONS.md`, and `HANDOFF.md`.
+   Those comparisons are literal: `_statements` skips lines under 60
+   characters, and Chinese wraps at roughly 35 to 40, so an in-place
+   translation silently disables the check that keeps adapters from becoming
+   knowledge stores.
+2. An adopter must read it to use AEWS. That covers the standard, templates,
+   adapters, examples, release records, and the adoption, validator, and
+   compatibility documents under `docs/`.
+
+Documents failing both tests may use the maintainer's language and are listed
+below. Other languages otherwise arrive as `<name>.<lang>.md` translations
+beside the English original. See the 2026-08-09 entry in `DECISIONS.md`.
 
 The rule is deliberately default-deny: a new document must be English unless it
-is explicitly declared below.
+is explicitly declared here.
 """
 
 from __future__ import annotations
@@ -23,10 +33,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Task queue rather than a canonical knowledge role, so it is not compared
-# against adapters and may stay in the owner's language.
+# Neither compared by the validator nor on the adopter path. Verified: no
+# README or adoption document links the two `docs/` entries, and `_mapped_files`
+# returns only the three root canonical documents.
 WORKING_DOCUMENTS = {
     "TODO.md",
+    "docs/roadmap.md",
+    "docs/vision.md",
 }
 
 # `<name>.<lang>.md`, for example `README.zh-CN.md`.
@@ -70,8 +83,9 @@ class LanguageBoundaryTests(unittest.TestCase):
         self.assertEqual(
             [],
             offenders,
-            "documentation must stay English; add a `<name>.<lang>.md` "
-            "translation instead of translating a document in place",
+            "a validator-compared or adopter-facing document must stay English; "
+            "add a `<name>.<lang>.md` translation instead of translating it "
+            "in place",
         )
 
     def test_translation_has_an_english_original(self) -> None:

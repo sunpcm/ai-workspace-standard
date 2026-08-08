@@ -4,12 +4,20 @@ AEWS is a workspace knowledge standard. Contributions should make knowledge easi
 
 ## Language
 
-Documentation is written in English. Other languages are added as
-`<name>.<lang>.md` translations beside the English original, as in
-`README.zh-CN.md`; update both in the same change. `TODO.md` is the exception
-and stays in the maintainer's language, because it is a task queue rather than
-a canonical knowledge role. `tests/test_language_boundary.py` enforces this,
-and the 2026-08-09 entry in `DECISIONS.md` records the measurement behind it.
+A document is written in English when either test applies: the validator
+compares it, which today means `PROJECT.md`, `DECISIONS.md`, and `HANDOFF.md`;
+or an adopter must read it to use AEWS, which covers `standard/`, `templates/`,
+`adapters/`, `examples/`, and the adoption, validator, compatibility, and
+release documents under `docs/`.
+
+Documents failing both tests may use the maintainer's language. Today those are
+`TODO.md`, `docs/roadmap.md`, and `docs/vision.md`. Other languages otherwise
+arrive as `<name>.<lang>.md` translations beside the English original, as in
+`README.zh-CN.md`; update both in the same change.
+
+`tests/test_language_boundary.py` enforces this and is default-deny, so a new
+document must be English unless it is declared there. The 2026-08-09 entry in
+`DECISIONS.md` records the measurement behind the rule.
 
 ## Read First
 
