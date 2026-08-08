@@ -63,18 +63,38 @@ class ValidatorTests(unittest.TestCase):
             "DECISIONS.md": ROOT / "templates" / "decision" / "DECISIONS.md",
             "AGENTS.md": ROOT / "adapters" / "codex" / "AGENTS.md",
             "CLAUDE.md": ROOT / "adapters" / "claude-code" / "CLAUDE.md",
+            ".github/copilot-instructions.md": (
+                ROOT / "adapters" / "copilot" / ".github" / "copilot-instructions.md"
+            ),
         }
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory) / "repo"
             target.mkdir()
             (target / "README.md").write_text("# Project\n", encoding="utf-8")
             for name, source in sources.items():
-                shutil.copyfile(source, target / name)
+                destination = target / name
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, destination)
 
             result = VALIDATOR.validate_repository(target, mode="template")
+            tools = {adapter.tool for adapter in result.adapters}
 
         self.assertEqual([], result.failures)
         self.assertEqual([], result.warnings)
+        self.assertEqual({"codex", "claude", "copilot"}, tools)
+
+    def test_copilot_adapter_is_discovered_in_both_locations(self) -> None:
+        result = VALIDATOR.validate_repository(ROOT, mode="template")
+        paths = {
+            adapter.path for adapter in result.adapters if adapter.tool == "copilot"
+        }
+        self.assertEqual(
+            {
+                ".github/copilot-instructions.md",
+                "adapters/copilot/.github/copilot-instructions.md",
+            },
+            paths,
+        )
 
     def test_aews_repository_passes_its_validator(self) -> None:
         result = VALIDATOR.validate_repository(ROOT, mode="template")

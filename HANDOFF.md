@@ -19,9 +19,16 @@ external state.
   requirement audit, compatibility policy, and local readiness record; added
   tested README Quick Start paths, neutralized the Decisions template, dated
   the changelog, and prepared GitHub Release notes and manual commands.
+- Later completed step: promoted GitHub Copilot to a primary compatibility
+  target after the owner confirmed daily use alongside Codex and Claude Code;
+  added the thin projection, a root entrypoint for this repository, validator
+  discovery for both locations, matrix and decision records, and regression
+  coverage. Copilot has structural evidence only; no runtime probe was run.
 - Next step: owner reviews and pushes the local preparation commit, creates and
   pushes annotated tag `v1.0.0`, publishes the GitHub Release, then updates
-  post-release state.
+  post-release state. The Copilot work is dated `1.1.0` in the changelog and
+  should be released after `v1.0.0`; its release notes and readiness record are
+  not written yet.
 - Blockers: none in repository content. The owner's local `gh` authentication
   must be valid before the manual GitHub Release command.
 
@@ -32,6 +39,7 @@ find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
 wc -l README.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/*.md
 git status --short --branch
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
+wc -l .github/copilot-instructions.md adapters/copilot/.github/copilot-instructions.md
 wc -l examples/migrations/oversized-agents/after/AGENTS.md examples/minimal-repo/VALIDATION.md CONTRIBUTING.md
 wc -l docs/adoption-guide.md
 wc -l docs/versioning.md

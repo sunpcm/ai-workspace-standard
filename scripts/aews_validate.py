@@ -16,6 +16,13 @@ ROLE_ORDER = ("project", "decisions", "handoff", "experiment")
 INACTIVE_ROLES = {"handoff", "experiment"}
 MARKDOWN_SUFFIXES = {".md", ".mdc"}
 KNOWN_ROOT_ADAPTERS = ("AGENTS.md", "CLAUDE.md", "GEMINI.md")
+COPILOT_INSTRUCTIONS = ".github/copilot-instructions.md"
+ADAPTER_FILENAME_TOOLS = {
+    "AGENTS.md": "codex",
+    "CLAUDE.md": "claude",
+    "GEMINI.md": "gemini",
+    "copilot-instructions.md": "copilot",
+}
 KNOWN_INLINE_ROOT_DOCUMENTS = {
     "README.md",
     "PROJECT.md",
@@ -131,8 +138,9 @@ def _discover_template_adapters(root: Path) -> list[Adapter]:
             adapters.append(Adapter(tool=tool, path=relative))
 
     for name in KNOWN_ROOT_ADAPTERS:
-        tool = {"AGENTS.md": "codex", "CLAUDE.md": "claude", "GEMINI.md": "gemini"}[name]
-        add(tool, root / name)
+        add(ADAPTER_FILENAME_TOOLS[name], root / name)
+
+    add("copilot", root.joinpath(*COPILOT_INSTRUCTIONS.split("/")))
 
     cursor_rules = root / ".cursor" / "rules"
     if cursor_rules.is_dir():
@@ -144,12 +152,9 @@ def _discover_template_adapters(root: Path) -> list[Adapter]:
         for path in sorted(adapters_root.rglob("*")):
             if not path.is_file():
                 continue
-            if path.name == "AGENTS.md":
-                add("codex", path)
-            elif path.name == "CLAUDE.md":
-                add("claude", path)
-            elif path.name == "GEMINI.md":
-                add("gemini", path)
+            tool = ADAPTER_FILENAME_TOOLS.get(path.name)
+            if tool:
+                add(tool, path)
             elif path.suffix == ".mdc":
                 add("cursor", path)
 
