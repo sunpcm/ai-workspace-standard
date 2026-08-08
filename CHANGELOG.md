@@ -5,6 +5,13 @@ rules in `docs/versioning.md`.
 
 ## Unreleased
 
+### Changed
+
+- Owner-facing working documents are now written in Chinese: `PROJECT.md`,
+  `DECISIONS.md`, `HANDOFF.md`, `docs/roadmap.md`, and `docs/vision.md`.
+  The standard surface, adopter documentation, examples, and `README.md` stay
+  in English. The language boundary follows audience, not directory.
+
 ## 1.1.0 - 2026-08-08
 
 ### Added

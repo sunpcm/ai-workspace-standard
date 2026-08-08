@@ -1,81 +1,56 @@
 # HANDOFF
 
-## Current Goal
+## 当前目标
 
-Owner manually publishes the prepared v1.0.0 and v1.1.0 releases and records
-the resulting external state.
+发布 v1.1.0，并记录发布后的外部状态。
 
-## Current State
+## 当前状态
 
-- Repository path: repo root
-- Last completed step: defined shared progress, checkpoint, evidence, staleness,
-  concurrency, and optional runtime boundaries; upgraded the compatibility
-  matrix and minimal example to cover Codex and Claude Code projections; set
-  runtime fixture, passed the Codex CLI read-only probe, and completed a third
-  read-only adoption evaluation that removed generated-artifact warning noise;
-  published the tested adoption mapping and completed the local v0.2.0
-  release-readiness record; passed the owner-approved Claude Code read-only
-  probe with unchanged Git state and fixture hashes; completed the v1.0
-  requirement audit, compatibility policy, and local readiness record; added
-  tested README Quick Start paths, neutralized the Decisions template, dated
-  the changelog, and prepared GitHub Release notes and manual commands.
-- Later completed step: added a Secondary support tier and placed GitHub
-  Copilot in it, after the owner defined Codex and Claude Code as the main
-  drivers and Copilot as an assisting tool; added the thin projection, a root
-  entrypoint for this repository, validator discovery for both locations,
-  matrix and decision records, and regression coverage. Copilot has structural
-  evidence only; no runtime probe was run.
-- Latest completed step: wrote `docs/releases/v1.1.0.md` and
-  `docs/releases/v1.1.0-readiness.md`; re-ran the release checks and the three
-  privacy scans on 2026-08-08 with no findings; then replaced the two-tier
-  support policy with Primary, Secondary, and Extension reference across the
-  matrix, standard, evidence record, roadmap, checklist, and decisions.
-- Next step: `v1.0.0` is tagged at `efb1724` and its GitHub Release is
-  published. Push `main`, then tag and publish `v1.1.0` at the preparation
-  commit that contains the v1.1.0 readiness record. Commands are in
-  `docs/releases/v1.1.0-readiness.md`. Record post-release state afterwards.
-- Blockers: none in repository content. The owner's local `gh` authentication
-  must be valid before the manual GitHub Release command.
+- 仓库路径：仓库根目录
+- 上一个已完成步骤：把 Primary/Secondary/Extension reference 三层支持策略
+  同步到矩阵、标准、证据记录、路线图、检查表和决策；补齐
+  `docs/releases/v1.1.0.md` 与 `docs/releases/v1.1.0-readiness.md`；新增
+  `README.zh-CN.md` 并修正两份 README 里 v1.0.0 已发布后失效的状态描述；
+  按 `docs/releases/TEMPLATE.md` 的规矩为新的发布提交重跑了全部检查与三项
+  隐私扫描。
+- 最新已完成步骤：按 owner 要求把对内工作文档转为中文——`PROJECT.md`、
+  `DECISIONS.md`、`HANDOFF.md`、`docs/roadmap.md`、`docs/vision.md`。
+  `standard/`、`templates/`、`adapters/` 以及面向采用者的 `docs/` 文档保持
+  英文，`README.md` 仍是英文主版本。
+- 下一步：`v1.0.0` 已在 `efb1724` 打标签并发布 GitHub Release。推送 `main`，
+  在通过审计的发布提交上打 `v1.1.0` 标签并发布，命令见
+  `docs/releases/v1.1.0-readiness.md`。中文化提交在该发布提交之后，属于下一个
+  版本的内容，不应包含在 `v1.1.0` 标签中。
+- 阻塞项：仓库内容无阻塞。执行手动 GitHub Release 命令前，owner 本地的 `gh`
+  认证必须有效。
 
-## Evidence
+## 证据
 
 ```bash
 find . -maxdepth 6 -path ./.git -prune -o -path ./ECC -prune -o -type f -print
-wc -l README.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/*.md
+wc -l README.md README.zh-CN.md AGENTS.md PROJECT.md DECISIONS.md HANDOFF.md docs/*.md standard/*.md
 git status --short --branch
+git log --oneline --decorate -5
+git ls-remote --tags origin
 wc -l AGENTS.md adapters/codex/AGENTS.md adapters/claude-code/CLAUDE.md adapters/cursor/.cursor/rules/aews.mdc adapters/gemini/GEMINI.md
 wc -l .github/copilot-instructions.md adapters/copilot/.github/copilot-instructions.md
-wc -l examples/migrations/oversized-agents/after/AGENTS.md examples/minimal-repo/VALIDATION.md CONTRIBUTING.md
-wc -l docs/adoption-guide.md
-wc -l docs/versioning.md
-wc -l templates/README.md
-wc -l docs/validator-design.md
-wc -l docs/validator.md
-wc -l docs/cross-agent-continuity.md
-sed -n '1,280p' docs/runtime-loading-evidence.md
 sed -n '1,340p' docs/adapter-matrix.md
-wc -l docs/release-checklist.md
-sed -n '1,260p' examples/reference-evaluations/ecc-v2.0.0.md
-sed -n '1,260p' examples/reference-evaluations/full-stack-application.md
-sed -n '1,280p' examples/reference-evaluations/ai-experiment-service.md
-sed -n '1,260p' CHANGELOG.md
-sed -n '1,320p' docs/releases/v0.2.0-readiness.md
-sed -n '1,320p' docs/releases/v1.0.0-readiness.md
+sed -n '1,280p' docs/runtime-loading-evidence.md
+sed -n '1,320p' docs/releases/v1.1.0-readiness.md
 python3 scripts/aews_validate.py . --mode template
 python3 scripts/aews_validate.py tests/fixtures/runtime-loading --mode template
 python3 -m unittest discover -s tests -p 'test_*.py' -v
-git remote -v
-git tag --list
-git log --oneline --decorate -5
+shasum -a 256 -c tests/fixtures/runtime-loading/SHA256SUMS
 ```
 
-## Open Questions
+## 待决问题
 
-- Whether to create a GitHub Release page for `v0.1.0`.
-- Whether missing Decisions should become a failure only after a repository
-  explicitly declares full AEWS compliance.
+- 是否为 `v0.1.0` 补建 GitHub Release 页面。
+- 缺失 Decisions 是否只在仓库显式声明完全遵循 AEWS 之后才算 failure。
+- 中文化之后，验证器的重复句检测对这些工作文档实际失效（英文适配器与中文
+  文档不会有相同句子，且中文 60 字符阈值远高于英文），是否需要为此调整检查
+  或明确改为人工评审。
 
-## Expiration
+## 过期条件
 
-Replace this handoff after any owner-controlled release action changes the
-current evidence.
+任何 owner 控制的发布动作改变当前证据之后，替换这份 handoff。
