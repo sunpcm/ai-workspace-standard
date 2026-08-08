@@ -11,6 +11,15 @@ rules in `docs/versioning.md`.
   `DECISIONS.md`, `HANDOFF.md`, `docs/roadmap.md`, and `docs/vision.md`.
   The standard surface, adopter documentation, examples, and `README.md` stay
   in English. The language boundary follows audience, not directory.
+- `CONTRIBUTING.md` now states the language policy before its read order,
+  because items 2 to 6 of that order are Chinese.
+
+### Added
+
+- `tests/test_language_boundary.py` keeps the English contract surface
+  complete. New documents are treated as contract surface unless declared as
+  working documents, and translations must keep an English original. It is a
+  repository policy guard, not part of the AEWS standard.
 
 ## 1.1.0 - 2026-08-08
 

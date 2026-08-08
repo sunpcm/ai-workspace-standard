@@ -2,6 +2,21 @@
 
 AEWS is a workspace knowledge standard. Contributions should make knowledge easier to place, maintain, and project into agent-specific files without turning the repository into an agent runtime.
 
+## Language
+
+This repository is bilingual by audience. The contract surface stays in
+English: `README.md`, `standard/`, `templates/`, `adapters/`, `examples/`,
+`CHANGELOG.md`, this file, and the adoption, validator, and release documents
+under `docs/`. You can adopt and validate AEWS end to end without reading
+Chinese, and `tests/test_language_boundary.py` fails if that stops being true.
+
+Owner-facing working documents are written in Chinese: `PROJECT.md`,
+`DECISIONS.md`, `HANDOFF.md`, `TODO.md`, `docs/roadmap.md`, and
+`docs/vision.md`. Items 2 to 6 of the read order below are therefore Chinese.
+Translations of English documents use `<name>.<lang>.md`, as in
+`README.zh-CN.md`. Contributions in either language are welcome; put each file
+on the side its audience needs.
+
 ## Read First
 
 Before changing files, read:

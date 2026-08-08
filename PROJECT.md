@@ -56,6 +56,9 @@ python3 scripts/aews_validate.py . --mode template
 
 # Run validator regression tests
 python3 -m unittest discover -s tests -p 'test_*.py' -v
+
+# Check the English contract surface is still complete
+python3 -m unittest tests.test_language_boundary -v
 ```
 
 ## 验证
@@ -71,7 +74,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 - 示例不依赖脚本也能读懂，
 - 变更文件通过 `docs/validation-checklist.md`，
 - `python3 scripts/aews_validate.py . --mode template` 无 failure 也无 warning，
-- 验证器回归测试通过。
+- 回归测试通过，其中 `tests/test_language_boundary.py` 确认英文契约面完整。
 
 ## 已知风险
 
@@ -84,3 +87,5 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 - 如果把非主要工具的参考投影误当成已验证集成，兼容性表述会被夸大。
 - 中文的工作文档不再与英文适配器共享句子，因此验证器的重复句检测对这些文档
   实际上不再生效；重复内容需要人工评审。
+- 英文契约文档若只用链接引用中文工作文档，会让英文读者的证据链断掉；引用时
+  必须在英文侧自带结论摘要。

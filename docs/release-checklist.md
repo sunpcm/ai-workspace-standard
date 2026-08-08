@@ -175,8 +175,8 @@ Required checks:
 
 ```bash
 rg -n -i "(token|secret|password|apikey|api_key)[[:space:]]*[:=]|sk-[A-Za-z0-9_-]{20,}|BEGIN .*PRIVATE|PRIVATE KEY|ssh-rsa|ssh-ed25519" . --glob '!docs/release-checklist.md' --glob '!ECC/**'
-rg -n "/Users/" README.md CHANGELOG.md docs standard templates adapters examples PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md --glob '!docs/release-checklist.md'
-rg -n -i "confidential|customer|client" README.md CHANGELOG.md docs standard templates adapters examples PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md --glob '!docs/release-checklist.md'
+rg -n "/Users/" README.md README.zh-CN.md CHANGELOG.md CONTRIBUTING.md docs standard templates adapters examples tests PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md .github --glob '!docs/release-checklist.md'
+rg -n -i "confidential|customer|client" README.md README.zh-CN.md CHANGELOG.md CONTRIBUTING.md docs standard templates adapters examples tests PROJECT.md DECISIONS.md HANDOFF.md AGENTS.md .github --glob '!docs/release-checklist.md'
 ```
 
 Pass criteria:
@@ -184,6 +184,11 @@ Pass criteria:
 - no tokens, private keys, credentials, or internal secrets are present,
 - personal paths appear only when intentionally documenting local development state and are removed before public release if inappropriate,
 - no customer, client, or confidential project context is included.
+
+The scan list must cover every tracked document directory. This file is
+excluded because it contains the search terms themselves; do not add other
+exclusions to silence a match, and do not name a check with the words it
+searches for.
 
 ## 11. Public Remote Decision
 

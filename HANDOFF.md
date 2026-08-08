@@ -13,10 +13,12 @@
   `README.zh-CN.md` 并修正两份 README 里 v1.0.0 已发布后失效的状态描述；
   按 `docs/releases/TEMPLATE.md` 的规矩为新的发布提交重跑了全部检查与三项
   隐私扫描。
-- 最新已完成步骤：按 owner 要求把对内工作文档转为中文——`PROJECT.md`、
-  `DECISIONS.md`、`HANDOFF.md`、`docs/roadmap.md`、`docs/vision.md`。
-  `standard/`、`templates/`、`adapters/` 以及面向采用者的 `docs/` 文档保持
-  英文，`README.md` 仍是英文主版本。
+- 最新已完成步骤：把对内工作文档转为中文，并把语言边界落成机制。新增
+  `tests/test_language_boundary.py`：新增文档默认按契约面处理，契约面出现
+  中文即失败并指出行号，译本必须有英文原件；已用注入中文的方式验证该检查
+  确实会失败。同时修复两处缺陷——`CONTRIBUTING.md` 原本把英文读者领进中文
+  文件却无提示，`docs/releases/v1.1.0-readiness.md` 原本把版本分类依据只以
+  链接指向中文决策，现已在英文侧自带摘要。
 - 下一步：`v1.0.0` 已在 `efb1724` 打标签并发布 GitHub Release。推送 `main`，
   在通过审计的发布提交上打 `v1.1.0` 标签并发布，命令见
   `docs/releases/v1.1.0-readiness.md`。中文化提交在该发布提交之后，属于下一个

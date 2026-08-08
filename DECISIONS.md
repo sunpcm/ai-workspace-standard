@@ -281,27 +281,40 @@ Scope: Repo
 
 Evidence: `docs/versioning.md`, `scripts/aews_validate.py`
 
-### 2026-08-08：对内工作文档使用中文，对外契约保持英文
+### 2026-08-08：按受众划分语言，用检查而非承诺保证无害
 
 Status: Accepted
 
 Scope: Repo
 
-背景：owner 用中文思考和写作，`TODO.md` 早已是中文，`README.zh-CN.md` 也已加入。
-但 AEWS 是一个公开标准，英文是其对外身份；把整个仓库转为中文会显著削弱国际
-可读性，而这恰恰与「目前尚无任何外部采用证据」这一已知短板相冲突。
+背景：owner 用中文思考和写作，`TODO.md` 早已是中文。更关键的是，AEWS 当前的
+实际读者是中文客户，而国际读者目前仍是假设——仓库里没有任何外部采用证据。
+把文档尽量转为中文对现有读者是真实收益，对假设读者才是潜在损失。
 
-决策：按受众划分语言，而不是按目录划分。对内工作文档使用中文：`PROJECT.md`、
-`DECISIONS.md`、`HANDOFF.md`、`TODO.md`、`docs/roadmap.md`、`docs/vision.md`。
-对外契约与采用者要读的内容保持英文：`standard/`、`templates/`、`adapters/`、
-`examples/`、`CHANGELOG.md`、`CONTRIBUTING.md`、`docs/` 下的采用与验证文档，
-以及 `docs/releases/`。`README.md` 保持英文主版本，中文走 `README.zh-CN.md`
-译本模式。
+但 AEWS 是一个公开标准，它的全部价值来自被陌生人采用。如果连"能不能被英文
+读者完整采用"都无法回答，中文化就从优化变成了自伤。
 
-后果：owner 每天读写的文档变得更省力，而采用门槛不受影响。代价是验证器的重复
-句检测对这些中文文档实际失效——英文适配器与中文文档不会有相同句子，且
-`_statements()` 的 60 字符阈值对中文而言远高于对英文，因此这些文档的重复内容
-改由人工评审。判断某份文档属于哪一侧的依据是受众，不是它所在的目录。
+决策：按受众而非目录划分语言。
 
-Evidence: `PROJECT.md`, `HANDOFF.md`, `docs/roadmap.md`, `docs/vision.md`,
-`README.zh-CN.md`
+- 契约面保持英文：`README.md`、`standard/`、`templates/`、`adapters/`、
+  `examples/`、`CHANGELOG.md`、`CONTRIBUTING.md`，以及 `docs/` 下的采用、
+  验证与发布文档。判据是：一个不懂中文的人必须能端到端采用并校验 AEWS。
+- 工作面使用中文：`PROJECT.md`、`DECISIONS.md`、`HANDOFF.md`、`TODO.md`、
+  `docs/roadmap.md`、`docs/vision.md`。
+- 契约面要中文化时用**译本而非替换**，命名为 `<name>.<lang>.md`，如
+  `README.zh-CN.md`。以后补齐其他语言沿用同一模式。
+
+"保证无害"不写成承诺，而落成 `tests/test_language_boundary.py`：新增文档
+默认按契约面处理，除非显式声明为工作文档；契约面出现中文即测试失败并指出
+文件与行号；译本必须有对应的英文原件。该检查是本仓库的策略守卫，不属于 AEWS
+标准，因此不进 `scripts/aews_validate.py`。
+
+后果：现有中文客户读到中文工作文档，而采用门槛不受影响，且这一点每次跑测试
+都会被重新验证，不依赖任何人记得这条规则。代价有两处：验证器的重复句检测对
+中文文档实际失效（英文适配器与中文文档不会有相同句子，且 `_statements()` 的
+60 字符阈值对中文远为严苛），这些文档的重复内容改由人工评审；以及英文契约
+文档引用中文工作文档时，必须在英文侧自带结论摘要，不能只甩链接——
+`docs/releases/v1.1.0-readiness.md` 已按此修正。
+
+Evidence: `tests/test_language_boundary.py`, `CONTRIBUTING.md`,
+`docs/releases/v1.1.0-readiness.md`, `README.zh-CN.md`
