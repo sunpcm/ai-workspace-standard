@@ -1,44 +1,45 @@
-# 愿景
+# Vision
 
-现代 AI 编码工具变化很快。Codex、Claude Code、GitHub Copilot、Cursor、Gemini CLI 以及未来的代理都需要仓库上下文，但每个工具索取上下文的形态各不相同。
+Modern AI coding tools change quickly. Codex, Claude Code, GitHub Copilot, Cursor, Gemini CLI, and future agents all need repository context, but each tool asks for that context in a different shape.
 
-如果每个工具都成为独立的事实来源，团队就会积累重复的指令、过期的交接记录、互相冲突的规则和过大的上下文文件。这会让代理运行更贵、也更不可靠。
+If every tool becomes a separate source of truth, teams accumulate duplicated instructions, stale handoff notes, conflicting rules, and oversized context files. That makes agents more expensive to run and less reliable.
 
-AEWS 的存在是为了让工程知识可移植。
+AEWS exists to make engineering knowledge portable.
 
-可移植并不要求对每个工具投入同等的实现成本。当前项目优先保障 Codex 和
-Claude Code 的兼容性证据，把 GitHub Copilot 作为不带运行时声明的次要目标
-维护，同时让规范模型与适配器契约对其他代理保持开放。
+Portability does not require equal implementation investment in every tool.
+The current project prioritizes Codex and Claude Code compatibility evidence,
+maintains GitHub Copilot as a secondary target without a runtime claim, and
+keeps the canonical model and adapter contract open to other agents.
 
-## 问题
+## Problem
 
-多数 AI 工作区方案的起点是问：
+Most AI workspace setups start by asking:
 
-> `AGENTS.md`、`CLAUDE.md` 或编辑器规则里该写什么？
+> What should go into `AGENTS.md`, `CLAUDE.md`, or editor rules?
 
-AEWS 的起点是另一个问题：
+AEWS starts with a different question:
 
-> 这条信息的范围（scope）和生命周期是什么？
+> What is the scope and lifecycle of this information?
 
-只有回答了这个问题，工作区才应该决定由哪个代理适配器来暴露它。
+Only after answering that question should the workspace decide which agent adapter exposes the information.
 
-## 期望结果
+## Desired Outcome
 
-一个维护良好的 AEWS 工作区，应该让下面这些事一目了然：
+A well-maintained AEWS workspace should make it clear:
 
-- 哪些事实属于全局个人偏好。
-- 哪些规则适用于整个工作区。
-- 哪些指令只属于单个仓库。
-- 哪些笔记是临时的实验状态。
-- 哪些决策是持久的，以及它们为何被做出。
-- 针对某项任务，代理应该读哪些文件。
+- Which facts are global personal preferences.
+- Which rules apply across a workspace.
+- Which instructions belong to a single repository.
+- Which notes are temporary experiment state.
+- Which decisions are durable and why they were made.
+- Which files an agent should read for a given task.
 
-## 设计取向
+## Design Bias
 
-AEWS 倾向于：
+AEWS favors:
 
-- 小上下文优于完整上下文，
-- 持久决策优于一次性对话记录，
-- 引用优于复制，
-- 显式范围优于隐含约定，
-- 适配器投影优于厂商锁定。
+- small context over complete context,
+- durable decisions over transient chat logs,
+- references over duplication,
+- explicit scope over implicit convention,
+- adapter projection over vendor lock-in.

@@ -5,21 +5,21 @@ rules in `docs/versioning.md`.
 
 ## Unreleased
 
-### Changed
-
-- Owner-facing working documents are now written in Chinese: `PROJECT.md`,
-  `DECISIONS.md`, `HANDOFF.md`, `docs/roadmap.md`, and `docs/vision.md`.
-  The standard surface, adopter documentation, examples, and `README.md` stay
-  in English. The language boundary follows audience, not directory.
-- `CONTRIBUTING.md` now states the language policy before its read order,
-  because items 2 to 6 of that order are Chinese.
-
 ### Added
 
-- `tests/test_language_boundary.py` keeps the English contract surface
-  complete. New documents are treated as contract surface unless declared as
-  working documents, and translations must keep an English original. It is a
-  repository policy guard, not part of the AEWS standard.
+- `README.zh-CN.md`, a Simplified Chinese translation of the README, linked
+  from the English original.
+- `tests/test_language_boundary.py`, which keeps documentation in English and
+  requires other languages to arrive as `<name>.<lang>.md` translations. It is
+  a repository policy guard, not part of the AEWS standard.
+
+### Changed
+
+- The section 10 privacy scans now cover `README.zh-CN.md`, `CONTRIBUTING.md`,
+  `tests`, and `.github`, which they previously missed.
+- `docs/releases/v1.1.0-readiness.md` restates its release-classification
+  rationale instead of only linking to the decision, so the record stands on
+  its own.
 
 ## 1.1.0 - 2026-08-08
 

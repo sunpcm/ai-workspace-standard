@@ -1,320 +1,359 @@
 # DECISIONS
 
-记录应当影响未来 AEWS 工作的已接受决策。
+Record accepted decisions that should influence future AEWS work.
 
-## 决策
+## Decisions
 
-### 2026-06-29：把 AEWS 建成一个标准，而不是 ECC 的克隆
+### 2026-06-29: Build AEWS as a standard, not an ECC clone
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：ECC 是一个覆盖 agents、skills、hooks、commands、MCP、安全和 memory 的
-广义 agent harness。
+Context: ECC is a broad agent harness covering agents, skills, hooks, commands, MCP, security, and memory.
 
-决策：AEWS v0.1 专注于工作区知识结构、范围、生命周期、模板和适配器投影。
+Decision: AEWS v0.1 will focus on workspace knowledge structure, scope, lifecycle, templates, and adapter projection.
 
-后果：运行时特性被推迟。在规范模型稳定之前，本仓库保持文档优先。
+Consequences: Runtime features are deferred. The repo stays documentation-first until the canonical model is stable.
 
 Evidence: `docs/architecture.md`, `docs/roadmap.md`
 
-### 2026-06-29：以 Scope First 作为首要的放置规则
+### 2026-06-29: Use Scope First as the primary placement rule
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：大型代理指令文件往往会积累混杂的关注点和过期上下文。
+Context: Large agent instruction files tend to accumulate mixed concerns and stale context.
 
-决策：AEWS 在选择文档或适配器之前，先把信息归类为 Global、Workspace、Repo
-或 Experiment。
+Decision: AEWS will classify information as Global, Workspace, Repo, or Experiment before choosing a document or adapter.
 
-后果：新文档和新模板必须声明其预期范围。
+Consequences: New documents and templates must state their intended scope.
 
 Evidence: `docs/scope-first.md`, `standard/scopes.md`
 
-### 2026-06-29：保持适配器轻量
+### 2026-06-29: Keep adapters thin
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：Codex、Claude Code、Cursor、Gemini CLI 以及未来的代理需要不同的文件
-格式，但它们不应各自持有独立的知识副本。
+Context: Codex, Claude Code, Cursor, Gemini CLI, and future agents need different file formats, but they should not own separate knowledge copies.
 
-决策：适配器文件只包含读取顺序和工具专属行为。
+Decision: Adapter files should contain read order and tool-specific behavior only.
 
-后果：持久的项目事实属于规范文档，而不是适配器文件。
+Consequences: Durable project facts belong in canonical documents, not adapter files.
 
 Evidence: `standard/adapters.md`, `docs/adapter-matrix.md`
 
-### 2026-06-29：初始开源标准采用 MIT 许可证
+### 2026-06-29: Use MIT license for the initial open-source standard
 
 Status: Accepted
 
 Scope: Repo
 
-背景：AEWS 的设计意图是被克隆、改编，并作为模板在不同团队与工具间使用。
+Context: AEWS is intended to be cloned, adapted, and used as a template across different teams and tools.
 
-决策：本仓库使用 MIT License。
+Decision: The repository will use the MIT License.
 
-后果：采用门槛保持很低，但不提供担保、也不承担责任。
+Consequences: Adoption friction stays low, but warranty and liability are disclaimed.
 
 Evidence: `LICENSE`
 
-### 2026-06-29：先有人工验证检查表，再谈自动化
+### 2026-06-29: Add a manual validation checklist before automation
 
 Status: Accepted
 
 Scope: Repo
 
-背景：v0.1 应该先用人工方式验证这个标准，然后再加入脚本或自动生成的行为。
+Context: v0.1 should prove the standard manually before adding scripts or generated behavior.
 
-决策：AEWS 使用 `docs/validation-checklist.md` 作为文档、模板、示例和适配器
-变更的验收门槛。
+Decision: AEWS will use `docs/validation-checklist.md` as the acceptance gate for document, template, example, and adapter changes.
 
-后果：在检查表通过真实使用稳定下来之前，自动化被推迟。v0.2 的首个证据门槛已
-于 2026-07-26 达成；此后只有已被验证的机械检查可以推进。
+Consequences: Automation is deferred until the checklist stabilizes through
+real use. The first v0.2 evidence gate was satisfied on 2026-07-26; only the
+validated mechanical checks may now proceed.
 
 Evidence: `docs/validation-checklist.md`, `docs/roadmap.md`
 
-### 2026-07-26：先校验规范角色，再校验首选文件名
+### 2026-07-26: Validate canonical roles before preferred filenames
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：ECC v2.0.0 的参考评估显示，一个既有仓库完全可能在不同文件名下持有受
-治理的项目事实、决策、工作状态和适配器。只看文件名的验证器会报出本可避免的
-warning，并可能在采用过程中鼓励产生重复文档。
+Context: The ECC v2.0.0 reference evaluation showed that an existing repository
+can have governed project facts, decisions, working state, and adapters under
+different filenames. A filename-only validator would report avoidable warnings
+and could encourage duplicated documents during adoption.
 
-决策：v0.2 的验证器设计区分 AEWS template 模式与既有仓库的 adoption 模式。
-template 模式可以要求 AEWS 的首选路径。adoption 模式必须校验显式映射的规范
-角色，并在应用文件名相关检查之前，先报告它所使用的映射。
+Decision: The v0.2 validator design will distinguish AEWS template mode from
+existing-repository adoption mode. Template mode may require preferred AEWS
+paths. Adoption mode must validate explicitly mapped canonical roles and report
+the mapping it used before applying filename-specific checks.
 
-后果：AEWS 保留首选文件名，但不把它们变成普适要求。映射输入格式被刻意推迟到
-人工评估过一个普通应用仓库之后，现记录在下一条决策中。
+Consequences: AEWS keeps preferred filenames without making them universal.
+The mapping input format was intentionally deferred until one ordinary
+application repository was manually evaluated and is now recorded in the
+following decision.
 
 Evidence: `docs/validator-design.md`,
 `examples/reference-evaluations/ecc-v2.0.0.md`
 
-### 2026-07-26：采用映射使用仅做路由的 JSON 清单
+### 2026-07-26: Use a routing-only JSON manifest for adoption mapping
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：那个普通全栈应用的评估发现，持久的项目知识被拆分在一个根级路由文档、
-一份架构概览和若干组件运行手册之中。评估还发现 Decisions 与 Handoff 角色是
-真实缺失的。只用 CLI 参数无法提供可重复的 CI 输入，而散文式的约定又难以被
-机械校验。
+Context: The ordinary full-stack application evaluation found durable project
+knowledge split across a root router, an architecture overview, and component
+runbooks. It also found truly missing Decisions and Handoff roles. CLI-only
+flags would not provide repeatable CI input, while a prose convention would be
+difficult to validate mechanically.
 
-决策：adoption 模式接受一个可选的 `aews.json` 清单，或指向等价 JSON 文件的
-显式路径。它为每个角色映射一个 primary 文档和可选的 supplements，映射显式的
-`missing` 状态或被允许的 `inactive` 状态，以及已声明的适配器路径。
+Decision: Adoption mode will accept an optional `aews.json` manifest or an
+explicit path to an equivalent JSON file. It maps one primary document and
+optional supplements for each role, explicit `missing` or allowed `inactive`
+states, and declared adapter paths.
 
-后果：既有仓库无需重命名或复制文档就能被校验。该清单是一层路由投影，绝不能
-持有项目事实、决策、命令或工作状态。验证器不得生成或重写它。
+Consequences: Existing repositories can be validated without renaming or
+duplicating documents. The manifest is a routing projection and must never hold
+project facts, decisions, commands, or working state. The validator must not
+generate or rewrite it.
 
 Evidence: `docs/validator-design.md`, `standard/documents.md`,
 `templates/adoption/aews.example.json`,
 `examples/reference-evaluations/full-stack-application.md`
 
-### 2026-07-26：第一版验证器保持无依赖且只读
+### 2026-07-26: Keep the first validator dependency-free and read-only
 
 Status: Accepted
 
 Scope: Repo
 
-背景：ECC 与普通应用这两次评估，稳定下来一小组机械检查。在这些能力尚无证据
-之前就引入包管理、Markdown 解析器、语义模型或重写行为，会抬高采用成本和信任
-成本。
+Context: The ECC and ordinary application evaluations stabilized a small set of
+mechanical checks. Adding a package, Markdown parser, semantic model, or rewrite
+behavior would increase adoption and trust costs before those capabilities have
+evidence.
 
-决策：第一版验证器是一个 Python 3.10+ 标准库脚本。它读取目标仓库和可选的 JSON
-映射，产出文本结论和稳定的退出码，且绝不修改目标。测试使用 `unittest` 和检入
-的 fixture，不引入第三方依赖。
+Decision: The first validator is a Python 3.10+ standard-library script. It
+reads a target repository and optional JSON mapping, produces text findings and
+stable exit codes, and never modifies the target. Tests use `unittest` and
+checked-in fixtures without third-party dependencies.
 
-后果：实现保持可审阅、可移植，但本地文档解析刻意保守。安装时生成的路径和语义
-层面的生命周期问题，仍作为需人工评审的 warning，而不是隐藏的启发式判断。
+Consequences: The implementation remains inspectable and portable but local
+document parsing is intentionally conservative. Install-generated paths and
+semantic lifecycle questions remain manual-review warnings rather than hidden
+heuristics.
 
 Evidence: `scripts/aews_validate.py`, `tests/test_validator.py`,
 `docs/validator.md`
 
-### 2026-07-26：把跨代理连续性定义为可选的文档协议
+### 2026-07-26: Define cross-agent continuity as an optional document protocol
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：Codex 和 Claude Code 可以读取相同的规范项目文档，但仅有共享文档并不能
-证明另一个代理改了什么，也不能防止并发编辑。ECC 展示了有价值的显式交接与
-memory 传输，同时也印证了会话捕获、MCP、在线状态和编排属于 harness 运行时的
-关注点。
+Context: Codex and Claude Code can read the same canonical project documents,
+but shared documents alone do not prove what another agent changed or prevent
+concurrent edits. ECC demonstrates useful explicit handoff and memory transport,
+while also confirming that session capture, MCP, presence, and orchestration are
+harness-runtime concerns.
 
-决策：AEWS 定义一个可选的跨代理连续性 profile。所有参与的代理读取相同的
-Project、Decisions、Handoff 和任务队列角色；Git 与已验证的工件提供实现证据；
-检查点更新取代转录式的活动日志。运行时 memory 可以传输未经评审的交接，但它
-位于 AEWS 核心之外，且不会自动成为受治理的事实。
+Decision: AEWS will define an optional cross-agent continuity profile. All
+participating agents read the same Project, Decisions, Handoff, and task-queue
+roles; Git and verified artifacts provide implementation evidence; checkpoint
+updates replace transcript-style activity logs. Runtime memory may transport
+unreviewed handoffs but remains outside AEWS core and cannot become governed
+truth automatically.
 
-后果：仓库无需引入运行时，就能支持从 Codex 到 Claude 的续接。AEWS 不承诺实时
-感知、文件锁定或自动的转录同步。并发的代理应使用独立分支或 worktree，运行时
-专属的自动化仍属于可选集成。
+Consequences: Repositories can support Codex-to-Claude continuation without
+adopting a runtime. AEWS does not promise real-time awareness, file locking, or
+automatic transcript synchronization. Concurrent agents should use separate
+branches or worktrees, and runtime-specific automation remains an optional
+integration.
 
 Evidence: `docs/cross-agent-continuity.md`, `docs/adapter-matrix.md`,
 `examples/reference-evaluations/ecc-v2.0.0.md`
 
-### 2026-07-26：优先保障 Codex 与 Claude Code 的兼容性证据
+### 2026-07-26: Prioritize Codex and Claude Code compatibility evidence
 
 Status: Accepted
 
 Scope: Workspace
 
-背景：项目 owner 当前使用 Codex 和 Claude Code。把每一个可能的代理工具都当作
-同等的实现目标，会把验证精力分散到并不属于活跃工作流的工具上，也会让兼容性
-表述难以维持。
+Context: The project owner currently uses Codex and Claude Code. Treating every
+possible agent tool as an equal implementation target would spread validation
+effort across tools that are not part of the active workflow and would make
+compatibility claims difficult to maintain.
 
-决策：在当前 AEWS 路线图中，Codex 和 Claude Code 是主要兼容目标。规范角色
-模型、适配器规则和采用映射保持与厂商无关，以便 Cursor、Gemini CLI 及未来工具
-自行添加轻量适配器。既有的非主要投影可以作为参考示例保留，但除非真实使用或
-新证据改变优先级，AEWS 不承诺为它们做开发或运行时测试。
+Decision: Codex and Claude Code are the primary compatibility targets for the
+current AEWS roadmap. The canonical role model, adapter rules, and adoption
+mapping remain vendor-neutral so Cursor, Gemini CLI, and future tools can add
+thin adapters. Existing non-primary projections may remain as reference
+examples, but AEWS does not commit to developing or runtime-testing them unless
+real usage or new evidence changes the priority.
 
-后果：运行时加载测试、跨代理连续性示例和近期的兼容性文档将聚焦 Codex 和
-Claude Code。非主要的适配器条目必须标注为扩展参考，而不是等同的支持承诺。
-规范标准不得沾染 Codex 或 Claude 的专有知识。
+Consequences: Runtime-loading tests, cross-agent continuity examples, and
+near-term compatibility documentation will focus on Codex and Claude Code.
+Non-primary adapter entries must be labelled as extension references rather
+than equivalent support commitments. The canonical standard must not acquire
+Codex- or Claude-specific knowledge.
 
 Evidence: `PROJECT.md`, `docs/adapter-matrix.md`, `docs/roadmap.md`
 
-### 2026-07-26：不从任意裸 Markdown 文件名推断文档链接
+### 2026-07-26: Do not infer document links from arbitrary bare Markdown basenames
 
 Status: Accepted
 
 Scope: Repo
 
-背景：第三次采用评估出现了二十五条误报 warning，原因是那个应用仓库在行内代码
-中记录了 `summary.md`、`batch_summary.md` 这类生成产物。它们的 `.md` 后缀并不
-意味着它们是检入仓库的文档。
+Context: The third adoption evaluation found twenty-five false warnings because
+an application repository documents generated artifacts such as `summary.md`
+and `batch_summary.md` in inline code. Their `.md` suffix does not make them
+checked-in repository documents.
 
-决策：无依赖验证器继续检查常规 Markdown 链接、带目录限定的行内路径、显式相对
-路径，以及已知的规范根文件名。它不再把其他所有裸的行内代码 `.md` 文件名当作
-仓库链接。
+Decision: The dependency-free validator will continue checking normal Markdown
+links, directory-qualified inline paths, explicit relative paths, and known
+canonical root filenames. It will not treat every other bare inline-code `.md`
+basename as a repository link.
 
-后果：生成的报告目录不再主导 adoption 输出。若作者确实想用一个裸的自定义文件名
-引用另一份检入文档，应使用常规 Markdown 链接或显式相对路径。
+Consequences: Generated report catalogs no longer dominate adoption output.
+An author who intends to reference another checked-in document with a bare
+custom filename should use a normal Markdown link or an explicit relative path.
 
 Evidence: `scripts/aews_validate.py`, `tests/fixtures/adoption-warnings/README.md`,
 `examples/reference-evaluations/ai-experiment-service.md`
 
-### 2026-07-27：把已完成的验证阶段直接提升为 v1.0 候选版
+### 2026-07-27: Promote the completed validation phase directly to a v1.0 candidate
 
 Status: Accepted
 
 Scope: Repo
 
-背景：v0.2 验证阶段产出了三份真实仓库评估、一份稳定的映射契约、一个经过测试
-的只读验证器、一条迁移路径，以及两个主要工具的版本范围运行时加载证据。当时没有
-发布 v0.2 标签，因此不存在依赖中间版本的外部 v0.2 消费者。所有文档化的 v1.0
-退出标准此时均已具备证据。
+Context: The v0.2 validation phase produced three real-repository evaluations,
+a stable mapping contract, a tested read-only validator, a migration path, and
+version-scoped runtime-loading evidence for both primary tools. No v0.2 tag was
+published and therefore no external v0.2 consumers depend on an intermediate
+release. All documented v1.0 exit criteria now have evidence.
 
-决策：保留 v0.2.0 的 readiness 记录作为阶段证据，但把下一个本地候选版直接定为
-`v1.0.0`，而不发布中间的 v0.2.0 标签。v1 稳定表面包括范围模型、规范角色、
-轻量适配器契约、采用映射版本 1、只读验证器和可选的检查点连续性协议。
+Decision: Preserve the v0.2.0 readiness record as phase evidence, but make the
+next local release candidate `v1.0.0` rather than publishing an intermediate
+v0.2.0 tag. The v1 stable surface is the scope model, canonical roles,
+thin-adapter contract, adoption mapping version 1, read-only validator, and
+optional checkpoint continuity protocol.
 
-后果：未来对这一稳定表面的破坏性变更，需要走 `docs/versioning.md` 中的主版本
-流程。推送、打标签、changelog 日期化和发布仍由 owner 控制。不得把缺少 v0.2
-标签表述为缺失的迁移依赖，因为 v0.2 从来不是已发布的兼容性基线。
+Consequences: Future breaking changes to this stable surface require the
+major-version process in `docs/versioning.md`. Push, tag, changelog dating, and
+release publication remain owner-controlled. The absence of a v0.2 tag must not
+be represented as a missing migration dependency because v0.2 was never a
+published compatibility baseline.
 
 Evidence: `docs/releases/v0.2.0-readiness.md`,
 `docs/releases/v1.0.0-readiness.md`, `docs/runtime-loading-evidence.md`,
 `docs/roadmap.md`
 
-### 2026-08-08：新增 Secondary 层级并把 GitHub Copilot 放入其中
+### 2026-08-08: Add a Secondary tier and place GitHub Copilot in it
 
 Status: Accepted
 
 Scope: Repo
 
-背景：2026-07-26 的决策把 Codex 和 Claude Code 定为主要兼容目标，因为它们是
-owner 当时的活跃工具，同时该决策允许在某个工具产生真实使用后将其提升。owner
-现在每天使用 GitHub Copilot，但它扮演的是辅助角色而非主力。Copilot coding
-agent 能读取根 `AGENTS.md`，而 IDE 侧读取的是 `.github/copilot-instructions.md`，
-因此既有的 Codex 投影覆盖不到日常的编辑器使用。
+Context: The 2026-07-26 decision made Codex and Claude Code the primary
+compatibility targets because they were the owner's active tools, and it
+allowed promotion when a tool gains real usage. The owner now uses GitHub
+Copilot daily, but in an assisting role rather than as a main driver. Copilot
+coding agent can read a root `AGENTS.md`, while the IDE surface reads
+`.github/copilot-instructions.md`, so the existing Codex projection did not
+cover everyday editor usage.
 
-原有的两层模型无法表达这种状态。把 Copilot 称为 Primary 会暗示它具备并不存在
-的运行时加载证据；称之为 extension reference 又低估了真实的维护投入。
+The existing two-tier model could not express this. Calling Copilot Primary
+would imply runtime-loading evidence it does not have; calling it an extension
+reference would understate a real maintenance commitment.
 
-决策：新增第三层。Primary 指被积极使用的主力工具，具备维护中的适配器、验证器
-发现逻辑，以及受控的运行时加载证据；Codex 和 Claude Code 留在这一层。Secondary
-指同等的维护承诺，但不作运行时证据声明；GitHub Copilot 归入这一层，配一份轻量
-的 `.github/copilot-instructions.md` 投影和 template 模式发现逻辑。Extension
-reference 保持不变。
+Decision: Add a third tier. Primary means an actively used main driver with a
+maintained adapter, validator discovery, and controlled runtime-loading
+evidence; Codex and Claude Code stay there. Secondary means the same
+maintenance commitment without a runtime-evidence claim; GitHub Copilot goes
+there, with a thin `.github/copilot-instructions.md` projection and
+template-mode discovery. Extension reference is unchanged.
 
-只投影仓库级的 instructions 文件。路径限定的 `.github/instructions/*.instructions.md`
-规则留给采用方仓库，因为激活 glob 属于编辑器行为，而不是规范知识路由。
+Project only the repository-wide instructions file. Path-scoped
+`.github/instructions/*.instructions.md` rules stay with the adopting
+repository, because activation globs are editor behavior rather than canonical
+knowledge routing.
 
-后果：每一层现在都自述其保证，因此运行时声明不会跨层泄漏，也不再需要用逐工具
-的附注去修正层级标签。要把 Copilot 提升为 Primary，需要一次人工编辑器探针，
-因为它的 IDE 侧没有与 `codex` 或 `claude` 对等的 headless 只读调用方式。最小
-示例继续只演示两个 Primary 工具，这在新模型下依然自洽。
+Consequences: Each tier now states what it guarantees, so a runtime claim
+cannot leak across tiers, and no per-tool caveat is needed to correct the tier
+label. Promotion of Copilot to Primary requires a manual editor probe, because
+its IDE surface has no headless read-only invocation comparable to `codex` or
+`claude`. The minimal example continues to demonstrate the two Primary tools
+only, which stays consistent under this model.
 
 Evidence: `adapters/copilot/.github/copilot-instructions.md`,
 `docs/adapter-matrix.md`, `standard/adapters.md`, `scripts/aews_validate.py`
 
-### 2026-08-08：把适配器发现逻辑的新增归类为 minor 版本
+### 2026-08-08: Classify adapter discovery additions as a minor release
 
 Status: Accepted
 
 Scope: Repo
 
-背景：新增 GitHub Copilot 需要在 template 模式的适配器发现逻辑中加一个分支。
-当时无法确定改动验证器的发现逻辑是否触及 v1 稳定表面——若触及，就必须走
-`docs/versioning.md` 中的主版本流程。
+Context: Adding GitHub Copilot required a new branch in template-mode adapter
+discovery. It was unclear whether changing validator discovery touches the v1
+stable surface, which would force the major-version process in
+`docs/versioning.md`.
 
-决策：把「多识别一个适配器表面」的发现逻辑新增，视为向后兼容的 minor 变更，
-本次以 `1.1.0` 发布。该规则可推广：多识别一个表面属于 minor，因为任何既有仓库
-都不需要改动文件、映射或读取顺序就能继续通过校验。只有当它不再识别某个原本
-合法的表面，或使原本通过的仓库开始失败时，才构成 breaking。
+Decision: Treat a discovery addition that recognizes one more adapter surface as
+a backward-compatible minor change, and ship this one as `1.1.0`. The rule
+generalizes: recognizing an additional surface is minor because no existing
+repository must change a file, mapping, or read order to keep passing. Such a
+change becomes breaking only when it stops recognizing a previously valid
+surface, or makes a previously passing repository fail.
 
-后果：未来新增适配器沿用同一路径，不需要主版本。采用映射的契约版本保持为 1，
-因为 `aews.json` 的 schema 未变。`1.1.0` 的发布说明与 readiness 记录仍属 owner
-控制的发布准备工作。
+Consequences: Future adapter additions follow the same path and do not require a
+major version. The adoption mapping contract version stays at 1 because the
+`aews.json` schema is unchanged. Release notes and a readiness record for
+`1.1.0` remain owner-controlled release-preparation work.
 
 Evidence: `docs/versioning.md`, `scripts/aews_validate.py`
 
-### 2026-08-08：按受众划分语言，用检查而非承诺保证无害
+### 2026-08-09: Keep documentation in English and use translations for other languages
 
 Status: Accepted
 
 Scope: Repo
 
-背景：owner 用中文思考和写作，`TODO.md` 早已是中文。更关键的是，AEWS 当前的
-实际读者是中文客户，而国际读者目前仍是假设——仓库里没有任何外部采用证据。
-把文档尽量转为中文对现有读者是真实收益，对假设读者才是潜在损失。
+Context: The owner's readers are Chinese today, so writing the working
+documents in Chinese was tried. Measuring the cost first showed it was larger
+than expected. `_validate_duplicates` is the check that enforces the central
+AEWS rule that adapters are projections rather than knowledge stores. It
+compares normalized lines, and `_statements` ignores any line shorter than 60
+characters.
 
-但 AEWS 是一个公开标准，它的全部价值来自被陌生人采用。如果连"能不能被英文
-读者完整采用"都无法回答，中文化就从优化变成了自伤。
+Measured on the translated files: `PROJECT.md` produced 1 qualifying statement
+from 67 non-empty lines and `DECISIONS.md` produced 9 from 208, against 11 from
+30 lines in the English root `AGENTS.md`. Chinese wraps at roughly 35 to 40
+characters per line, so almost no line reached the threshold. A constructed
+duplicate was detected between an English document and an English adapter, and
+went undetected in all three Chinese variants, including a verbatim Chinese
+copy wrapped in the repository's normal style.
 
-决策：按受众而非目录划分语言。
+Decision: Documentation is written in English. Other languages are added as
+`<name>.<lang>.md` translations beside the English original, as in
+`README.zh-CN.md`. `TODO.md` stays Chinese because it is a task queue, not a
+canonical knowledge role.
 
-- 契约面保持英文：`README.md`、`standard/`、`templates/`、`adapters/`、
-  `examples/`、`CHANGELOG.md`、`CONTRIBUTING.md`，以及 `docs/` 下的采用、
-  验证与发布文档。判据是：一个不懂中文的人必须能端到端采用并校验 AEWS。
-- 工作面使用中文：`PROJECT.md`、`DECISIONS.md`、`HANDOFF.md`、`TODO.md`、
-  `docs/roadmap.md`、`docs/vision.md`。
-- 契约面要中文化时用**译本而非替换**，命名为 `<name>.<lang>.md`，如
-  `README.zh-CN.md`。以后补齐其他语言沿用同一模式。
+Consequences: Duplicate detection keeps working for the three mapped canonical
+documents, which are the only files it compares against adapters. Chinese
+readers are served by translations, at the cost of keeping each translation in
+sync by hand. The narrower fact is worth recording: only `PROJECT.md`,
+`DECISIONS.md`, and `HANDOFF.md` lose the check when translated in place, since
+`docs/roadmap.md`, `docs/vision.md`, `TODO.md`, and any README are not mapped
+roles. Lowering the 60-character threshold for CJK would be the alternative,
+but it was not measured and is not part of this decision.
 
-"保证无害"不写成承诺，而落成 `tests/test_language_boundary.py`：新增文档
-默认按契约面处理，除非显式声明为工作文档；契约面出现中文即测试失败并指出
-文件与行号；译本必须有对应的英文原件。该检查是本仓库的策略守卫，不属于 AEWS
-标准，因此不进 `scripts/aews_validate.py`。
-
-后果：现有中文客户读到中文工作文档，而采用门槛不受影响，且这一点每次跑测试
-都会被重新验证，不依赖任何人记得这条规则。代价有两处：验证器的重复句检测对
-中文文档实际失效（英文适配器与中文文档不会有相同句子，且 `_statements()` 的
-60 字符阈值对中文远为严苛），这些文档的重复内容改由人工评审；以及英文契约
-文档引用中文工作文档时，必须在英文侧自带结论摘要，不能只甩链接——
-`docs/releases/v1.1.0-readiness.md` 已按此修正。
-
-Evidence: `tests/test_language_boundary.py`, `CONTRIBUTING.md`,
-`docs/releases/v1.1.0-readiness.md`, `README.zh-CN.md`
+Evidence: `scripts/aews_validate.py`, `tests/test_language_boundary.py`,
+`README.zh-CN.md`

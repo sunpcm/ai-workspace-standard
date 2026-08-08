@@ -1,112 +1,119 @@
-# 路线图
+# Roadmap
 
-AEWS 应当从一个小标准演进为可模板化的工作区体系。每个阶段都必须保持最小
-上下文，并避免厂商锁定。
+AEWS should evolve from a small standard into a templateable workspace system. Each phase must preserve minimal context and avoid vendor lock-in.
 
-## v0.1：架构与最小标准
+## v0.1: Architecture and Minimal Standard
 
-目标：定义规范模型。
+Goal: define the canonical model.
 
-交付物：
+Deliverables:
 
-- 四范围模型，
-- 文档生命周期，
-- 轻量适配器规则，
-- 最小仓库模板，
-- 一个最小示例，
-- 面向 Codex、Claude Code、Cursor 和 Gemini CLI 的适配器矩阵，
-- 人工验证检查表。
+- four-scope model,
+- document lifecycle,
+- thin adapter rules,
+- minimal repo template,
+- one minimal example,
+- adapter matrix for Codex, Claude Code, Cursor, and Gemini CLI,
+- manual validation checklist.
 
-退出标准：
+Exit criteria:
 
-- 用户能判断一条新上下文该放在哪里。
-- 一个仓库能在不复制内容的前提下，把同一份规范知识暴露给至少两个代理。
-- 理解这个标准不需要任何生成脚本。
-- 一次改动可以用 `docs/validation-checklist.md` 来评审。
+- A user can decide where a new piece of context belongs.
+- A repo can expose the same canonical knowledge to at least two agents without copying content.
+- No generator script is required to understand the standard.
+- A change can be reviewed against `docs/validation-checklist.md`.
 
-## v0.2：验证与模板加固
+## v0.2: Validation and Template Hardening
 
-目标：让标准可被检验。
+Goal: make the standard testable.
 
-状态：阶段完成。三份参考评估、首个无依赖只读验证器、经过测试的采用映射
-模板、有证据支撑的适配器矩阵，以及可选的跨代理连续性协议均已完成。未发布
-的 v0.2.0 候选版作为阶段证据保留，并被本地 v1.0.0 候选版取代。
+Status: Phase complete. Three reference evaluations, the
+first dependency-free read-only validator, a tested adoption mapping template,
+an evidence-backed adapter matrix, and the optional cross-agent continuity
+protocol are complete. The unpublished v0.2.0 candidate is retained as phase
+evidence and superseded by the local v1.0.0 candidate.
 
-主要兼容目标：Codex 和 Claude Code。其他工具仍可通过开放的适配器契约接入，
-但不属于当前的实现或运行时验证目标。
+Primary compatibility targets: Codex and Claude Code. Other tools remain
+possible through the open adapter contract but are not active implementation
+or runtime-validation targets.
 
-已交付：
+Delivered:
 
-- 基于检查表的验证器，
-- 重复上下文检测，
-- 从超大 `AGENTS.md` 迁移的示例指南，
-- 更多来自真实仓库类型的示例，
-- 有证据支撑的跨代理检查点协议。
+- checklist-based validator,
+- duplicate-context detector,
+- sample migration guide from large `AGENTS.md`,
+- more examples from real repo types,
+- evidence-backed cross-agent checkpoint protocol.
 
-当前顺序：
+Current sequence:
 
-1. 保留 v0.2.0 readiness 记录作为阶段证据；
-2. 在 v1.0 的证据链中沿用已完成的 Codex 与 Claude Code 探针；
-3. 把语义检查和运行时相关检查保持在验证器核心之外。
+1. retain the v0.2.0 readiness record as phase evidence;
+2. use the completed Codex and Claude Code probes in the v1.0 evidence chain;
+3. keep semantic and runtime-aware checks outside the validator core.
 
-退出标准：
+Exit criteria:
 
-- 模板能应用到真实仓库，并用可重复的检查表评审。
-- 适配器文件能被检出明显的重复。
-- 两个代理能消费同一个有证据支撑的续接检查点，而不需要共享运行时。
+- The template can be applied to a real repo and reviewed with a repeatable checklist.
+- Adapter files can be checked for obvious duplication.
+- Two agents can consume one evidence-backed continuation checkpoint without
+  requiring a shared runtime.
 
-## v1.0：稳定模板与迁移路径
+## v1.0: Stable Template and Migration Path
 
-目标：让 AEWS 可作为长期开源模板使用。
+Goal: make AEWS usable as a long-term open-source template.
 
-已交付：
+Delivered:
 
-- 版本化的标准，
-- 变更日志，
-- 迁移指南，
-- 模板仓库，
-- 面向 Codex 与 Claude Code 的兼容性说明，以及面向其他工具的扩展契约，
-- 公开的贡献指南。
+- versioned standard,
+- changelog,
+- migration guide,
+- template repository,
+- compatibility notes for Codex and Claude Code plus an extension contract for
+  other tools,
+- public contribution guidelines.
 
-退出标准：
+Exit criteria:
 
-- 用户无需读完整个设计讨论就能采用 AEWS。
-- 破坏性变更被版本化并记录在案。
-- 代理适配器保持为投影，而不是独立的知识仓库。
-- Codex 和 Claude Code 具备可重复的兼容性证据；新增一个主要工具不需要改动
-  规范角色。
+- Users can adopt AEWS without reading the entire design discussion.
+- Breaking changes are versioned and documented.
+- Agent adapters remain projections, not independent knowledge stores.
+- Codex and Claude Code have repeatable compatibility evidence; adding another
+  primary tool does not require changing canonical roles.
 
-状态：已发布。在 2026-07-27 通过受控的 Claude Code 探针后，全部退出标准
-均有证据支撑。完整的 readiness 审计记录在 `docs/releases/v1.0.0-readiness.md`；
-`v1.0.0` 标签与 GitHub Release 已于 2026-08-08 发布。
+Status: Published. All exit criteria had evidence after the controlled Claude
+Code probe passed on 2026-07-27. The full readiness audit is recorded in
+`docs/releases/v1.0.0-readiness.md`. The `v1.0.0` tag and GitHub Release were
+published on 2026-08-08.
 
-## v1.1：次要支持层级
+## v1.1: Secondary Support Tier
 
-状态：本地候选版于 2026-08-08 完成。在 owner 明确 Copilot 是与两个主力工具
-并行的辅助工具之后，新增了 Secondary 支持层级并把 GitHub Copilot 放入其中。
+Status: Local release candidate complete on 2026-08-08. A Secondary support
+tier was added and GitHub Copilot placed in it, after the owner confirmed daily
+use of Copilot in an assisting role alongside the two main drivers.
 
-Primary：Codex 和 Claude Code。Secondary：GitHub Copilot。Cursor、Gemini CLI
-以及未来工具仍可通过开放的适配器契约接入，但不属于当前的实现或运行时验证
-目标。
+Primary: Codex and Claude Code. Secondary: GitHub Copilot. Cursor, Gemini CLI,
+and future tools remain possible through the open adapter contract but are not
+active implementation or runtime-validation targets.
 
-这个版本检验了 v1.0 的一条退出标准——新增一个工具不需要改动规范角色。结果
-确实不需要：只改了一个适配器文件、验证器的发现逻辑和文档。
+This release tested the v1.0 exit criterion that adding another tool does not
+require changing canonical roles. It did not: only an adapter file, validator
+discovery, and documentation changed.
 
-本条线上的遗留项：
+Outstanding for this track:
 
-- GitHub Copilot 没有受控的运行时探针；
-- 已记录的 Codex 与 Claude Code 探针尚未针对更新的本机工具版本重跑。
+- no controlled runtime probe exists for GitHub Copilot,
+- recorded Codex and Claude Code probes have not been re-run against newer
+  local tool versions.
 
-## 已推迟
+## Deferred
 
-以下内容在标准稳定前刻意推迟：
+These are intentionally deferred until the standard is stable:
 
-- hooks，
-- MCP 目录，
-- 安全策略引擎，
-- memory runtime，
-- 自动生成代理配置，
-- 复杂的 CLI 工具链。
+- hooks,
+- MCP catalog,
+- security policy engine,
+- memory runtime,
+- automatic agent profile generation,
+- complex CLI tooling.
 
-这些能力更接近 agent harness。AEWS 以后可以与 harness 集成，但不应在无意中
-变成一个 harness。
+Those features are closer to an agent harness. AEWS may integrate with harnesses later, but should not become one by accident.

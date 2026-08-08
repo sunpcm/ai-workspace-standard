@@ -1,15 +1,16 @@
 """Guard this repository's bilingual policy.
 
 This is NOT part of the AEWS standard. It enforces one repository-local rule:
-the English contract surface must stay complete on its own, so a reader who
-cannot read Chinese can still adopt AEWS end to end.
+documentation is written in English, and other languages arrive as
+`<name>.<lang>.md` translations beside the English original.
 
-Owner-facing working documents may be written in Chinese. Any file named like
-`README.zh-CN.md` is an intentional translation. Every other tracked Markdown
-file must be free of CJK text, except on a line that links to a translation.
+The rule exists because `_validate_duplicates` compares normalized lines and
+skips anything under 60 characters. Chinese wraps well below that, so an
+in-place translation silently disables the check that keeps adapters from
+becoming knowledge stores. See the 2026-08-09 entry in `DECISIONS.md`.
 
-The rule is deliberately default-deny: a new document is treated as contract
-surface unless it is explicitly declared below.
+The rule is deliberately default-deny: a new document must be English unless it
+is explicitly declared below.
 """
 
 from __future__ import annotations
@@ -22,14 +23,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Documents the owner reads and writes daily. Chinese is allowed here.
+# Task queue rather than a canonical knowledge role, so it is not compared
+# against adapters and may stay in the owner's language.
 WORKING_DOCUMENTS = {
-    "PROJECT.md",
-    "DECISIONS.md",
-    "HANDOFF.md",
     "TODO.md",
-    "docs/roadmap.md",
-    "docs/vision.md",
 }
 
 # `<name>.<lang>.md`, for example `README.zh-CN.md`.
@@ -73,8 +70,8 @@ class LanguageBoundaryTests(unittest.TestCase):
         self.assertEqual(
             [],
             offenders,
-            "contract-surface files must stay English; declare a working "
-            "document or add a `<name>.<lang>.md` translation instead",
+            "documentation must stay English; add a `<name>.<lang>.md` "
+            "translation instead of translating a document in place",
         )
 
     def test_translation_has_an_english_original(self) -> None:
