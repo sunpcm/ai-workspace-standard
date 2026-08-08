@@ -1,5 +1,7 @@
 # AI Engineering Workspace Standard
 
+[中文（简体）译本](README.zh-CN.md)
+
 AI Engineering Workspace Standard (AEWS) is a minimal, agent-agnostic standard for organizing engineering knowledge so it can be consumed by Codex, Claude Code, GitHub Copilot, Cursor, Gemini CLI, and future agents without binding the workspace to one vendor.
 
 AEWS treats the workspace as the durable asset. Agent-specific files are projections of the standard, not the source of truth.
@@ -56,10 +58,10 @@ AGENTS.md             Thin Codex entrypoint for this repo
 Choose one path. Do not create duplicate canonical documents merely to match
 AEWS filenames.
 
-After the release tag is published, fetch the stable standard with:
+Fetch the stable standard with:
 
 ```bash
-git clone --branch v1.0.0 --depth 1 \
+git clone --branch v1.1.0 --depth 1 \
   https://github.com/sunpcm/ai-workspace-standard.git <aews-repo>
 ```
 
@@ -185,17 +187,15 @@ harness.
 
 ## Status
 
-AEWS v1.0.0 release content is finalized locally. It includes three reference
-evaluations, the first read-only validator, a tested adoption mapping, an
-evidence-backed compatibility matrix, and optional cross-agent continuity.
-Tag and GitHub Release publication are pending owner action; see
-`docs/releases/v1.0.0-readiness.md` for the evidence and limitations and
-`docs/releases/v1.0.0.md` for the prepared release notes.
+AEWS v1.0.0 is published. v1.1.0 adds a Secondary support tier and a GitHub
+Copilot projection; see `docs/releases/v1.1.0.md` for the notes and
+`docs/releases/v1.1.0-readiness.md` for the audit and its limitations.
 
 Controlled, version-scoped runtime-loading probes have passed for both Codex
-and Claude Code against the same public synthetic checkpoint. These results do
-not imply universal version compatibility or harness-runtime parity. Keep
-harness runtime features outside the core standard.
+and Claude Code against the same public synthetic checkpoint. GitHub Copilot is
+maintained without such a probe. These results do not imply universal version
+compatibility or harness-runtime parity. Keep harness runtime features outside
+the core standard.
 
 ## License
 

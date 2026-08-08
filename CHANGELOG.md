@@ -14,6 +14,8 @@ rules in `docs/versioning.md`.
 - Template-mode validator discovery for `.github/copilot-instructions.md` at a
   repository root and inside `adapters/`.
 - A root `.github/copilot-instructions.md` entrypoint for this repository.
+- A Simplified Chinese translation of the README at `README.zh-CN.md`, linked
+  from the English README.
 
 ### Changed
 

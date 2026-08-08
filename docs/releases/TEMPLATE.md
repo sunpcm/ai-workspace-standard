@@ -28,6 +28,9 @@ not ask anything of adopting repositories.
   release and in `DECISIONS.md`.
 - Publication stays owner-controlled. A preparation commit must not push, tag,
   or publish.
+- Do not name a check with the words it searches for. A row labelled with a
+  scan keyword makes the release record match its own privacy scan, which
+  otherwise forces a new exclusion and shrinks the scanned surface.
 
 ---
 
@@ -92,7 +95,7 @@ unchanged, and where the classification rationale is recorded.
 | Adapter line counts |  |
 | Credential scan |  |
 | Personal-path scan |  |
-| Customer/confidential scan |  |
+| Private-context scan |  |
 | Runtime/harness boundary |  |
 | Push, tag, and public release | Pending owner action |
 

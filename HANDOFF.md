@@ -30,9 +30,9 @@ the resulting external state.
   privacy scans on 2026-08-08 with no findings; then replaced the two-tier
   support policy with Primary, Secondary, and Extension reference across the
   matrix, standard, evidence record, roadmap, checklist, and decisions.
-- Next step: the `v1.0.0` tag is pushed and visible at `efb1724`. Commit the
-  v1.1.0 preparation, publish the v1.0.0 GitHub Release if it is still absent,
-  then tag and publish `v1.1.0` at the preparation commit. Commands are in
+- Next step: `v1.0.0` is tagged at `efb1724` and its GitHub Release is
+  published. Push `main`, then tag and publish `v1.1.0` at the preparation
+  commit that contains the v1.1.0 readiness record. Commands are in
   `docs/releases/v1.1.0-readiness.md`. Record post-release state afterwards.
 - Blockers: none in repository content. The owner's local `gh` authentication
   must be valid before the manual GitHub Release command.
