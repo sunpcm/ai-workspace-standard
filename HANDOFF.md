@@ -24,21 +24,25 @@ Publish v1.1.0 and record the resulting external state.
   entrypoint for this repository, validator discovery for both locations,
   matrix and decision records, and regression coverage. Copilot has structural
   evidence only; no runtime probe was run.
-- Latest completed step: measured the cost of writing the working documents in
-  Chinese and reverted it. `_validate_duplicates` compares normalized lines
-  and skips anything under 60 characters, and Chinese wraps well below that,
-  so a constructed duplicate went undetected in every Chinese variant while
-  the English one was caught. Documentation stays English; other languages
-  are `<name>.<lang>.md` translations. Added
-  `tests/test_language_boundary.py` to enforce it, widened the section 10
-  privacy scans, which never covered `README.zh-CN.md`, `CONTRIBUTING.md`,
-  `tests`, or `.github`, and restated the v1.1.0 classification rationale in
-  English so that record stands on its own.
-- Next step: `v1.0.0` is tagged at `efb1724` and its GitHub Release is
-  published. Push `main`, then tag and publish `v1.1.0` at `6b37bf2`, the
-  commit the v1.1.0 readiness record audited. Later commits are not in that
-  audit and belong to a following release. Commands are in
-  `docs/releases/v1.1.0-readiness.md`. Record post-release state afterwards.
+- Latest completed step: settled the documentation language rule on two tests,
+  measured rather than assumed. `_mapped_files` returns only the three root
+  canonical documents, so all 20 files under `docs/` sit outside every
+  automated comparison; translating them costs no checking. The second test
+  asks where a document ends up, which splits `docs/releases/`: readiness
+  records are internal audits and are now Chinese, while release notes stay
+  English because they become the GitHub Release body. Wrote the first Chinese
+  audit at `docs/releases/v1.1.1-readiness.md`, translated
+  `docs/releases/TEMPLATE.md`, and moved the compatibility limits into
+  `README.md` itself so an English reader never has to follow a link into
+  Chinese. `tests/test_language_boundary.py` enforces all of it and was
+  verified on a scratch copy to fail on `docs/adoption-guide.md` and
+  `docs/releases/v1.1.0.md` while correctly passing the readiness record and
+  `docs/roadmap.md`.
+- Next step: `v1.0.0` is tagged at `efb1724` and published. Push `main`, tag and
+  publish `v1.1.0` at `6b37bf2`, the commit its readiness record audited, then
+  tag and publish `v1.1.1` at the commit containing
+  `docs/releases/v1.1.1-readiness.md`. Commands are in that record. Record
+  post-release state afterwards.
 - Blockers: none in repository content. The owner's local `gh` authentication
   must be valid before the manual GitHub Release command.
 

@@ -1,40 +1,39 @@
-# Release Document Template
+# 发布文档模板
 
-Copy the two skeletons below when preparing a release. Each release produces
-two documents with different jobs:
+准备发布时复制下面两份骨架。每次发布产出两份职责不同的文档：
 
-| File | Audience | Job |
-| --- | --- | --- |
-| `docs/releases/vX.Y.Z.md` | Adopters | What changed and what it guarantees; used as the GitHub Release body |
-| `docs/releases/vX.Y.Z-readiness.md` | Maintainer | Proof the release commit is ready, and what was not verified |
+| 文件 | 受众 | 职责 | 语言 |
+| --- | --- | --- | --- |
+| `docs/releases/vX.Y.Z.md` | 采用者 | 说明改了什么、保证什么；作为 GitHub Release 正文 | 英文 |
+| `docs/releases/vX.Y.Z-readiness.md` | 维护者 | 证明发布提交已就绪，以及哪些没被验证 | 中文 |
 
-Keep them separate. Notes make claims; the readiness record backs them.
+两者必须分开。发布说明提出主张，readiness 记录为主张背书。
 
-This template is this repository's own release scaffold. It is not part of the
-AEWS standard surface, so changing it does not require a version bump and does
-not ask anything of adopting repositories.
+语言差异不是随意的：发布说明会通过 `gh release create --notes-file` 变成公开
+页面正文，readiness 则是仓库内的审计记录。判据是**文档最终出现在哪里**。若需要
+中文发布说明，加 `docs/releases/vX.Y.Z.zh-CN.md` 译本，不要替换英文原件。
 
-## Rules
+本模板是本仓库自己的发布脚手架，不属于 AEWS 标准表面，因此修改它不需要版本号
+变更，也不对采用方仓库提出任何要求。
 
-- Record measured results, not copied ones. Re-run every check for the actual
-  release commit, even when the previous release passed the same checks.
-- Name the release class and the rule from `docs/versioning.md` that justifies
-  it. "Minor because it is additive" is a claim; cite the clause.
-- Never present structural validation as runtime evidence. If a target has no
-  controlled probe, say so in both documents.
-- Fill in Known Limitations. An empty limitations section is almost always a
-  missing audit, not a clean one.
-- Do not edit a published release document. Record the correction in the next
-  release and in `DECISIONS.md`.
-- Publication stays owner-controlled. A preparation commit must not push, tag,
-  or publish.
-- Do not name a check with the words it searches for. A row labelled with a
-  scan keyword makes the release record match its own privacy scan, which
-  otherwise forces a new exclusion and shrinks the scanned surface.
+## 规则
+
+- 记录实测结果，不要照抄。即使上一版通过了同样的检查，也要针对**本次实际的
+  发布提交**重跑每一项。
+- 写明版本类别，并引用 `docs/versioning.md` 中支撑它的**具体条款**。「因为是
+  新增所以是 minor」是主张，不是论证。
+- 绝不把结构性验证当成运行时证据。某个目标没有受控探针，就在两份文档里都写
+  明这一点。
+- 必须填写「已知限制」。空着的限制段几乎总意味着漏审，而不是真的干净。
+- 不修改已发布的发布文档。修正记入下一版和 `DECISIONS.md`。
+- 发布动作始终由 owner 执行。准备提交不推送、不打标签、不发布。
+- 不要用检查自身搜索的词去命名检查项。用扫描关键词做表格行标签，会让发布记录
+  匹配到自己的隐私扫描，进而被迫增加排除项、缩小扫描面。
+- 英文文档若引用中文 readiness，必须在英文侧自带结论摘要，不能只给链接。
 
 ---
 
-## Skeleton 1: Release Notes
+## 骨架一：发布说明（英文）
 
 ```markdown
 # AEWS vX.Y.Z
@@ -55,79 +54,76 @@ maintained without runtime evidence.
 What an existing adopter must do. Write "No action is required" when true, and
 give the optional copy commands when a new file is available.
 
-The full release audit is recorded in `docs/releases/vX.Y.Z-readiness.md`.
+The full release audit is recorded in `docs/releases/vX.Y.Z-readiness.md`,
+which is written in Chinese.
 ```
 
-## Skeleton 2: Readiness Record
+## 骨架二：Readiness 记录（中文）
 
 ```markdown
-# vX.Y.Z Release Readiness
+# vX.Y.Z 发布就绪审计
 
-## Result
+## 结果
 
-- Status: Release content finalized; external publication delegated to owner
-- Audit date:
-- Audited baseline:
-- Release commit: the commit containing this record; resolve it with
+- 状态：发布内容已定稿；对外发布由 owner 执行
+- 审计日期：
+- 审计基线：
+- 发布提交：包含本记录的那个提交，用以下命令解析
   `git log -1 --format=%H -- docs/releases/vX.Y.Z-readiness.md`
-- Published predecessor:
-- Release class: major | minor | patch, with the justifying rule
+- 已发布的前一版本：
+- 版本类别：major | minor | patch，附 `docs/versioning.md` 中的支撑条款
 
-## What Changed
+## 变更内容
 
-| Change | Kind | Surface impact |
+| 变更 | 类型 | 表面影响 |
 | --- | --- | --- |
-|  | Added / Changed / Removed | What an existing repository must do, or nothing |
+|  | 新增 / 修改 / 移除 | 既有仓库必须做什么，或什么都不用做 |
 
-State whether the stable surface in the last major readiness record is
-unchanged, and where the classification rationale is recorded.
+说明上一个主版本 readiness 记录里的稳定表面是否未变，以及分类理由记在哪里。
 
-## Verification Results
+## 验证结果
 
-| Area | Result |
+| 项目 | 结果 |
 | --- | --- |
-| Git scope and commit history |  |
+| Git 范围与提交历史 |  |
 | `git diff --check` |  |
-| Root validation |  |
-| Runtime-fixture validation |  |
-| Regression suite |  |
-| Runtime fixture hash manifest |  |
-| Adapter line counts |  |
-| Credential scan |  |
-| Personal-path scan |  |
-| Private-context scan |  |
-| Runtime/harness boundary |  |
-| Push, tag, and public release | Pending owner action |
+| 根目录校验 |  |
+| runtime fixture 校验 |  |
+| 回归测试 |  |
+| runtime fixture 哈希清单 |  |
+| 适配器行数 |  |
+| 凭证扫描 |  |
+| 个人路径扫描 |  |
+| 私有上下文扫描 |  |
+| 运行时与 harness 边界 |  |
+| 推送、打标签与公开发布 | 待 owner 执行 |
 
-## Compatibility Evidence
+## 兼容性证据
 
-| Target | Tier | Evidence | Boundary |
+| 目标 | 层级 | 证据 | 边界 |
 | --- | --- | --- | --- |
 
-Only Primary carries a runtime-loading claim. Do not summarize this table in a
-way that extends that claim to other tiers.
+只有 Primary 携带运行时加载声明。不要用会把该声明扩展到其他层级的方式总结
+这张表。
 
-## Known Limitations
+## 已知限制
 
-- Targets without controlled runtime evidence.
-- Probes recorded against tool versions older than the currently installed ones.
-- Behavior that is intentionally out of scope.
-- Checks that remain manual.
+- 没有受控运行时证据的目标。
+- 探针记录的工具版本早于当前安装版本。
+- 刻意排除在范围之外的行为。
+- 仍需人工完成的检查。
 
-## Verification Commands
+## 验证命令
 
-Paste the exact commands that were run, and run the privacy scans in section 10
-of `docs/release-checklist.md`.
+粘贴实际执行过的命令，并执行 `docs/release-checklist.md` 第 10 节的隐私扫描。
 
-## Publication Sequence
+## 发布顺序
 
-Ordered commands for push, tag, and GitHub Release, followed by the
-verification commands. State explicitly that the preparation commit performs
-none of these.
+按顺序给出推送、打标签和 GitHub Release 的命令，随后是验证命令。明确写出准备
+提交本身不执行其中任何一项。
 ```
 
-## Where This Fits
+## 它在流程中的位置
 
-`docs/release-checklist.md` is the reusable gate that decides whether a release
-may proceed. This template shapes the record that the gate produces. Run the
-checklist first, then write these two documents from its actual results.
+`docs/release-checklist.md` 是决定能否发布的可复用关卡。本模板塑造关卡产出的
+那份记录。先跑检查表，再用它的**实际结果**写这两份文档。

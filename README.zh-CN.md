@@ -153,9 +153,11 @@ AEWS v1.0.0 稳定了范围模型、规范性角色、轻量适配器契约、�
 
 ## 状态
 
-AEWS v1.0.0 已发布。v1.1.0 新增 Secondary 支持层级和 GitHub Copilot 投影；发布说明见 `docs/releases/v1.1.0.md`，审计与限制见 `docs/releases/v1.1.0-readiness.md`。
+AEWS v1.0.0 已发布。v1.1.0 新增 Secondary 支持层级和 GitHub Copilot 投影，v1.1.1 是一次文档发布。发布说明位于 `docs/releases/`。
 
-对相同的公共合成检查点，Codex 和 Claude Code 的受控、版本范围的运行时加载探测均已通过。GitHub Copilot 在没有此类探针的情况下维护。这些结果并不意味着通用版本兼容性或运行时一致性。请把运行时功能保持在核心标准之外。
+对相同的公共合成检查点，Codex 和 Claude Code 的受控、版本范围的运行时加载探测均已通过。这些结果并不意味着通用版本兼容性或运行时一致性。请把运行时功能保持在核心标准之外。
+
+上述声明的已知限制：GitHub Copilot 在没有任何受控探针的情况下维护；已记录的 Codex 与 Claude Code 探针针对 `codex-cli 0.145.0` 与 Claude Code `2.1.218`，而非更新的版本；至今没有任何外部采用证据。逐版本的审计记录完整列出了这些限制，自 v1.1.1 起用中文撰写。
 
 ## 许可证
 

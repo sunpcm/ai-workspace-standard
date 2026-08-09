@@ -5,6 +5,8 @@ rules in `docs/versioning.md`.
 
 ## Unreleased
 
+## 1.1.1 - 2026-08-09
+
 ### Added
 
 - `README.zh-CN.md`, a Simplified Chinese translation of the README, linked
@@ -18,8 +20,12 @@ rules in `docs/versioning.md`.
 
 - The section 10 privacy scans now cover `README.zh-CN.md`, `CONTRIBUTING.md`,
   `tests`, and `.github`, which they previously missed.
-- `docs/roadmap.md` and `docs/vision.md` are now written in Chinese. Neither is
-  compared by the validator nor linked from any adoption path.
+- `docs/roadmap.md`, `docs/vision.md`, the readiness records in
+  `docs/releases/`, and `docs/releases/TEMPLATE.md` are now written in Chinese.
+  None is compared by the validator or published outside the repository.
+  Release notes stay in English because they become the GitHub Release body.
+- `README.md` lists the limits on the compatibility claims directly, instead of
+  pointing at an audit written in another language.
 - `docs/releases/v1.1.0-readiness.md` restates its release-classification
   rationale instead of only linking to the decision, so the record stands on
   its own.

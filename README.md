@@ -188,14 +188,20 @@ harness.
 ## Status
 
 AEWS v1.0.0 is published. v1.1.0 adds a Secondary support tier and a GitHub
-Copilot projection; see `docs/releases/v1.1.0.md` for the notes and
-`docs/releases/v1.1.0-readiness.md` for the audit and its limitations.
+Copilot projection, and v1.1.1 is a documentation release. Release notes are in
+`docs/releases/`.
 
 Controlled, version-scoped runtime-loading probes have passed for both Codex
-and Claude Code against the same public synthetic checkpoint. GitHub Copilot is
-maintained without such a probe. These results do not imply universal version
-compatibility or harness-runtime parity. Keep harness runtime features outside
-the core standard.
+and Claude Code against the same public synthetic checkpoint. These results do
+not imply universal version compatibility or harness-runtime parity. Keep
+harness runtime features outside the core standard.
+
+Known limits on those claims: GitHub Copilot is maintained without any
+controlled probe; the recorded Codex and Claude Code probes ran against
+`codex-cli 0.145.0` and Claude Code `2.1.218` rather than newer versions; and
+no external adopter evidence exists for any release. The per-release audits
+under `docs/releases/` record these in full, and are written in Chinese from
+v1.1.1 onward.
 
 ## License
 

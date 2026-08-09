@@ -6,12 +6,16 @@ AEWS is a workspace knowledge standard. Contributions should make knowledge easi
 
 A document is written in English when either test applies: the validator
 compares it, which today means `PROJECT.md`, `DECISIONS.md`, and `HANDOFF.md`;
-or an adopter must read it to use AEWS, which covers `standard/`, `templates/`,
-`adapters/`, `examples/`, and the adoption, validator, compatibility, and
-release documents under `docs/`.
+or it leaves the repository or an adopter must read it to use AEWS, which
+covers `standard/`, `templates/`, `adapters/`, `examples/`, the adoption,
+validator, and compatibility documents under `docs/`, and the release notes in
+`docs/releases/`, which become the GitHub Release body.
 
-Documents failing both tests may use the maintainer's language. Today those are
-`TODO.md`, `docs/roadmap.md`, and `docs/vision.md`. Other languages otherwise
+The second test asks where the document ends up, not which directory holds it.
+Documents failing both may use the maintainer's language: `TODO.md`,
+`docs/roadmap.md`, `docs/vision.md`, the readiness records in
+`docs/releases/`, and `docs/releases/TEMPLATE.md`. When an English document
+cites a Chinese one, carry the conclusion in English rather than only a link. Other languages otherwise
 arrive as `<name>.<lang>.md` translations beside the English original, as in
 `README.zh-CN.md`; update both in the same change.
 

@@ -349,13 +349,21 @@ the evidence supports. `_mapped_files` returns only `PROJECT.md`,
 Decision: A document must be English when either test applies.
 
 1. The validator compares it: the three mapped canonical documents.
-2. An adopter must read it to use AEWS: the standard, templates, adapters,
-   examples, release records, and the adoption, validator, and compatibility
+2. It leaves the repository, or an adopter must read it to use AEWS: the
+   standard, templates, adapters, examples, release notes, which become the
+   GitHub Release body, and the adoption, validator, and compatibility
    documents under `docs/`.
 
+The second test asks where the document ends up, not which directory holds it.
+`docs/releases/` splits on exactly that line: release notes are published
+pages and stay English, while readiness records are internal audits and may be
+Chinese.
+
 Documents failing both tests may use the maintainer's language. Today those are
-`TODO.md`, `docs/roadmap.md`, and `docs/vision.md`; no README or adoption
-document links the latter two. Other languages otherwise arrive as
+`TODO.md`, `docs/roadmap.md`, `docs/vision.md`, every
+`docs/releases/*-readiness.md`, and `docs/releases/TEMPLATE.md`. No README or
+adoption document links the two `docs/` entries, and the readiness records are
+audits rather than published artifacts. Other languages otherwise arrive as
 `<name>.<lang>.md` translations beside the English original, as in
 `README.zh-CN.md`, which costs nothing because README is not a mapped role.
 
@@ -363,11 +371,13 @@ Consequences: Duplicate detection keeps working where it is defined, Chinese
 readers keep the documents written for them, and the rule states a reason
 rather than a directory, so a new document can be placed by asking the two
 questions. `tests/test_language_boundary.py` enforces it and is default-deny,
-so an undeclared new document must be English. Two costs remain: a translation
-can drift from its original with no automated check, and
-`docs/runtime-loading-evidence.md` stays English despite being internal,
+so an undeclared new document must be English. Three costs remain. A translation can drift from its original with no automated
+check. `docs/runtime-loading-evidence.md` stays English despite being internal,
 because `docs/adapter-matrix.md` cites it as evidence and an English reader
-follows that link.
+follows that link. And whenever an English document cites a Chinese one, it
+must carry the conclusion in English rather than only a link, which is why
+`README.md` now lists the limits on the compatibility claims directly instead
+of pointing at the audit.
 
 Lowering the 60-character threshold for CJK would remove the first test
 entirely. It was not measured and is not part of this decision.

@@ -11,12 +11,14 @@ A document must be English when either test applies:
    characters, and Chinese wraps at roughly 35 to 40, so an in-place
    translation silently disables the check that keeps adapters from becoming
    knowledge stores.
-2. An adopter must read it to use AEWS. That covers the standard, templates,
-   adapters, examples, release records, and the adoption, validator, and
-   compatibility documents under `docs/`.
+2. It is published outside the repository, or an adopter must read it to use
+   AEWS. That covers the standard, templates, adapters, examples, release
+   notes, which become the GitHub Release body, and the adoption, validator,
+   and compatibility documents under `docs/`.
 
 Documents failing both tests may use the maintainer's language and are listed
-below. Other languages otherwise arrive as `<name>.<lang>.md` translations
+below. Release readiness records are internal audits rather than published
+artifacts, so they qualify; the release notes beside them do not. Other languages otherwise arrive as `<name>.<lang>.md` translations
 beside the English original. See the 2026-08-09 entry in `DECISIONS.md`.
 
 The rule is deliberately default-deny: a new document must be English unless it
@@ -41,6 +43,20 @@ WORKING_DOCUMENTS = {
     "docs/roadmap.md",
     "docs/vision.md",
 }
+
+# Internal release audits and their scaffold. `docs/releases/vX.Y.Z.md` is
+# deliberately absent: it is passed to `gh release create --notes-file` and
+# becomes a public page.
+WORKING_PATTERNS = (
+    re.compile(r"^docs/releases/.+-readiness\.md$"),
+    re.compile(r"^docs/releases/TEMPLATE\.md$"),
+)
+
+
+def is_working_document(name: str) -> bool:
+    return name in WORKING_DOCUMENTS or any(
+        pattern.match(name) for pattern in WORKING_PATTERNS
+    )
 
 # `<name>.<lang>.md`, for example `README.zh-CN.md`.
 TRANSLATION = re.compile(r"\.[a-z]{2}(?:-[A-Za-z]{2,4})?\.md$")
@@ -73,7 +89,7 @@ class LanguageBoundaryTests(unittest.TestCase):
     def test_contract_surface_has_no_cjk(self) -> None:
         offenders: list[str] = []
         for name in tracked_markdown():
-            if name in WORKING_DOCUMENTS or TRANSLATION.search(name):
+            if is_working_document(name) or TRANSLATION.search(name):
                 continue
             for number, line in enumerate(
                 (ROOT / name).read_text(encoding="utf-8").splitlines(), start=1
